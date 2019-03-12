@@ -1,6 +1,6 @@
 <?php
 
-namespace BWF\EditableTemplates;
+namespace BWF\DocumentTemplates\EditableTemplates;
 
 interface EditableTemplateInterface
 {
