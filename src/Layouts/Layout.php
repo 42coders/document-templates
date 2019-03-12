@@ -2,7 +2,6 @@
 
 namespace BWF\DocumentTemplates\Layouts;
 
-
 abstract class Layout implements LayoutInterface
 {
     public function getTemplates()
