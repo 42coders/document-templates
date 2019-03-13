@@ -4,6 +4,7 @@ namespace BWF\DocumentTemplates\Layouts;
 
 use BWF\DocumentTemplates\EditableTemplates\HtmlTemplate;
 use Twig\Environment;
+use Twig\Loader\ArrayLoader;
 use Twig\Loader\FilesystemLoader;
 
 class TwigLayout extends Layout implements LayoutInterface
@@ -14,9 +15,9 @@ class TwigLayout extends Layout implements LayoutInterface
     protected $twig;
 
     /**
-     * @var \Twig\Template
+     * @var \Twig\TemplateWrapper
      */
-    protected $template;
+    protected $layout;
 
     public function load($template)
     {
@@ -25,17 +26,18 @@ class TwigLayout extends Layout implements LayoutInterface
         $loader = new FilesystemLoader(dirname($template));
         $this->twig = new Environment($loader, [
             'cache' => dirname($template),
+            'debug' => true
         ]);
 
-        $this->template = $this->twig->loadTemplate(basename($template));
+        $this->layout = $this->twig->load(basename($template));
     }
 
     public function getTemplates()
     {
         parent::getTemplates();
 
-        $context = $this->template->getSourceContext();
-        $blocks = $this->template->getBlockNames([$context]);
+        $context = $this->layout->getSourceContext();
+        $blocks = $this->layout->getBlockNames([$context]);
 
         $templates = [];
 
@@ -44,5 +46,28 @@ class TwigLayout extends Layout implements LayoutInterface
         }
 
         return $templates;
+    }
+
+    public function render($templates, $data)
+    {
+        $extendedTemplate = '{% extends layout %}';
+
+        foreach ($templates as $template) {
+            $extendedTemplate .= sprintf(
+                '{%% block %1$s %%}%2$s{%% endblock %1$s %%}',
+                $template->getName(),
+                $template->getContent()
+            );
+        }
+
+        $loader = new ArrayLoader([
+            'extended.html' => $extendedTemplate,
+        ]);
+
+        $this->twig->setLoader($loader);
+        $data['layout'] = $this->layout;
+
+        return $this->twig->render('extended.html', $data);
+
     }
 }

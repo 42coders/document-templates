@@ -4,14 +4,19 @@ namespace BWF\DocumentTemplates\EditableTemplates;
 
 class HtmlTemplate extends EditableTemplate
 {
+    /**
+     * @var string
+     */
+    protected $content;
+
     public function getContent()
     {
-        // TODO: Implement getContent() method.
+        return $this->content;
     }
 
     public function setContent($content)
     {
-        // TODO: Implement setContent() method.
+        $this->content = $content;
     }
 
     public function store()

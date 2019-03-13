@@ -13,4 +13,9 @@ abstract class Layout implements LayoutInterface
     {
         // TODO: Implement load() method.
     }
+
+    public function render($templates, $data)
+    {
+        // TODO: Implement render() method.
+    }
 }

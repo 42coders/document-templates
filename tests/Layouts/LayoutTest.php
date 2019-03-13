@@ -15,7 +15,7 @@ class LayoutTest extends TestCase
         $layout = new TwigLayout();
         $this->assertInstanceOf(Layout::class, $layout);
 
-        $layout->load(__DIR__ . '/TestLayout.html.twig');
+        $layout->load(__DIR__ . '/../Stubs/TestLayout.html.twig');
 
         $templates = $layout->getTemplates();
         $this->assertNotEmpty($templates);
@@ -25,4 +25,31 @@ class LayoutTest extends TestCase
         }
     }
 
+    public function testRender()
+    {
+        $layout = new TwigLayout();
+        $layout->load(__DIR__ . '/../Stubs/TestLayout.html.twig');
+        $templates = $layout->getTemplates();
+
+        foreach ($templates as $template){
+            switch($template->getName()){
+                case 'title':
+                    $template->setContent('This is the title: {{title}}'.PHP_EOL);
+                    break;
+                case 'content':
+                    $template->setContent('<p>Hello {{name}}, this is the content!</p>'.PHP_EOL);
+                    break;
+            }
+        }
+
+        $data = [
+            'name' => 'Layout Test',
+            'title' => 'Testing the layout render'
+        ];
+
+        $expectedOutput = file_get_contents(__DIR__ . '/../Stubs/TestLayout.expected.html');
+        $output = $layout->render($templates, $data);
+
+        $this->assertEquals($expectedOutput, $output);
+    }
 }
