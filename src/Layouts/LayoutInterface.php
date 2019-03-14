@@ -3,8 +3,8 @@
 namespace BWF\DocumentTemplates\Layouts;
 
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
-use BWF\EditableTemplates\EditableTemplateInterface;
-use BWF\TemplateDataSources\TemplateDataSourceInterface;
+use BWF\DocumentTemplates\EditableTemplates\EditableTemplateInterface;
+use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface;
 
 interface LayoutInterface
 {
@@ -21,8 +21,8 @@ interface LayoutInterface
 
     /**
      * @param EditableTemplate[] $templates
-     * @param TemplateDataSourceInterface[] $data
+     * @param TemplateDataSourceInterface[] $dataSources
      * @return string
      */
-    public function render($templates, $data);
+    public function render($templates, $dataSources);
 }

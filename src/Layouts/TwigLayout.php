@@ -48,7 +48,13 @@ class TwigLayout extends Layout implements LayoutInterface
         return $templates;
     }
 
-    public function render($templates, $data)
+    /**
+     * Generates a new template by extending the layout with the given templates
+     *
+     * @param array $templates
+     * @return string
+     */
+    protected function extendLayout($templates)
     {
         $extendedTemplate = '{% extends layout %}';
 
@@ -60,14 +66,44 @@ class TwigLayout extends Layout implements LayoutInterface
             );
         }
 
+        return $extendedTemplate;
+    }
+
+    /**
+     * @param \BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface[] $dataSources
+     * @return array
+     */
+    protected function generateTemplateData($dataSources)
+    {
+        $templateData = [];
+
+        foreach ($dataSources as $dataSource) {
+            $templateData = array_merge($templateData, $dataSource->getTemplateData());
+        }
+
+        $templateData['layout'] = $this->layout;
+
+        return $templateData;
+    }
+
+    /**
+     * @param \BWF\DocumentTemplates\EditableTemplates\EditableTemplate[] $templates
+     * @param \BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface[] $dataSourcesSources
+     * @return string
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function render($templates, $dataSourcesSources)
+    {
         $loader = new ArrayLoader([
-            'extended.html' => $extendedTemplate,
+            'extendedLayout' => $this->extendLayout($templates),
         ]);
 
         $this->twig->setLoader($loader);
-        $data['layout'] = $this->layout;
+        $templateData = $this->generateTemplateData($dataSourcesSources);
 
-        return $this->twig->render('extended.html', $data);
+        return $this->twig->render('extendedLayout', $templateData);
 
     }
 }

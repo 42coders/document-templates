@@ -6,6 +6,7 @@ namespace BWF\DocumentTemplates\Tests\Layouts;
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
 use BWF\DocumentTemplates\Layouts\Layout;
 use BWF\DocumentTemplates\Layouts\TwigLayout;
+use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\Tests\TestCase;
 
 class LayoutTest extends TestCase
@@ -34,10 +35,10 @@ class LayoutTest extends TestCase
         foreach ($templates as $template){
             switch($template->getName()){
                 case 'title':
-                    $template->setContent('This is the title: {{title}}'.PHP_EOL);
+                    $template->setContent('This is the title: {{test_source.title}}'.PHP_EOL);
                     break;
                 case 'content':
-                    $template->setContent('<p>Hello {{name}}, this is the content!</p>'.PHP_EOL);
+                    $template->setContent('<p>Hello {{test_source.name}}, this is the content!</p>'.PHP_EOL);
                     break;
             }
         }
@@ -47,8 +48,10 @@ class LayoutTest extends TestCase
             'title' => 'Testing the layout render'
         ];
 
+        $dataSource = new TemplateDataSource($data, 'Test Source');
+
         $expectedOutput = file_get_contents(__DIR__ . '/../Stubs/TestLayout.expected.html');
-        $output = $layout->render($templates, $data);
+        $output = $layout->render($templates, [$dataSource]);
 
         $this->assertEquals($expectedOutput, $output);
     }
