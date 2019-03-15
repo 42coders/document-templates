@@ -4,6 +4,7 @@
 namespace BWF\DocumentTemplates\Renderers;
 
 
+use BWF\DocumentTemplates\Layouts\TwigLayout;
 use BWF\EditableTemplates\EditableTemplateInterface;
 use BWF\Layouts\LayoutInterface;
 use BWF\Renderers\RendererInterface;
@@ -12,7 +13,7 @@ use BWF\TemplateDataSources\TemplateDataSourceInterface;
 class TwigRenderer implements RendererInterface
 {
     /**
-     * @var LayoutInterface $layout
+     * @var TwigLayout $layout
      */
     protected $layout;
 
