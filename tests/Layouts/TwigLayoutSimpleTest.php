@@ -9,7 +9,7 @@ use BWF\DocumentTemplates\Layouts\TwigLayout;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\Tests\TestCase;
 
-class LayoutTest extends TestCase
+class TwigLayoutSimpleTest extends TestCase
 {
     public function testGetTemplates()
     {
@@ -35,23 +35,21 @@ class LayoutTest extends TestCase
         foreach ($templates as $template){
             switch($template->getName()){
                 case 'title':
-                    $template->setContent('This is the title: {{test_source.title}}'.PHP_EOL);
+                    $template->setContent('This is the title: {{title_source.title}}'.PHP_EOL);
                     break;
                 case 'content':
-                    $template->setContent('<p>Hello {{test_source.name}}, this is the content!</p>'.PHP_EOL);
+                    $template->setContent('<p>Hello {{name_source.name}}, this is the content!</p>'.PHP_EOL);
                     break;
             }
         }
 
-        $data = [
-            'name' => 'Layout Test',
-            'title' => 'Testing the layout render'
-        ];
+        $dataSources = [];
 
-        $dataSource = new TemplateDataSource($data, 'Test Source');
+        $dataSources[] = new TemplateDataSource(['title' => 'Testing the layout render'], 'Title Source');
+        $dataSources[] = new TemplateDataSource(['name' => 'Layout Test'], 'Name Source');
 
         $expectedOutput = file_get_contents(__DIR__ . '/../Stubs/TestLayout.expected.html');
-        $output = $layout->render($templates, [$dataSource]);
+        $output = $layout->render($templates, $dataSources);
 
         $this->assertEquals($expectedOutput, $output);
     }
