@@ -7,11 +7,14 @@ namespace BWF\DocumentTemplates\TemplateDataSources;
 class TemplateDataSource implements TemplateDataSourceInterface
 {
     protected $name = null;
+    /**
+     * @var array|Array
+     */
     protected $data = [];
 
     /**
      * TemplateDataSource constructor.
-     * @param Array $data
+     * @param array $data
      * @param string $name
      */
     public function __construct($data, $name = null)
@@ -36,21 +39,37 @@ class TemplateDataSource implements TemplateDataSourceInterface
         $this->name = $name;
     }
 
-    public function getTemplateData()
+    /**
+     * @param bool $useNamespace
+     * @return array|Array
+     */
+    public function getTemplateData($useNamespace = true)
     {
-        $data = $this->name ? [$this->getName() => $this->data] : $this->data;
+        $data = $this->data;
+
+        if ($useNamespace) {
+            $data = $this->name ? [$this->getName() => $this->data] : $this->data;
+        }
         return $data;
     }
 
+    /**
+     * @param $name
+     * @return string
+     */
     protected function canonise($name)
     {
         return strtolower(strtr($name, ' ', '_'));
     }
 
+    /**
+     * @param $key
+     * @return string
+     */
     protected function createPlaceholder($key)
     {
         $placeholder = $key;
-        if($this->name){
+        if ($this->name) {
             $placeholder = $this->getName() . '.' . $key;
         }
 
