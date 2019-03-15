@@ -1,0 +1,42 @@
+<?php
+
+namespace BWF\DocumentTemplates\Tests\Layouts;
+
+use BWF\DocumentTemplates\Layouts\TwigLayout;
+use BWF\DocumentTemplates\TemplateDataSources\ArrayTemplateDataSource;
+use BWF\DocumentTemplates\Tests\Stubs\ArrayTemplateData;
+use BWF\DocumentTemplates\Tests\TestCase;
+
+class TwigLayoutArrayTest extends TestCase
+{
+
+    use ArrayTemplateData;
+
+    public function testRender()
+    {
+        $layout = new TwigLayout();
+        $layout->load(__DIR__ . '/../Stubs/TestArrayDataSource.html.twig');
+        $templates = $layout->getTemplates();
+
+        foreach ($templates as $template) {
+            switch($template->getName()) {
+                case 'user_table_rows':
+                    $template->setContent('{% for user in users %}<tr><td>{{user.id}}</td><td>{{user.name}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL);
+                    break;
+                case 'order_table_rows':
+                    $template->setContent('{% for order in orders %}<tr><td>{{order.id}}</td><td>{{order.description}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL);
+                    break;
+            }
+        }
+
+        $dataSources = [];
+
+        $dataSources[] = new ArrayTemplateDataSource($this->getTestUsers(), 'users');
+        $dataSources[] = new ArrayTemplateDataSource($this->getTestOrders(), 'orders');
+
+        $expectedOutput = file_get_contents(__DIR__ . '/../Stubs/TestArrayDataSource.expected.html');
+        $output = $layout->render($templates, $dataSources);
+
+        $this->assertEquals($expectedOutput, $output);
+    }
+}
