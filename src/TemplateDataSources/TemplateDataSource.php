@@ -41,7 +41,7 @@ class TemplateDataSource implements TemplateDataSourceInterface
 
     /**
      * @param bool $useNamespace
-     * @return array|Array
+     * @return array
      */
     public function getTemplateData($useNamespace = true)
     {
