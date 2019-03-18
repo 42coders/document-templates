@@ -7,7 +7,7 @@ use BWF\DocumentTemplates\TemplateDataSources\IterableTemplateDataSource;
 use BWF\DocumentTemplates\Tests\Stubs\ArrayTemplateData;
 use BWF\DocumentTemplates\Tests\TestCase;
 
-class TwigLayoutArrayTest extends TestCase
+class TwigLayoutIteratorTest extends TestCase
 {
 
     use ArrayTemplateData;
@@ -15,7 +15,7 @@ class TwigLayoutArrayTest extends TestCase
     public function testRender()
     {
         $layout = new TwigLayout();
-        $layout->load(__DIR__ . '/../Stubs/TestArrayDataSource.html.twig');
+        $layout->load(__DIR__ . '/../Stubs/TestIterableDataSource.html.twig');
         $templates = $layout->getTemplates();
 
         foreach ($templates as $template) {
@@ -34,7 +34,7 @@ class TwigLayoutArrayTest extends TestCase
         $dataSources[] = new IterableTemplateDataSource($this->getTestUsers(), 'users');
         $dataSources[] = new IterableTemplateDataSource($this->getTestOrders(), 'orders');
 
-        $expectedOutput = file_get_contents(__DIR__ . '/../Stubs/TestArrayDataSource.expected.html');
+        $expectedOutput = file_get_contents(__DIR__ . '/../Stubs/TestIterableDataSource.expected.html');
         $output = $layout->render($templates, $dataSources);
 
         $this->assertEquals($expectedOutput, $output);
