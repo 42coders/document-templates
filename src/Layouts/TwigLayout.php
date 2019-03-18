@@ -39,7 +39,10 @@ class TwigLayout extends Layout implements LayoutInterface
         $templates = [];
 
         foreach ($blocks as $block) {
-            $templates[] = new HtmlTemplate($block);
+            $template = new HtmlTemplate();
+            $template->setName($block);
+
+            $templates[] = $template;
         }
 
         return $templates;

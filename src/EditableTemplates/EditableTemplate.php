@@ -6,12 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class EditableTemplate extends Model implements EditableTemplateInterface
 {
-    protected $name;
+    /**
+     * @var string $content
+     */
+    protected $content;
 
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
+    /**
+     * @var string $name
+     */
+    protected $name;
 
     /**
      * @return mixed
@@ -22,17 +25,12 @@ abstract class EditableTemplate extends Model implements EditableTemplateInterfa
     }
 
     /**
-     * @param mixed $name
+     * @param string $name
      */
     public function setName($name)
     {
         $this->name = $name;
     }
-
-    /**
-     * @var string
-     */
-    protected $content;
 
     public function getContent()
     {
