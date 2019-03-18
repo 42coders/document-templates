@@ -2,7 +2,9 @@
 
 namespace BWF\DocumentTemplates\EditableTemplates;
 
-abstract class EditableTemplate implements EditableTemplateInterface
+use Illuminate\Database\Eloquent\Model;
+
+abstract class EditableTemplate extends Model implements EditableTemplateInterface
 {
     protected $name;
 
@@ -27,5 +29,23 @@ abstract class EditableTemplate implements EditableTemplateInterface
         $this->name = $name;
     }
 
+    /**
+     * @var string
+     */
+    protected $content;
 
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
+
+    public function store()
+    {
+        // TODO: Implement store() method.
+    }
 }

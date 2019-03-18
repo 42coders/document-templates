@@ -6,7 +6,7 @@ interface TemplateDataSourceInterface
 {
     /**
      * TemplateDataSource constructor.
-     * @param Array $data
+     * @param Array|\stdClass $data
      * @param string $name
      */
     public function __construct($data, $name = null);

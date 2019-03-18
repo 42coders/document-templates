@@ -3,7 +3,7 @@
 namespace BWF\DocumentTemplates\Tests\Layouts;
 
 use BWF\DocumentTemplates\Layouts\TwigLayout;
-use BWF\DocumentTemplates\TemplateDataSources\ArrayTemplateDataSource;
+use BWF\DocumentTemplates\TemplateDataSources\IterableTemplateDataSource;
 use BWF\DocumentTemplates\Tests\Stubs\ArrayTemplateData;
 use BWF\DocumentTemplates\Tests\TestCase;
 
@@ -31,8 +31,8 @@ class TwigLayoutArrayTest extends TestCase
 
         $dataSources = [];
 
-        $dataSources[] = new ArrayTemplateDataSource($this->getTestUsers(), 'users');
-        $dataSources[] = new ArrayTemplateDataSource($this->getTestOrders(), 'orders');
+        $dataSources[] = new IterableTemplateDataSource($this->getTestUsers(), 'users');
+        $dataSources[] = new IterableTemplateDataSource($this->getTestOrders(), 'orders');
 
         $expectedOutput = file_get_contents(__DIR__ . '/../Stubs/TestArrayDataSource.expected.html');
         $output = $layout->render($templates, $dataSources);

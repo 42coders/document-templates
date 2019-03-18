@@ -2,15 +2,15 @@
 
 namespace BWF\DocumentTemplates\Tests\TemplateDataSources;
 
-use BWF\DocumentTemplates\TemplateDataSources\ArrayTemplateDataSource;
+use BWF\DocumentTemplates\TemplateDataSources\IterableTemplateDataSource;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\Tests\Stubs\ArrayTemplateData;
 use BWF\DocumentTemplates\Tests\TestCase;
 
-class ArrayTemplateDataSourceTest extends TestCase
+class IterableTemplateDataSourceTest extends TestCase
 {
     /**
-     * @var ArrayTemplateDataSource
+     * @var IterableTemplateDataSource
      */
     protected $dataSource;
 
@@ -40,7 +40,7 @@ class ArrayTemplateDataSourceTest extends TestCase
     {
         parent::setUp();
 
-        $this->dataSource = new ArrayTemplateDataSource($this->getTestUsers(), 'users');
+        $this->dataSource = new IterableTemplateDataSource(collect($this->getTestUsers()), 'users');
     }
 
     public function testGetPlaceholders()

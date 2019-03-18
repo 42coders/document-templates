@@ -4,7 +4,7 @@
 namespace BWF\DocumentTemplates\TemplateDataSources;
 
 
-class ArrayTemplateDataSource extends TemplateDataSource implements TemplateDataSourceInterface
+class IterableTemplateDataSource extends TemplateDataSource implements TemplateDataSourceInterface
 {
     /**
      * @var TemplateDataSource[]

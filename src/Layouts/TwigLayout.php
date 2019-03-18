@@ -24,10 +24,7 @@ class TwigLayout extends Layout implements LayoutInterface
         parent::load($template);
 
         $loader = new FilesystemLoader(dirname($template));
-        $this->twig = new Environment($loader, [
-            'cache' => dirname($template),
-            'debug' => true
-        ]);
+        $this->twig = new Environment($loader);
 
         $this->layout = $this->twig->load(basename($template));
     }

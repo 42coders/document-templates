@@ -18,6 +18,11 @@ class TemplateDataSourceTest extends TestCase
         'name' => 'Layout Test'
     ];
 
+    /**
+     * @var \stdClass
+     */
+    protected $testDataObject = null;
+
     protected $expectedTemplateData = [
         "test_source" => [
             "title" => "Testing the layout render",
@@ -33,17 +38,30 @@ class TemplateDataSourceTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->testDataObject = new \stdClass();
+        $this->testDataObject->title = 'Testing the layout render';
+        $this->testDataObject->name = 'Layout Test';
+
         $this->dataSource = new TemplateDataSource($this->testData, 'Test Source');
     }
 
-    public function testGetPlaceholders()
+    public function testGetDataSources()
     {
         $templateData = $this->dataSource->getTemplateData();
         $this->assertEquals($this->expectedTemplateData, $templateData);
     }
 
-    public function testGetDataSources()
+    public function testGetPlaceholders()
     {
+        $placeholders = $this->dataSource->getPlaceholders();
+        $this->assertEquals($this->expectedPlaceholders, $placeholders);
+    }
+
+    public function testGetPlaceholdersFromObject()
+    {
+        $this->dataSource = new TemplateDataSource($this->testDataObject, 'Test Source');
+
         $placeholders = $this->dataSource->getPlaceholders();
         $this->assertEquals($this->expectedPlaceholders, $placeholders);
     }
