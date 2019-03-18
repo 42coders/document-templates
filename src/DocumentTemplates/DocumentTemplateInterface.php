@@ -1,9 +1,9 @@
 <?php
 
-namespace BWF\DocumentTemplates;
+namespace BWF\DocumentTemplates\DocumentTemplates;
 
-use BWF\Layouts\LayoutInterface;
-use BWF\TemplateDataSources\TemplateDataSourceInterface;
+
+use BWF\DocumentTemplates\Layouts\LayoutInterface;
 
 interface DocumentTemplateInterface
 {
@@ -14,15 +14,11 @@ interface DocumentTemplateInterface
     public function setLayout(LayoutInterface $layout);
 
     /**
-     * @return mixed
-     */
-    public function store();
-
-    /**
-     * @param TemplateDataSourceInterface $data
+     * @param array|\Illuminate\Support\Collection|\stdClass $data
+     * @param string $name
      * @return void
      */
-    public function addTemplateData(TemplateDataSourceInterface $data);
+    public function addTemplateData($data, $name = '');
 
     /**
      * @param TemplateDataSourceInterface[] $data
@@ -31,7 +27,17 @@ interface DocumentTemplateInterface
     public function setTemplateData($data);
 
     /**
+     * @return string[]
+     */
+    public function getTemplatePlaceholders();
+
+    /**
      * @return string|boolean
      */
     public function render();
+
+    /**
+     * @return mixed
+     */
+    public function store();
 }
