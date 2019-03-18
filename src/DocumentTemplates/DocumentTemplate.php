@@ -6,8 +6,10 @@ namespace BWF\DocumentTemplates\DocumentTemplates;
 use BWF\DocumentTemplates\Layouts\LayoutInterface;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
+use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface;
+use Illuminate\Database\Eloquent\Model;
 
-abstract class DocumentTemplate implements DocumentTemplateInterface
+abstract class DocumentTemplate extends Model implements DocumentTemplateInterface
 {
     /**
      * @var \BWF\DocumentTemplates\Layouts\Layout
@@ -21,15 +23,27 @@ abstract class DocumentTemplate implements DocumentTemplateInterface
      */
     private $templateData;
 
-    protected function dataSources(){
+    protected function dataSources()
+    {
         return [];
     }
 
-    protected function dataSource($data, $name = '', $isIterable = false){
-        if($isIterable){
-            $data = collect([$data]);
+    /**
+     * @param array|\stdClass $data
+     * @param string $name
+     * @param bool $isIterable
+     * @param string $iterableName Use as an iterable variable in the template
+     * @return TemplateDataSource
+     */
+    protected function dataSource($data, $name = '', $isIterable = false, $iterableName = '')
+    {
+        $templateDataSource = TemplateDataSourceFactory::build($data, $name);
+        if ($isIterable) {
+            $templateDataSource = collect([$templateDataSource]);
+            $templateDataSource = TemplateDataSourceFactory::build($templateDataSource, $iterableName);
         }
-        return TemplateDataSourceFactory::build($data, $name);
+
+        return $templateDataSource;
     }
 
     public function setLayout(LayoutInterface $layout)
@@ -39,7 +53,7 @@ abstract class DocumentTemplate implements DocumentTemplateInterface
 
     public function addTemplateData($data, $name = '')
     {
-        $this->dataSources[] = TemplateDataSourceFactory::build($data, $name);
+        $this->templateData[] = TemplateDataSourceFactory::build($data, $name);
     }
 
     public function setTemplateData($data)
@@ -51,7 +65,7 @@ abstract class DocumentTemplate implements DocumentTemplateInterface
     {
         $placeholders = [];
 
-        foreach ($this->dataSources() as $dataSource){
+        foreach ($this->dataSources() as $dataSource) {
             $placeholders = array_merge($placeholders, $dataSource->getPlaceholders());
         }
 

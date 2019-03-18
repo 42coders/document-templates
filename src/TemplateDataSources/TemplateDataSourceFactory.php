@@ -12,12 +12,28 @@ class TemplateDataSourceFactory
      * @return TemplateDataSource
      */
     public static function build($data, $name = ''){
-        $templateDatasource = new TemplateDataSource($data, $name);
+        $templateDataSource = $data;
+        $buildRequired = false;
 
-        if($data instanceof \IteratorAggregate){
-            $templateDatasource = new IterableTemplateDataSource($data, $name);
+        if(is_array($data)){
+            $buildRequired = true;
+        }
+        else if(is_object($data)) {
+            $reflexionData = new \ReflectionObject($data);
+            if(!$reflexionData->implementsInterface(TemplateDataSourceInterface::class)){
+                $buildRequired = true;
+            }
         }
 
-        return $templateDatasource;
+        if($buildRequired){
+            if($data instanceof \IteratorAggregate){
+                $templateDataSource = new IterableTemplateDataSource($data, $name);
+            }
+            else{
+                $templateDataSource = new TemplateDataSource($data, $name);
+            }
+        }
+
+        return $templateDataSource;
     }
 }

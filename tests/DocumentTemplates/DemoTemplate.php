@@ -5,7 +5,6 @@ namespace BWF\DocumentTemplates\Tests\DocumentTemplates;
 
 
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplate;
-use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
 use BWF\DocumentTemplates\Tests\Stubs\ArrayTemplateData;
 
 class DemoTemplate extends DocumentTemplate
@@ -14,9 +13,13 @@ class DemoTemplate extends DocumentTemplate
 
     protected function dataSources()
     {
+        $testOrderObject = new \stdClass();
+        $testOrderObject->id = 1;
+        $testOrderObject->description = 'first order description';
+
         return [
-            $this->dataSource(TemplateDataSourceFactory::build($this->testUsers[0], 'user'), 'users', true),
-            $this->dataSource(TemplateDataSourceFactory::build($this->testOrders[0], 'order'), 'orders', true),
+            $this->dataSource($this->testUsers[0], 'user', true, 'users'),
+            $this->dataSource($testOrderObject, 'order', true, 'orders'),
             $this->dataSource($this->testOrders[0], 'order'),
         ];
     }
