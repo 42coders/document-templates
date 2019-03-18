@@ -23,7 +23,9 @@ class DemoTemplateTest extends TestCase
         "orders" => [
             0 => "order.id",
             1 => "order.description",
-        ]
+        ],
+        0 => "order.id",
+        1 => "order.description",
     ];
 
     protected function setUp(): void

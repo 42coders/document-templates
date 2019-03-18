@@ -15,8 +15,9 @@ class DemoTemplate extends DocumentTemplate
     protected function dataSources()
     {
         return [
-            $this->dataSource(collect([TemplateDataSourceFactory::build($this->testUsers[0], 'user')]), 'users'),
-            $this->dataSource(collect([TemplateDataSourceFactory::build($this->testOrders[0], 'order')]), 'orders')
+            $this->dataSource(TemplateDataSourceFactory::build($this->testUsers[0], 'user'), 'users', true),
+            $this->dataSource(TemplateDataSourceFactory::build($this->testOrders[0], 'order'), 'orders', true),
+            $this->dataSource($this->testOrders[0], 'order'),
         ];
     }
 

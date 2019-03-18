@@ -25,7 +25,10 @@ abstract class DocumentTemplate implements DocumentTemplateInterface
         return [];
     }
 
-    protected function dataSource($data, $name = ''){
+    protected function dataSource($data, $name = '', $isIterable = false){
+        if($isIterable){
+            $data = collect([$data]);
+        }
         return TemplateDataSourceFactory::build($data, $name);
     }
 
