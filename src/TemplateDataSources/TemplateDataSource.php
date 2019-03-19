@@ -15,7 +15,7 @@ class TemplateDataSource implements TemplateDataSourceInterface
      * @param array $data
      * @param string $name
      */
-    public function __construct($data, $name = null)
+    public function __construct($data, $name = '')
     {
         $this->name = $name;
         $this->data = $data;
