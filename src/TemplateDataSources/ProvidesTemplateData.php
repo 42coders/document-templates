@@ -6,7 +6,6 @@ namespace BWF\DocumentTemplates\TemplateDataSources;
 
 trait ProvidesTemplateData
 {
-    protected $name = null;
     /**
      * @var array|Array
      */
@@ -24,7 +23,7 @@ trait ProvidesTemplateData
      */
     public function getName()
     {
-        return $this->canonise($this->name);
+        return $this->canonise($this->name ?? '');
     }
 
     /**
@@ -42,9 +41,10 @@ trait ProvidesTemplateData
     public function getTemplateData($useNamespace = true)
     {
         $data = $this->getData();
+        $name = $this->getName();
 
         if ($useNamespace) {
-            $data = $this->name ? [$this->getName() => $data] : $data;
+            $data = $name ? [$name => $data] : $data;
         }
         return $data;
     }

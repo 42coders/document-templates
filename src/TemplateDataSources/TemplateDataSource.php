@@ -6,6 +6,8 @@ namespace BWF\DocumentTemplates\TemplateDataSources;
 
 class TemplateDataSource implements TemplateDataSourceInterface
 {
+    protected $name;
+
     use ProvidesTemplateData;
 
     /**

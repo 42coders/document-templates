@@ -10,23 +10,6 @@ use Illuminate\Support\Facades\Schema;
 
 class DemoModelDataSourceTest extends TestCase
 {
-    /**
-     * @var Model
-     */
-    protected $dataSource;
-
-    protected $expectedTemplateData = [
-        "test_source" => [
-            "title" => "Testing the layout render",
-            "name" => "Layout Test"
-        ]
-    ];
-
-    protected $expectedPlaceholders = [
-        "test_source.title",
-        "test_source.name"
-    ];
-
     public function setUp(): void
     {
         parent::setUp();
@@ -42,22 +25,69 @@ class DemoModelDataSourceTest extends TestCase
             "title" => "Testing the layout render",
             "name" => "Layout Test"
         ]);
-
-        $demoDataSource = new DemoModelDataSource();
-
-        $this->dataSource = $demoDataSource->first();
-        $this->dataSource->setName('Test source');
     }
 
-    public function testGetDataSources()
+    public function testGetTemplateData()
     {
-        $templateData = $this->dataSource->getTemplateData();
-        $this->assertEquals($this->expectedTemplateData, $templateData);
+        $expectedTemplateData = [
+            "test_source" => [
+                "id" => 1,
+                "title" => "Testing the layout render",
+                "name" => "Layout Test"
+            ]
+        ];
+
+        $demoDataSource = new DemoModelDataSource();
+        $demoDataSource = $demoDataSource->first();
+
+        $templateData = $demoDataSource->getTemplateData();
+        $this->assertEquals($expectedTemplateData, $templateData);
     }
 
     public function testGetPlaceholders()
     {
-        $placeholders = $this->dataSource->getPlaceholders();
-        $this->assertEquals($this->expectedPlaceholders, $placeholders);
+        $expectedPlaceholders = [
+            "test_source.id",
+            "test_source.title",
+            "test_source.name"
+        ];
+
+        $demoDataSource = new DemoModelDataSource();
+        $demoDataSource = $demoDataSource->first();
+
+        $placeholders = $demoDataSource->getPlaceholders();
+        $this->assertEquals($expectedPlaceholders, $placeholders);
+    }
+
+
+    public function testGetPlaceholdersWithTemplateField()
+    {
+        $expectedPlaceholders = [
+            "test_source.title",
+            "test_source.name"
+        ];
+
+        $demoDataSource = new DemoModelDataSourceTemplateField();
+        $demoDataSource = $demoDataSource->first();
+
+        $placeholders = $demoDataSource->getPlaceholders();
+
+        $this->assertEquals($expectedPlaceholders, $placeholders);
+    }
+
+    public function testGetTemplateDataWithTemplateField()
+    {
+        $expectedTemplateData = [
+            "test_source" => [
+                "title" => "Testing the layout render",
+                "name" => "Layout Test"
+            ]
+        ];
+
+        $demoDataSource = new DemoModelDataSourceTemplateField();
+        $demoDataSource = $demoDataSource->first();
+
+        $templateData = $demoDataSource->getTemplateData();
+        $this->assertEquals($expectedTemplateData, $templateData);
     }
 }
