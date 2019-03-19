@@ -46,7 +46,9 @@ class TwigLayoutSimpleTest extends TestCase
         $dataSources = [];
 
         $dataSources[] = new TemplateDataSource(['title' => 'Testing the layout render'], 'Title Source');
-        $dataSources[] = new TemplateDataSource(['name' => 'Layout Test'], 'Name Source');
+        $dataSource = new TemplateDataSource(['name' => 'Layout Test']);
+        $dataSource->setName('Name source');
+        $dataSources[] = $dataSource;
 
         $expectedOutput = file_get_contents(__DIR__ . '/../Stubs/TestLayout.expected.html');
         $output = $layout->render($templates, $dataSources);

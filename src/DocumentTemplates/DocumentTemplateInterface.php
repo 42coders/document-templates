@@ -4,6 +4,7 @@ namespace BWF\DocumentTemplates\DocumentTemplates;
 
 
 use BWF\DocumentTemplates\Layouts\LayoutInterface;
+use BWF\Renderers\RendererInterface;
 
 interface DocumentTemplateInterface
 {
@@ -14,17 +15,17 @@ interface DocumentTemplateInterface
     public function setLayout(LayoutInterface $layout);
 
     /**
+     * @param \BWF\DocumentTemplates\Renderers\RendererInterface $renderer
+     * @return mixed
+     */
+    public function setRenderer($renderer);
+
+    /**
      * @param array|\Illuminate\Support\Collection|\stdClass $data
      * @param string $name
      * @return void
      */
     public function addTemplateData($data, $name = '');
-
-    /**
-     * @param TemplateDataSourceInterface[] $data
-     * @return void
-     */
-    public function setTemplateData($data);
 
     /**
      * @return string[]

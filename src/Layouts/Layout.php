@@ -13,14 +13,4 @@ abstract class Layout implements LayoutInterface
     {
         // TODO: Implement load() method.
     }
-
-    /**
-     * @param \BWF\DocumentTemplates\EditableTemplates\EditableTemplate[] $templates
-     * @param \BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface[] $dataSources
-     * @return string
-     */
-    public function render($templates, $dataSources)
-    {
-        return '';
-    }
 }

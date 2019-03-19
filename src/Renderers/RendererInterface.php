@@ -1,6 +1,6 @@
 <?php
 
-namespace BWF\Renderers;
+namespace BWF\DocumentTemplates\Renderers;
 
 use BWF\EditableTemplates\EditableTemplateInterface;
 use BWF\Layouts\LayoutInterface;
@@ -10,9 +10,8 @@ interface RendererInterface
 {
     /**
      * @param LayoutInterface $layout
-     * @return mixed
      */
-    public function setLayout(LayoutInterface $layout);
+    public function __construct($layout);
 
     /**
      * @param EditableTemplateInterface[] $templates
