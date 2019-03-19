@@ -6,11 +6,8 @@ namespace BWF\DocumentTemplates\DocumentTemplates;
 use BWF\DocumentTemplates\Layouts\LayoutInterface;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
-use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface;
-use BWF\Renderers\RendererInterface;
-use Illuminate\Database\Eloquent\Model;
 
-abstract class DocumentTemplate extends Model implements DocumentTemplateInterface
+abstract class DocumentTemplate extends DocumentTemplateModel implements DocumentTemplateInterface
 {
     /**
      * @var \BWF\DocumentTemplates\Layouts\Layout
@@ -82,11 +79,6 @@ abstract class DocumentTemplate extends Model implements DocumentTemplateInterfa
     public function render()
     {
         return $this->renderer->render($this->getTemplates(), $this->templateData);
-    }
-
-    public function store()
-    {
-        // TODO: Implement store() method.
     }
 
     public function setRenderer($renderer)
