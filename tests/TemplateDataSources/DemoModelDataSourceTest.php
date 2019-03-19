@@ -4,7 +4,6 @@ namespace BWF\DocumentTemplates\Tests\TemplateDataSources;
 
 
 use BWF\DocumentTemplates\Tests\TestCase;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
@@ -37,7 +36,7 @@ class DemoModelDataSourceTest extends TestCase
             ]
         ];
 
-        $demoDataSource = new DemoModelDataSource();
+        $demoDataSource = new DemoDataSourceModel();
         $demoDataSource = $demoDataSource->first();
 
         $templateData = $demoDataSource->getTemplateData();
@@ -52,7 +51,7 @@ class DemoModelDataSourceTest extends TestCase
             "test_source.name"
         ];
 
-        $demoDataSource = new DemoModelDataSource();
+        $demoDataSource = new DemoDataSourceModel();
         $demoDataSource = $demoDataSource->first();
 
         $placeholders = $demoDataSource->getPlaceholders();
@@ -67,7 +66,7 @@ class DemoModelDataSourceTest extends TestCase
             "test_source.name"
         ];
 
-        $demoDataSource = new DemoModelDataSourceTemplateField();
+        $demoDataSource = new DemoDataSourceModelTemplateField();
         $demoDataSource = $demoDataSource->first();
 
         $placeholders = $demoDataSource->getPlaceholders();
@@ -84,7 +83,7 @@ class DemoModelDataSourceTest extends TestCase
             ]
         ];
 
-        $demoDataSource = new DemoModelDataSourceTemplateField();
+        $demoDataSource = new DemoDataSourceModelTemplateField();
         $demoDataSource = $demoDataSource->first();
 
         $templateData = $demoDataSource->getTemplateData();

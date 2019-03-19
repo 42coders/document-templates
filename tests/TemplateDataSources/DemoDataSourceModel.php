@@ -3,9 +3,9 @@
 
 namespace BWF\DocumentTemplates\Tests\TemplateDataSources;
 
-use BWF\DocumentTemplates\TemplateDataSources\ModelDataSource;
+use BWF\DocumentTemplates\TemplateDataSources\DataSourceModel;
 
-class DemoModelDataSource extends ModelDataSource
+class DemoDataSourceModel extends DataSourceModel
 {
     protected $name = 'Test source';
 
