@@ -7,7 +7,7 @@ namespace BWF\DocumentTemplates\Tests\Stubs;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
 
-trait ArrayTemplateData
+trait IterableTemplateData
 {
     protected $testUsers = [
         [

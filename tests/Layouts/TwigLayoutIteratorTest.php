@@ -4,13 +4,13 @@ namespace BWF\DocumentTemplates\Tests\Layouts;
 
 use BWF\DocumentTemplates\Layouts\TwigLayout;
 use BWF\DocumentTemplates\TemplateDataSources\IterableTemplateDataSource;
-use BWF\DocumentTemplates\Tests\Stubs\ArrayTemplateData;
+use BWF\DocumentTemplates\Tests\Stubs\IterableTemplateData;
 use BWF\DocumentTemplates\Tests\TestCase;
 
 class TwigLayoutIteratorTest extends TestCase
 {
 
-    use ArrayTemplateData;
+    use IterableTemplateData;
 
     public function testRender()
     {

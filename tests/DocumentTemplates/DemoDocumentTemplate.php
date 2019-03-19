@@ -5,11 +5,11 @@ namespace BWF\DocumentTemplates\Tests\DocumentTemplates;
 
 
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplate;
-use BWF\DocumentTemplates\Tests\Stubs\ArrayTemplateData;
+use BWF\DocumentTemplates\Tests\Stubs\IterableTemplateData;
 
 class DemoDocumentTemplate extends DocumentTemplate
 {
-    use ArrayTemplateData;
+    use IterableTemplateData;
 
     protected function dataSources()
     {

@@ -4,7 +4,7 @@ namespace BWF\DocumentTemplates\Tests\TemplateDataSources;
 
 use BWF\DocumentTemplates\TemplateDataSources\IterableTemplateDataSource;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
-use BWF\DocumentTemplates\Tests\Stubs\ArrayTemplateData;
+use BWF\DocumentTemplates\Tests\Stubs\IterableTemplateData;
 use BWF\DocumentTemplates\Tests\TestCase;
 
 class IterableTemplateDataSourceTest extends TestCase
@@ -14,7 +14,7 @@ class IterableTemplateDataSourceTest extends TestCase
      */
     protected $dataSource;
 
-    use ArrayTemplateData;
+    use IterableTemplateData;
 
     protected $expectedTemplateData = [
         "users" => [

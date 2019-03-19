@@ -4,24 +4,13 @@
 namespace BWF\DocumentTemplates\TemplateDataSources;
 
 
-trait HasTemplateData
+trait ProvidesTemplateData
 {
     protected $name = null;
     /**
      * @var array|Array
      */
     protected $data = [];
-
-    /**
-     * TemplateDataSource constructor.
-     * @param array $data
-     * @param string $name
-     */
-    public function __construct($data, $name = null)
-    {
-        $this->name = $name;
-        $this->data = $data;
-    }
 
     /**
      * @return array

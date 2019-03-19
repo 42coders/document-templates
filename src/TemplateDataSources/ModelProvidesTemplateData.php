@@ -4,14 +4,16 @@
 namespace BWF\DocumentTemplates\TemplateDataSources;
 
 
-trait ModelHasTemplateData
+trait ModelProvidesTemplateData
 {
-    use HasTemplateData;
+    use ProvidesTemplateData;
 
     /**
-     * @var array
+     * @return array
      */
-    protected $templateFields = [];
+    protected function getTemplateFields(){
+        return [];
+    }
 
     /**
      * @var array
@@ -23,10 +25,11 @@ trait ModelHasTemplateData
      */
     protected function getData(){
         $data = [];
+        $templateFields = $this->getTemplateFields();
 
-        if(!empty($this->templateFields)){
-            foreach ($this->templateFields as $field){
-                $data[$field] = $this->{$field};
+        if(!empty($templateFields)){
+            foreach ($templateFields as $field){
+                $data[$field] = $this->attributes[$field];
             }
         }
         else{
