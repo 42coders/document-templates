@@ -21,7 +21,7 @@ abstract class DocumentTemplate extends Model implements DocumentTemplateInterfa
      *
      * @var TemplateDataSource[]
      */
-    private $templateData;
+    private $templateData = [];
 
     protected function dataSources()
     {
@@ -72,9 +72,18 @@ abstract class DocumentTemplate extends Model implements DocumentTemplateInterfa
         return $placeholders;
     }
 
+    /**
+     * @return array
+     */
+    protected function getTemplates()
+    {
+        //TODO: Load templates from the database
+        return [];
+    }
+
     public function render()
     {
-        // TODO: Implement render() method.
+        return $this->layout->render($this->getTemplates(), $this->templateData);
     }
 
     public function store()

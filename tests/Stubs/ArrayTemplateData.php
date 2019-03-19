@@ -5,6 +5,7 @@ namespace BWF\DocumentTemplates\Tests\Stubs;
 
 
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
+use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
 
 trait ArrayTemplateData
 {
@@ -38,10 +39,10 @@ trait ArrayTemplateData
         $dataSources = [];
 
         foreach ($this->testUsers as $item) {
-            $dataSources[] = new TemplateDataSource($item, 'user');
+            $dataSources[] = TemplateDataSourceFactory::build($item, 'user');
         }
 
-        return $dataSources;
+        return collect($dataSources);
     }
 
     /**
@@ -52,9 +53,9 @@ trait ArrayTemplateData
         $dataSources = [];
 
         foreach ($this->testOrders as $item) {
-            $dataSources[] = new TemplateDataSource($item, 'order');
+            $dataSources[] = TemplateDataSourceFactory::build($item, 'order');
         }
 
-        return $dataSources;
+        return collect($dataSources);
     }
 }

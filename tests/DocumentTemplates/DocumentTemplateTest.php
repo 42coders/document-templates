@@ -5,10 +5,12 @@ namespace BWF\DocumentTemplates\Tests\DocumentTemplates;
 
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplate;
 use BWF\DocumentTemplates\Layouts\TwigLayout;
+use BWF\DocumentTemplates\Tests\Stubs\ArrayTemplateData;
 use BWF\DocumentTemplates\Tests\TestCase;
 
-class DemoTemplateTest extends TestCase
+class DocumentTemplateTest extends TestCase
 {
+    use ArrayTemplateData;
 
     /**
      * @var DocumentTemplate $documentTemplate
@@ -24,15 +26,15 @@ class DemoTemplateTest extends TestCase
             0 => "order.id",
             1 => "order.description",
         ],
-        0 => "order.id",
-        1 => "order.description",
+        0 => "test.title",
+        1 => "test.name",
     ];
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->documentTemplate = new DemoTemplate();
+        $this->documentTemplate = new DemoDocumentTemplate();
 
         $layout = new TwigLayout();
         $layout->load(__DIR__ . '/../Stubs/TestIterableDataSource.html.twig');
@@ -40,14 +42,21 @@ class DemoTemplateTest extends TestCase
         $this->documentTemplate->setLayout($layout);
     }
 
-//    public function testRender()
-//    {
-//
-//    }
-
     public function testGetTemplatePlaceholders()
     {
         $placeholders = $this->documentTemplate->getTemplatePlaceholders();
         $this->assertEquals($this->expectedPlaceholders, $placeholders);
     }
+
+    public function testRender()
+    {
+        $this->documentTemplate->addTemplateData($this->getTestUsers(), 'users');
+        $this->documentTemplate->addTemplateData($this->getTestOrders(), 'orders');
+
+        $output = $this->documentTemplate->render();
+        $expectedOutput = file_get_contents(__DIR__ . '/../Stubs/TestIterableDataSource.expected.html');
+
+        $this->assertEquals($expectedOutput, $output);
+    }
+
 }

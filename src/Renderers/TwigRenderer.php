@@ -13,7 +13,7 @@ use BWF\TemplateDataSources\TemplateDataSourceInterface;
 class TwigRenderer implements RendererInterface
 {
     /**
-     * @var TwigLayout $layout
+     * @var \BWF\DocumentTemplates\Layouts\TwigLayout $layout
      */
     protected $layout;
 
