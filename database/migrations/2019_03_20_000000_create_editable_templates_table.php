@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDocumentTemplatesTable extends Migration
+class CreateEditableTemplatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateDocumentTemplatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('document_templates', function (Blueprint $table) {
+        Schema::create('editable_templates', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('document_template_id');
             $table->string('name');
-            $table->string('document');
-            $table->string('layout');
+            $table->string('content');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateDocumentTemplatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('document_templates');
+        Schema::dropIfExists('editable_templates');
     }
 }

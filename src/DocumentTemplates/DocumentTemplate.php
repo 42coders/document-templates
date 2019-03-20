@@ -3,6 +3,8 @@
 
 namespace BWF\DocumentTemplates\DocumentTemplates;
 
+use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
+use BWF\DocumentTemplates\EditableTemplates\HtmlTemplate;
 use BWF\DocumentTemplates\Layouts\LayoutInterface;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
@@ -72,8 +74,31 @@ abstract class DocumentTemplate extends DocumentTemplateModel implements Documen
      */
     protected function getTemplates()
     {
-        //TODO: Load templates from the database
-        return [];
+        $templates = $this->editableTemplates;
+        $layoutTemplates = $this->layout->getTemplates();
+
+        /** @var EditableTemplate $layoutTemplate */
+        foreach ($layoutTemplates as $layoutTemplate) {
+            $templateName = $layoutTemplate->getName();
+
+            if (!$templates->contains(['name' => $templateName])){
+                $newTemplate = new HtmlTemplate();
+                $newTemplate->setName($templateName);
+
+                $templates->concat($newTemplate);
+            }
+        }
+
+        return $templates;
+    }
+
+    protected function getDataToSave()
+    {
+        return $documentTemplate = [
+            'name' => '',
+            'document' => get_class($this),
+            'layout' => $this->layout->getName()
+        ];
     }
 
     public function render()

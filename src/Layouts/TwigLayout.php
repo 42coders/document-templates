@@ -23,10 +23,14 @@ class TwigLayout extends Layout implements LayoutInterface
     {
         parent::load($template);
 
-        $loader = new FilesystemLoader(dirname($template));
+        $templatePath = dirname($template);
+        $templateName = basename($template);
+        $this->setName($templateName);
+
+        $loader = new FilesystemLoader($templatePath);
         $this->twig = new Environment($loader);
 
-        $this->layout = $this->twig->load(basename($template));
+        $this->layout = $this->twig->load($templateName);
     }
 
     public function getTemplates()

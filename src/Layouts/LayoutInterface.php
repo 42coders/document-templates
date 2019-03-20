@@ -14,6 +14,11 @@ interface LayoutInterface
     public function getTemplates();
 
     /**
+     * @return string
+     */
+    public function getName();
+
+    /**
      * @param string $template
      * @return mixed
      */
