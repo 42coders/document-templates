@@ -38,7 +38,7 @@ interface DocumentTemplateInterface
     public function render();
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function store();
+    public function toArray();
 }

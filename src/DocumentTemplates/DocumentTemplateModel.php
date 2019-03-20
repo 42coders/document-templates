@@ -17,16 +17,4 @@ abstract class DocumentTemplateModel extends Model
     {
         return $this->hasMany('\BWF\DocumentTemplates\EditableTemplates\EditableTemplate');
     }
-
-    /**
-     * @return array
-     */
-    protected abstract function getDataToSave();
-
-    public function store()
-    {
-        $this->fill($this->getDataToSave());
-
-        return $this->save();
-    }
 }

@@ -63,13 +63,17 @@ class DocumentTemplateTest extends TestCase
 
     public function testStore()
     {
-        $this->documentTemplate->store();
+        $documentTemplateData = $this->documentTemplate->toArray();
 
         $expectedData = [
             'name' => '',
             'document' => DemoDocumentTemplate::class,
             'layout' => 'TestIterableDataSource.html.twig'
         ];
+
+        $documentTemplateModel = new DemoDocumentTemplateModel();
+        $documentTemplateModel->fill($documentTemplateData);
+        $documentTemplateModel->save();
 
         $this->assertDatabaseHas('document_templates', $expectedData);
     }

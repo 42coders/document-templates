@@ -9,7 +9,7 @@ use BWF\DocumentTemplates\Layouts\LayoutInterface;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
 
-abstract class DocumentTemplate extends DocumentTemplateModel implements DocumentTemplateInterface
+abstract class DocumentTemplate implements DocumentTemplateInterface
 {
     /**
      * @var \BWF\DocumentTemplates\Layouts\Layout
@@ -92,7 +92,7 @@ abstract class DocumentTemplate extends DocumentTemplateModel implements Documen
         return $templates;
     }
 
-    protected function getDataToSave()
+    public function toArray()
     {
         return $documentTemplate = [
             'name' => '',
