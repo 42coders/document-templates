@@ -21,8 +21,6 @@ class TwigLayout extends Layout implements LayoutInterface
 
     public function load($template)
     {
-        parent::load($template);
-
         $templatePath = dirname($template);
         $templateName = basename($template);
         $this->setName($templateName);
@@ -35,8 +33,6 @@ class TwigLayout extends Layout implements LayoutInterface
 
     public function getTemplates()
     {
-        parent::getTemplates();
-
         $context = $this->layout->getSourceContext();
         $blocks = $this->layout->getBlockNames([$context]);
 

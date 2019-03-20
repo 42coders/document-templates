@@ -106,24 +106,26 @@ class DocumentTemplateTest extends TestCase
         ]);
 
         $documentTemplateModel->save();
-
-        $templateModel = new HtmlTemplate();
-        $templateModel->fill([
-            'document_template_id' => $documentTemplateModel->id,
-            'name' => 'user_table_rows',
-            'content' => '{% for user in users %}<tr><td>{{user.id}}</td><td>{{user.name}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL
-        ]);
-        $templateModel->save();
-
-        $templateModel = new HtmlTemplate();
-        $templateModel->fill([
-            'document_template_id' => $documentTemplateModel->id,
-            'name' => 'order_table_rows',
-            'content' => '{% for order in orders %}<tr><td>{{order.id}}</td><td>{{order.description}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL
-        ]);
-        $templateModel->save();
-
         $documentTemplate = new DemoDocumentTemplate($documentTemplateModel);
+        $templates = $documentTemplate->getTemplates();
+
+        $this->assertEquals(2, count($templates));
+
+        foreach ($templates as $template) {
+            switch($template->getName()) {
+                case 'user_table_rows':
+                    $template->setContent('{% for user in users %}<tr><td>{{user.id}}</td><td>{{user.name}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL);
+                    break;
+                case 'order_table_rows':
+                    $template->setContent('{% for order in orders %}<tr><td>{{order.id}}</td><td>{{order.description}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL);
+                    break;
+            }
+
+            $template->fill([
+                'document_template_id' => $documentTemplateModel->id,
+            ]);
+            $template->save();
+        }
 
         $documentTemplate->addTemplateData($this->getTestUsers(), 'users');
         $documentTemplate->addTemplateData($this->getTestOrders(), 'orders');

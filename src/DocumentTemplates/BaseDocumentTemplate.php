@@ -72,9 +72,9 @@ abstract class BaseDocumentTemplate implements DocumentTemplateInterface
     }
 
     /**
-     * @return array
+     * @return EditableTemplate[]|\BWF\DocumentTemplates\EditableTemplates\EditableTemplateInterface[]
      */
-    protected function getTemplates()
+    public function getTemplates()
     {
         return $this->layout->getTemplates();
     }

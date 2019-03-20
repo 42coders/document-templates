@@ -15,14 +15,4 @@ abstract class Layout implements LayoutInterface
     {
         return $this->name;
     }
-
-    public function getTemplates()
-    {
-        // TODO: Implement getTemplates() method.
-    }
-
-    public function load($template)
-    {
-        // TODO: Implement load() method.
-    }
 }

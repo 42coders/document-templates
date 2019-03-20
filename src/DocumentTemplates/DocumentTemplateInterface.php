@@ -33,6 +33,11 @@ interface DocumentTemplateInterface
     public function getTemplatePlaceholders();
 
     /**
+     * @return \BWF\DocumentTemplates\EditableTemplates\EditableTemplate[]
+     */
+    public function getTemplates();
+
+    /**
      * @return string|boolean
      */
     public function render();

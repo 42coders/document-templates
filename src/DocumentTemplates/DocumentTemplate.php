@@ -23,37 +23,34 @@ abstract class DocumentTemplate extends BaseDocumentTemplate implements Document
         $this->renderer = new TwigRenderer();
         $this->layout = new TwigLayout();
 
-        if($this->model){
+        if ($this->model) {
             $layoutPath = config('bwf.layout_path');
 
             $layoutName = $this->model->getLayoutName();
 
-            if($layoutName){
+            if ($layoutName) {
                 $this->layout->load($layoutPath . $layoutName);
             }
         }
     }
 
     /**
-     * @return array
+     * @return \BWF\DocumentTemplates\EditableTemplates\EditableTemplate[]
      */
-    protected function getTemplates()
+    public function getTemplates()
     {
         $layoutTemplates = parent::getTemplates();
 
-        if($this->model){
+        if ($this->model) {
             $templates = $this->model->getEditableTemplates();
-
             /** @var EditableTemplate $layoutTemplate */
             foreach ($layoutTemplates as $layoutTemplate) {
                 $templateName = $layoutTemplate->getName();
-
-                if (!$templates->contains(['name' => $templateName])){
-                    $templates->concat($layoutTemplate);
+                if (!$templates->contains('name', $templateName)) {
+                    $templates->push($layoutTemplate);
                 }
             }
-        }
-        else{
+        } else {
             $templates = $layoutTemplates;
         }
 

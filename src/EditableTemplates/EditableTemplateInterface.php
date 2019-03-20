@@ -14,9 +14,4 @@ interface EditableTemplateInterface
      * @return mixed
      */
     public function setContent($content);
-
-    /**
-     * @return array
-     */
-    public function toArray();
 }

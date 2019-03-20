@@ -8,7 +8,7 @@ abstract class EditableTemplate extends Model implements EditableTemplateInterfa
 {
     protected $table = 'editable_templates';
 
-    protected $guarded = [];
+    protected $guarded = ['name'];
 
     /**
      * @var string $content
@@ -33,6 +33,7 @@ abstract class EditableTemplate extends Model implements EditableTemplateInterfa
      */
     public function setName($name)
     {
+        $this->attributes['name'] = $name;
         $this->name = $name;
     }
 
@@ -43,14 +44,7 @@ abstract class EditableTemplate extends Model implements EditableTemplateInterfa
 
     public function setContent($content)
     {
+        $this->attributes['content'] = $content;
         $this->content = $content;
-    }
-
-    public function toArray()
-    {
-        return [
-            'name' => $this->getName(),
-            'content' => $this->getContent()
-        ];
     }
 }
