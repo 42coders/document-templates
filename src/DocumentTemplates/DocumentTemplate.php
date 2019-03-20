@@ -3,70 +3,35 @@
 
 namespace BWF\DocumentTemplates\DocumentTemplates;
 
-use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
-use BWF\DocumentTemplates\EditableTemplates\HtmlTemplate;
-use BWF\DocumentTemplates\Layouts\LayoutInterface;
-use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
-use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
+use BWF\DocumentTemplates\Layouts\TwigLayout;
+use BWF\DocumentTemplates\Renderers\TwigRenderer;
 
-abstract class DocumentTemplate implements DocumentTemplateInterface
+abstract class DocumentTemplate extends BaseDocumentTemplate implements DocumentTemplateInterface
 {
     /**
-     * @var \BWF\DocumentTemplates\Layouts\Layout
+     * @var \BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel
      */
-    protected $layout;
+    protected $model = null;
 
     /**
-     * @var \BWF\DocumentTemplates\Renderers\Renderer
+     * DocumentTemplate constructor.
+     * @param \BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface $model
      */
-    protected $renderer;
-
-    /**
-     * Stores the datasource instances containing the renderable data. Used for template rendering.
-     *
-     * @var TemplateDataSource[]
-     */
-    private $templateData = [];
-
-    protected abstract function dataSources();
-
-    /**
-     * @param array|\stdClass $data
-     * @param string $name
-     * @param bool $isIterable
-     * @param string $iterableName Use as an iterable variable in the template
-     * @return TemplateDataSource
-     */
-    protected function dataSource($data, $name = '', $isIterable = false, $iterableName = '')
+    public function __construct(DocumentTemplateModelInterface $model = null)
     {
-        $templateDataSource = TemplateDataSourceFactory::build($data, $name);
-        if ($isIterable) {
-            $templateDataSource = collect([$templateDataSource]);
-            $templateDataSource = TemplateDataSourceFactory::build($templateDataSource, $iterableName);
+        $this->model = $model;
+        $this->renderer = new TwigRenderer();
+        $this->layout = new TwigLayout();
+
+        if($this->model){
+            $layoutPath = config('bwf.layout_path');
+
+            $layoutName = $this->model->getLayoutName();
+
+            if($layoutName){
+                $this->layout->load($layoutPath . $layoutName);
+            }
         }
-
-        return $templateDataSource;
-    }
-
-    public function setLayout(LayoutInterface $layout)
-    {
-        $this->layout = $layout;
-    }
-
-    public function addTemplateData($data, $name = '')
-    {
-        $this->templateData[] = TemplateDataSourceFactory::build($data, $name);
-    }
-
-    public function getTemplatePlaceholders()
-    {
-        $placeholders = [];
-
-        foreach ($this->dataSources() as $dataSource) {
-            $placeholders = array_merge($placeholders, $dataSource->getPlaceholders());
-        }
-
-        return $placeholders;
     }
 
     /**
@@ -74,40 +39,24 @@ abstract class DocumentTemplate implements DocumentTemplateInterface
      */
     protected function getTemplates()
     {
-        $templates = $this->editableTemplates;
-        $layoutTemplates = $this->layout->getTemplates();
+        $layoutTemplates = parent::getTemplates();
 
-        /** @var EditableTemplate $layoutTemplate */
-        foreach ($layoutTemplates as $layoutTemplate) {
-            $templateName = $layoutTemplate->getName();
+        if($this->model){
+            $templates = $this->model->getEditableTemplates();
 
-            if (!$templates->contains(['name' => $templateName])){
-                $newTemplate = new HtmlTemplate();
-                $newTemplate->setName($templateName);
+            /** @var EditableTemplate $layoutTemplate */
+            foreach ($layoutTemplates as $layoutTemplate) {
+                $templateName = $layoutTemplate->getName();
 
-                $templates->concat($newTemplate);
+                if (!$templates->contains(['name' => $templateName])){
+                    $templates->concat($layoutTemplate);
+                }
             }
+        }
+        else{
+            $templates = $layoutTemplates;
         }
 
         return $templates;
-    }
-
-    public function toArray()
-    {
-        return $documentTemplate = [
-            'name' => '',
-            'document' => get_class($this),
-            'layout' => $this->layout->getName()
-        ];
-    }
-
-    public function render()
-    {
-        return $this->renderer->render($this->getTemplates(), $this->templateData);
-    }
-
-    public function setRenderer($renderer)
-    {
-        $this->renderer = $renderer;
     }
 }

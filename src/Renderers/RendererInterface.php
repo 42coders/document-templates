@@ -9,14 +9,10 @@ use BWF\TemplateDataSources\TemplateDataSourceInterface;
 interface RendererInterface
 {
     /**
-     * @param LayoutInterface $layout
-     */
-    public function __construct($layout);
-
-    /**
-     * @param EditableTemplateInterface[] $templates
-     * @param TemplateDataSourceInterface[] $data
+     * @param \BWF\DocumentTemplates\Layouts\Layout $layout
+     * @param \BWF\DocumentTemplates\EditableTemplates\EditableTemplate[] $templates
+     * @param \BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource[] $data
      * @return mixed
      */
-    public function render($templates, $data);
+    public function render($layout, $templates, $data);
 }

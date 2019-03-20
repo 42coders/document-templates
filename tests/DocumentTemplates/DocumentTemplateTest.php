@@ -4,6 +4,7 @@ namespace BWF\DocumentTemplates\Tests\DocumentTemplates;
 
 
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplate;
+use BWF\DocumentTemplates\EditableTemplates\HtmlTemplate;
 use BWF\DocumentTemplates\Layouts\TwigLayout;
 use BWF\DocumentTemplates\Renderers\TwigRenderer;
 use BWF\DocumentTemplates\Tests\Stubs\IterableTemplateData;
@@ -35,6 +36,8 @@ class DocumentTemplateTest extends TestCase
     {
         parent::setUp();
 
+        config(['bwf.layout_path' => __DIR__ . '/../Stubs/']);
+
         $this->documentTemplate = new DemoDocumentTemplate();
 
         $layout = new TwigLayout();
@@ -61,7 +64,7 @@ class DocumentTemplateTest extends TestCase
         $this->assertEquals($expectedOutput, $output);
     }
 
-    public function testStore()
+    public function testSave()
     {
         $documentTemplateData = $this->documentTemplate->toArray();
 
@@ -76,6 +79,71 @@ class DocumentTemplateTest extends TestCase
         $documentTemplateModel->save();
 
         $this->assertDatabaseHas('document_templates', $expectedData);
+    }
+
+    public function testConstructWithModel()
+    {
+        $documentTemplateData = $this->documentTemplate->toArray();
+
+        $expectedData = [
+            'name' => '',
+            'document' => DemoDocumentTemplate::class,
+            'layout' => 'TestIterableDataSource.html.twig'
+        ];
+
+        $documentTemplateModel = new DemoDocumentTemplateModel();
+        $documentTemplateModel->fill($documentTemplateData);
+        $documentTemplateModel->save();
+
+        $this->documentTemplate = new DemoDocumentTemplate($documentTemplateModel);
+        $this->assertDatabaseHas('document_templates', $expectedData);
+    }
+
+    public function testConstructWithEmptyModel()
+    {
+        $documentTemplateModel = new DemoDocumentTemplateModel();
+        $this->documentTemplate = new DemoDocumentTemplate($documentTemplateModel);
+
+        $this->assertInstanceOf(DemoDocumentTemplate::class, $this->documentTemplate);
+    }
+
+    public function testRenderWithModel()
+    {
+        $documentTemplateModel = new DemoDocumentTemplateModel();
+        $documentTemplateModel->fill([
+            'name' => '',
+            'document' => DemoDocumentTemplate::class,
+            'layout' => 'TestIterableDataSource.html.twig'
+        ]);
+
+        $documentTemplateModel->save();
+
+        $templateModel = new HtmlTemplate();
+        $templateModel->fill([
+            'document_template_id' => $documentTemplateModel->id,
+            'name' => 'user_table_rows',
+            'content' => '{% for user in users %}<tr><td>{{user.id}}</td><td>{{user.name}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL
+        ]);
+        $templateModel->save();
+
+        $templateModel = new HtmlTemplate();
+        $templateModel->fill([
+            'document_template_id' => $documentTemplateModel->id,
+            'name' => 'order_table_rows',
+            'content' => '{% for order in orders %}<tr><td>{{order.id}}</td><td>{{order.description}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL
+        ]);
+        $templateModel->save();
+
+        $documentTemplate = new DemoDocumentTemplate($documentTemplateModel);
+
+        $documentTemplate->addTemplateData($this->getTestUsers(), 'users');
+        $documentTemplate->addTemplateData($this->getTestOrders(), 'orders');
+
+        $expectedOutput = file_get_contents(__DIR__ . '/../Stubs/TestIterableDataSource.expected.html');
+        $output = $documentTemplate->render();
+
+        $this->assertEquals($expectedOutput, $output);
+
     }
 
 }

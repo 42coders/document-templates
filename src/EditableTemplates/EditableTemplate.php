@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class EditableTemplate extends Model implements EditableTemplateInterface
 {
+    protected $table = 'editable_templates';
+
+    protected $guarded = [];
+
     /**
      * @var string $content
      */
@@ -21,7 +25,7 @@ abstract class EditableTemplate extends Model implements EditableTemplateInterfa
      */
     public function getName()
     {
-        return $this->name;
+        return $this->name ?? $this->attributes['name'];
     }
 
     /**
@@ -34,7 +38,7 @@ abstract class EditableTemplate extends Model implements EditableTemplateInterfa
 
     public function getContent()
     {
-        return $this->content;
+        return $this->content ?? $this->attributes['content'];
     }
 
     public function setContent($content)
@@ -42,8 +46,11 @@ abstract class EditableTemplate extends Model implements EditableTemplateInterfa
         $this->content = $content;
     }
 
-    public function store()
+    public function toArray()
     {
-        // TODO: Implement store() method.
+        return [
+            'name' => $this->getName(),
+            'content' => $this->getContent()
+        ];
     }
 }

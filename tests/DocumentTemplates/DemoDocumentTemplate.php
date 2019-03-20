@@ -24,22 +24,22 @@ class DemoDocumentTemplate extends DocumentTemplate
         ];
     }
 
-    protected function getTemplates()
-    {
-        $templates = $this->layout->getTemplates();
-
-        foreach ($templates as $template) {
-            switch($template->getName()) {
-                case 'user_table_rows':
-                    $template->setContent('{% for user in users %}<tr><td>{{user.id}}</td><td>{{user.name}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL);
-                    break;
-                case 'order_table_rows':
-                    $template->setContent('{% for order in orders %}<tr><td>{{order.id}}</td><td>{{order.description}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL);
-                    break;
-            }
-        }
-
-        return $templates;
-    }
+//    protected function getTemplates()
+//    {
+//        $templates = $this->layout->getTemplates();
+//
+//        foreach ($templates as $template) {
+//            switch($template->getName()) {
+//                case 'user_table_rows':
+//                    $template->setContent('{% for user in users %}<tr><td>{{user.id}}</td><td>{{user.name}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL);
+//                    break;
+//                case 'order_table_rows':
+//                    $template->setContent('{% for order in orders %}<tr><td>{{order.id}}</td><td>{{order.description}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL);
+//                    break;
+//            }
+//        }
+//
+//        return $templates;
+//    }
 
 }

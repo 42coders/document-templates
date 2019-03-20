@@ -12,18 +12,8 @@ use BWF\TemplateDataSources\TemplateDataSourceInterface;
 
 class TwigRenderer extends Renderer
 {
-    /**
-     * @var \BWF\DocumentTemplates\Layouts\TwigLayout $layout
-     */
-    protected $layout;
-
-    public function __construct($layout)
+    public function render($layout, $templates, $data)
     {
-        $this->layout = $layout;
-    }
-
-    public function render($templates, $data)
-    {
-        return $this->layout->render($templates, $data);
+        return $layout->render($templates, $data);
     }
 }

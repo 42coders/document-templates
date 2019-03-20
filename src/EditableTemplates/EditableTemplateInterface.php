@@ -16,7 +16,7 @@ interface EditableTemplateInterface
     public function setContent($content);
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function store();
+    public function toArray();
 }
