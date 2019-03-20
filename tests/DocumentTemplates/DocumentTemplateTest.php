@@ -53,17 +53,6 @@ class DocumentTemplateTest extends TestCase
         $this->assertEquals($this->expectedPlaceholders, $placeholders);
     }
 
-    public function testRender()
-    {
-        $this->documentTemplate->addTemplateData($this->getTestUsers(), 'users');
-        $this->documentTemplate->addTemplateData($this->getTestOrders(), 'orders');
-
-        $output = $this->documentTemplate->render();
-        $expectedOutput = file_get_contents(__DIR__ . '/../Stubs/TestIterableDataSource.expected.html');
-
-        $this->assertEquals($expectedOutput, $output);
-    }
-
     public function testSave()
     {
         $documentTemplateData = $this->documentTemplate->toArray();
