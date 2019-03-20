@@ -19,6 +19,8 @@ class DocumentTemplateTest extends TestCase
      */
     protected $documentTemplate;
 
+    protected $documentTemplateModel;
+
     protected $expectedPlaceholders = [
         "users" => [
             0 => "user.id",
@@ -38,13 +40,15 @@ class DocumentTemplateTest extends TestCase
 
         config(['bwf.layout_path' => __DIR__ . '/../Stubs/']);
 
-        $this->documentTemplate = new DemoDocumentTemplate();
+        $this->documentTemplateModel = new DemoDocumentTemplateModel();
+        $this->documentTemplateModel->fill([
+            'name' => '',
+            'document' => DemoDocumentTemplate::class,
+            'layout' => 'TestIterableDataSource.html.twig'
+        ]);
 
-        $layout = new TwigLayout();
-        $layout->load(__DIR__ . '/../Stubs/TestIterableDataSource.html.twig');
-
-        $this->documentTemplate->setLayout($layout);
-        $this->documentTemplate->setRenderer(new TwigRenderer($layout));
+        $this->documentTemplateModel->save();
+        $this->documentTemplate = new DemoDocumentTemplate($this->documentTemplateModel);
     }
 
     public function testGetTemplatePlaceholders()
@@ -70,45 +74,9 @@ class DocumentTemplateTest extends TestCase
         $this->assertDatabaseHas('document_templates', $expectedData);
     }
 
-    public function testConstructWithModel()
-    {
-        $documentTemplateData = $this->documentTemplate->toArray();
-
-        $expectedData = [
-            'name' => '',
-            'document' => DemoDocumentTemplate::class,
-            'layout' => 'TestIterableDataSource.html.twig'
-        ];
-
-        $documentTemplateModel = new DemoDocumentTemplateModel();
-        $documentTemplateModel->fill($documentTemplateData);
-        $documentTemplateModel->save();
-
-        $this->documentTemplate = new DemoDocumentTemplate($documentTemplateModel);
-        $this->assertDatabaseHas('document_templates', $expectedData);
-    }
-
-    public function testConstructWithEmptyModel()
-    {
-        $documentTemplateModel = new DemoDocumentTemplateModel();
-        $this->documentTemplate = new DemoDocumentTemplate($documentTemplateModel);
-
-        $this->assertInstanceOf(DemoDocumentTemplate::class, $this->documentTemplate);
-    }
-
     public function testRenderWithModel()
     {
-        $documentTemplateModel = new DemoDocumentTemplateModel();
-        $documentTemplateModel->fill([
-            'name' => '',
-            'document' => DemoDocumentTemplate::class,
-            'layout' => 'TestIterableDataSource.html.twig'
-        ]);
-
-        $documentTemplateModel->save();
-        $documentTemplate = new DemoDocumentTemplate($documentTemplateModel);
-        $templates = $documentTemplate->getTemplates();
-
+        $templates = $this->documentTemplate->getTemplates();
         $this->assertEquals(2, count($templates));
 
         foreach ($templates as $template) {
@@ -122,19 +90,26 @@ class DocumentTemplateTest extends TestCase
             }
 
             $template->fill([
-                'document_template_id' => $documentTemplateModel->id,
+                'document_template_id' => $this->documentTemplateModel->id,
             ]);
             $template->save();
         }
 
-        $documentTemplate->addTemplateData($this->getTestUsers(), 'users');
-        $documentTemplate->addTemplateData($this->getTestOrders(), 'orders');
+        $this->documentTemplate->addTemplateData($this->getTestUsers(), 'users');
+        $this->documentTemplate->addTemplateData($this->getTestOrders(), 'orders');
 
         $expectedOutput = file_get_contents(__DIR__ . '/../Stubs/TestIterableDataSource.expected.html');
-        $output = $documentTemplate->render();
+        $output = $this->documentTemplate->render();
 
         $this->assertEquals($expectedOutput, $output);
 
-    }
+        $layout = new TwigLayout();
+        $layout->load(__DIR__ . '/../Stubs/TestIterableDataSource.html.twig');
 
+        $this->documentTemplate->setLayout($layout);
+        $this->documentTemplate->setRenderer(new TwigRenderer());
+        $output = $this->documentTemplate->render();
+
+        $this->assertEquals($expectedOutput, $output);
+    }
 }

@@ -17,20 +17,18 @@ abstract class DocumentTemplate extends BaseDocumentTemplate implements Document
      * DocumentTemplate constructor.
      * @param \BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface $model
      */
-    public function __construct(DocumentTemplateModelInterface $model = null)
+    public function __construct(DocumentTemplateModelInterface $model)
     {
         $this->model = $model;
         $this->renderer = new TwigRenderer();
         $this->layout = new TwigLayout();
 
-        if ($this->model) {
-            $layoutPath = config('bwf.layout_path');
+        $layoutPath = config('bwf.layout_path');
 
-            $layoutName = $this->model->getLayoutName();
+        $layoutName = $this->model->getLayoutName();
 
-            if ($layoutName) {
-                $this->layout->load($layoutPath . $layoutName);
-            }
+        if ($layoutName) {
+            $this->layout->load($layoutPath . $layoutName);
         }
     }
 
@@ -41,17 +39,13 @@ abstract class DocumentTemplate extends BaseDocumentTemplate implements Document
     {
         $layoutTemplates = parent::getTemplates();
 
-        if ($this->model) {
-            $templates = $this->model->getEditableTemplates();
-            /** @var EditableTemplate $layoutTemplate */
-            foreach ($layoutTemplates as $layoutTemplate) {
-                $templateName = $layoutTemplate->getName();
-                if (!$templates->contains('name', $templateName)) {
-                    $templates->push($layoutTemplate);
-                }
+        $templates = $this->model->getEditableTemplates();
+        /** @var EditableTemplate $layoutTemplate */
+        foreach ($layoutTemplates as $layoutTemplate) {
+            $templateName = $layoutTemplate->getName();
+            if (!$templates->contains('name', $templateName)) {
+                $templates->push($layoutTemplate);
             }
-        } else {
-            $templates = $layoutTemplates;
         }
 
         return $templates;

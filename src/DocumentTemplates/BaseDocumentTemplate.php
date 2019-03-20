@@ -4,10 +4,7 @@
 namespace BWF\DocumentTemplates\DocumentTemplates;
 
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
-use BWF\DocumentTemplates\EditableTemplates\HtmlTemplate;
 use BWF\DocumentTemplates\Layouts\LayoutInterface;
-use BWF\DocumentTemplates\Layouts\TwigLayout;
-use BWF\DocumentTemplates\Renderers\TwigRenderer;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
 
