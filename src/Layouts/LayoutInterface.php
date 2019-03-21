@@ -5,11 +5,12 @@ namespace BWF\DocumentTemplates\Layouts;
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplateInterface;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface;
+use Illuminate\Support\Collection;
 
 interface LayoutInterface
 {
     /**
-     * @return EditableTemplateInterface[]
+     * @return Collection|EditableTemplateInterface[]
      */
     public function getTemplates();
 

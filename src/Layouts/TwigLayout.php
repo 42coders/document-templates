@@ -34,10 +34,15 @@ class TwigLayout extends Layout implements LayoutInterface
 
     public function getTemplates()
     {
+        $templates = [];
+
+        if(!$this->layout) {
+            throw new \Exception('Layout is not loaded!');
+        }
+
         $context = $this->layout->getSourceContext();
         $blocks = $this->layout->getBlockNames([$context]);
 
-        $templates = [];
 
         foreach ($blocks as $block) {
             $template = new EditableTemplate();
@@ -46,7 +51,7 @@ class TwigLayout extends Layout implements LayoutInterface
             $templates[] = $template;
         }
 
-        return $templates;
+        return collect($templates);
     }
 
     /**

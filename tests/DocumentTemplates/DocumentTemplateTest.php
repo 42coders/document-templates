@@ -40,15 +40,6 @@ class DocumentTemplateTest extends TestCase
 
         config(['bwf.layout_path' => __DIR__ . '/../Stubs/']);
 
-        $this->documentTemplateModel = new DemoDocumentTemplateModel();
-        $this->documentTemplateModel->fill([
-            'name' => '',
-            'document_class' => DemoDocumentTemplate::class,
-            'layout' => 'TestIterableDataSource.html.twig'
-        ]);
-
-        $this->documentTemplateModel->save();
-
         $this->documentTemplate = new DemoDocumentTemplate();
         $this->documentTemplate->init();
     }
@@ -61,9 +52,7 @@ class DocumentTemplateTest extends TestCase
 
     public function testSave()
     {
-        $documentTemplateData = $this->documentTemplate->toArray();
-
-        $expectedData = [
+        $documentTemplateData = [
             'name' => '',
             'document_class' => DemoDocumentTemplate::class,
             'layout' => 'TestIterableDataSource.html.twig'
@@ -73,16 +62,48 @@ class DocumentTemplateTest extends TestCase
         $documentTemplateModel->fill($documentTemplateData);
         $documentTemplateModel->save();
 
-        $this->assertDatabaseHas('document_templates', $expectedData);
+        $this->assertDatabaseHas('document_templates', $documentTemplateData);
+    }
+
+    public function testGetTemplates()
+    {
+        $layout = new TwigLayout();
+        $layout->load(__DIR__ . '/../Stubs/TestIterableDataSource.html.twig');
+        $this->documentTemplate->setLayout($layout);
+
+        $templates = $this->documentTemplate->getTemplates();
+
+        $this->assertCount(2, $templates);
+        $this->assertTrue($templates->contains(
+            function ($value, $key) {
+                return $value->getName() == 'user_table_rows';
+            })
+        );
+
+        $this->assertTrue($templates->contains(
+            function ($value, $key) {
+                return $value->getName() == 'order_table_rows';
+            })
+        );
     }
 
     public function testRenderWithModel()
     {
+        $this->documentTemplateModel = new DemoDocumentTemplateModel();
+        $this->documentTemplateModel->fill([
+            'name' => '',
+            'document_class' => DemoDocumentTemplate::class,
+            'layout' => 'TestIterableDataSource.html.twig'
+        ]);
+
+        $this->documentTemplateModel->save();
+        $this->documentTemplate->init();
+
         $templates = $this->documentTemplate->getTemplates();
         $this->assertEquals(2, count($templates));
 
         foreach ($templates as $template) {
-            switch($template->getName()) {
+            switch ($template->getName()) {
                 case 'user_table_rows':
                     $template->setContent('{% for user in users %}<tr><td>{{user.id}}</td><td>{{user.name}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL);
                     break;

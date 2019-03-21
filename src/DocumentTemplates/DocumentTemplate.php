@@ -27,21 +27,28 @@ trait DocumentTemplate
 
         $layoutPath = config('bwf.layout_path');
 
-        $layoutName = $this->model->getLayoutName();
+        if ($this->model) {
+            $layoutName = $this->model->getLayoutName();
 
-        if ($layoutName) {
-            $this->layout->load($layoutPath . $layoutName);
+            if ($layoutName) {
+                $this->layout->load($layoutPath . $layoutName);
+            }
         }
     }
 
-    /**
-     * @return \BWF\DocumentTemplates\EditableTemplates\EditableTemplate[]
-     */
     public function getTemplates()
     {
-        $layoutTemplates = $this->layout->getTemplates();
+        $templates = collect();
+        $layoutTemplates = collect();
 
-        $templates = $this->model->getEditableTemplates();
+        if($this->layout){
+            $layoutTemplates = $this->layout->getTemplates();
+        }
+
+        if ($this->model) {
+            $templates = $this->model->getEditableTemplates();
+        }
+
         /** @var EditableTemplate $layoutTemplate */
         foreach ($layoutTemplates as $layoutTemplate) {
             $templateName = $layoutTemplate->getName();
