@@ -9,6 +9,7 @@ use BWF\DocumentTemplates\Layouts\TwigLayout;
 use BWF\DocumentTemplates\Renderers\TwigRenderer;
 use BWF\DocumentTemplates\Tests\Stubs\IterableTemplateData;
 use BWF\DocumentTemplates\Tests\TestCase;
+use http\Exception;
 
 class DocumentTemplateTest extends TestCase
 {
@@ -85,6 +86,12 @@ class DocumentTemplateTest extends TestCase
                 return $value->getName() == 'order_table_rows';
             })
         );
+    }
+
+    public function testGetTemplatesWithoutLayout()
+    {
+        $this->expectException(\Exception::class);
+        $this->documentTemplate->getTemplates();
     }
 
     public function testRenderWithModel()

@@ -28,8 +28,8 @@ class DocumentTemplateModel extends Model implements DocumentTemplateModelInterf
         return $this->layout;
     }
 
-    public function getEditableTemplates()
+    public function getEditableTemplates($names = null)
     {
-        return $this->editableTemplates;
+        return $this->editableTemplates()->forNames($names)->get();
     }
 }

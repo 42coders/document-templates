@@ -11,6 +11,14 @@ use BWF\DocumentTemplates\Tests\TestCase;
 
 class TwigLayoutSimpleTest extends TestCase
 {
+    public function testGetName()
+    {
+        $layout = new TwigLayout();
+        $layout->load(__DIR__ . '/../Stubs/TestLayout.html.twig');
+
+        $this->assertEquals('TestLayout.html.twig', $layout->getName());
+    }
+
     public function testGetTemplates()
     {
         $layout = new TwigLayout();

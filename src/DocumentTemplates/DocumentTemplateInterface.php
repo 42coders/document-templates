@@ -42,8 +42,4 @@ interface DocumentTemplateInterface
      */
     public function render();
 
-    /**
-     * @return array
-     */
-    public function toArray();
 }

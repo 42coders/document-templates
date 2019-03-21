@@ -12,7 +12,8 @@ interface DocumentTemplateModelInterface
     public function getLayoutName();
 
     /**
+     * @param string[] $names
      * @return mixed
      */
-    public function getEditableTemplates();
+    public function getEditableTemplates($names = null);
 }

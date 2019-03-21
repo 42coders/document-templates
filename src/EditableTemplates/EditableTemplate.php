@@ -10,6 +10,11 @@ class EditableTemplate extends Model implements EditableTemplateInterface
 
     protected $guarded = [];
 
+    public function scopeForNames($query, $names)
+    {
+        return $query->whereIn('name',  $names);
+    }
+
     /**
      * @return mixed
      */

@@ -68,15 +68,6 @@ trait BaseDocumentTemplate
         return $placeholders;
     }
 
-    public function toArray()
-    {
-        return $documentTemplate = [
-            'name' => '',
-            'document_class' => get_class($this),
-            'layout' => $this->layout->getName()
-        ];
-    }
-
     public function render()
     {
         return $this->renderer->render(

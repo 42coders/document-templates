@@ -39,14 +39,13 @@ trait DocumentTemplate
     public function getTemplates()
     {
         $templates = collect();
-        $layoutTemplates = collect();
-
-        if($this->layout){
-            $layoutTemplates = $this->layout->getTemplates();
-        }
+        $layoutTemplates = $this->layout->getTemplates();
+        $layoutTemplateNames = $layoutTemplates->map(function($item){
+            return $item->getName();
+        });
 
         if ($this->model) {
-            $templates = $this->model->getEditableTemplates();
+            $templates = $this->model->getEditableTemplates($layoutTemplateNames);
         }
 
         /** @var EditableTemplate $layoutTemplate */
