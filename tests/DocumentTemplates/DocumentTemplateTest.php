@@ -69,7 +69,7 @@ class DocumentTemplateTest extends TestCase
     public function testGetTemplates()
     {
         $layout = new TwigLayout();
-        $layout->load(__DIR__ . '/../Stubs/TestIterableDataSource.html.twig');
+        $layout->load('TestIterableDataSource.html.twig');
         $this->documentTemplate->setLayout($layout);
 
         $templates = $this->documentTemplate->getTemplates();
