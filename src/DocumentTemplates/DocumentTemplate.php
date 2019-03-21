@@ -36,6 +36,9 @@ trait DocumentTemplate
         }
     }
 
+    /**
+     * @return \Illuminate\Support\Collection|\BWF\DocumentTemplates\EditableTemplates\EditableTemplate[]
+     */
     public function getTemplates()
     {
         $templates = collect();

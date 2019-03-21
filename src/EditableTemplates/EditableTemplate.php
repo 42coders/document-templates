@@ -16,7 +16,7 @@ class EditableTemplate extends Model implements EditableTemplateInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {

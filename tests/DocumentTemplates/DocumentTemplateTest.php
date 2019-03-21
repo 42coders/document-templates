@@ -4,12 +4,12 @@ namespace BWF\DocumentTemplates\Tests\DocumentTemplates;
 
 
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplate;
+use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
 use BWF\DocumentTemplates\EditableTemplates\HtmlTemplate;
 use BWF\DocumentTemplates\Layouts\TwigLayout;
 use BWF\DocumentTemplates\Renderers\TwigRenderer;
 use BWF\DocumentTemplates\Tests\Stubs\IterableTemplateData;
 use BWF\DocumentTemplates\Tests\TestCase;
-use http\Exception;
 
 class DocumentTemplateTest extends TestCase
 {
@@ -76,13 +76,15 @@ class DocumentTemplateTest extends TestCase
 
         $this->assertCount(2, $templates);
         $this->assertTrue($templates->contains(
-            function ($value, $key) {
+            function ($value) {
+                /** @var EditableTemplate $value */
                 return $value->getName() == 'user_table_rows';
             })
         );
 
         $this->assertTrue($templates->contains(
-            function ($value, $key) {
+            function ($value) {
+                /** @var EditableTemplate $value */
                 return $value->getName() == 'order_table_rows';
             })
         );

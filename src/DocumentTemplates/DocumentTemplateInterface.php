@@ -5,6 +5,7 @@ namespace BWF\DocumentTemplates\DocumentTemplates;
 
 use BWF\DocumentTemplates\Layouts\LayoutInterface;
 use BWF\Renderers\RendererInterface;
+use Illuminate\Support\Collection;
 
 interface DocumentTemplateInterface
 {
@@ -33,7 +34,7 @@ interface DocumentTemplateInterface
     public function getTemplatePlaceholders();
 
     /**
-     * @return \BWF\DocumentTemplates\EditableTemplates\EditableTemplate[]
+     * @return Collection|\BWF\DocumentTemplates\EditableTemplates\EditableTemplate[]
      */
     public function getTemplates();
 
