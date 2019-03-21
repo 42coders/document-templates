@@ -10,5 +10,5 @@ abstract class DataSourceModel extends Model implements TemplateDataSourceInterf
 {
     use ModelProvidesTemplateData;
 
-    protected $name = '';
+    protected $namespace = '';
 }

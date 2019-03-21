@@ -21,17 +21,17 @@ trait ProvidesTemplateData
     /**
      * @return string|null
      */
-    public function getName()
+    public function getNameSpace()
     {
-        return $this->canonise($this->name ?? '');
+        return $this->canonise($this->namespace ?? '');
     }
 
     /**
-     * @param string|null $name
+     * @param string|null $namespace
      */
-    public function setName($name)
+    public function setNamespace($namespace)
     {
-        $this->name = $name;
+        $this->namespace = $namespace;
     }
 
     /**
@@ -41,7 +41,7 @@ trait ProvidesTemplateData
     public function getTemplateData($useNamespace = true)
     {
         $data = $this->getData();
-        $name = $this->getName();
+        $name = $this->getNameSpace();
 
         if ($useNamespace) {
             $data = $name ? [$name => $data] : $data;
@@ -65,8 +65,8 @@ trait ProvidesTemplateData
     protected function createPlaceholder($key)
     {
         $placeholder = $key;
-        if ($this->name) {
-            $placeholder = $this->getName() . '.' . $key;
+        if ($this->namespace) {
+            $placeholder = $this->getNameSpace() . '.' . $key;
         }
 
         return $placeholder;

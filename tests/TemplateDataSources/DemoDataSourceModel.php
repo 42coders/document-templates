@@ -7,7 +7,7 @@ use BWF\DocumentTemplates\TemplateDataSources\DataSourceModel;
 
 class DemoDataSourceModel extends DataSourceModel
 {
-    protected $name = 'Test source';
+    protected $namespace = 'Test source';
 
     protected $table = 'test_source';
 

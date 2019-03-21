@@ -14,11 +14,11 @@ class IterableTemplateDataSource extends TemplateDataSource implements TemplateD
     /**
      * ArrayTemplateDataSource constructor.
      * @param TemplateDataSource[] $data
-     * @param null $name
+     * @param null $namespace
      */
-    public function __construct($data, $name = null)
+    public function __construct($data, $namespace = null)
     {
-        parent::__construct($data, $name);
+        parent::__construct($data, $namespace);
     }
 
     /**
@@ -35,7 +35,7 @@ class IterableTemplateDataSource extends TemplateDataSource implements TemplateD
         $data = $templateData;
 
         if ($useNamespace) {
-            $data = $this->name ? [$this->getName() => $templateData] : $templateData;
+            $data = $this->namespace ? [$this->getNameSpace() => $templateData] : $templateData;
         }
 
         return $data;
@@ -53,9 +53,9 @@ class IterableTemplateDataSource extends TemplateDataSource implements TemplateD
             break;
         }
 
-        if ($this->name) {
+        if ($this->namespace) {
             $placeholders = [
-                $this->getName() => $placeholders
+                $this->getNameSpace() => $placeholders
             ];
         }
 
