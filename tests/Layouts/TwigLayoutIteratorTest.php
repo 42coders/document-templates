@@ -15,7 +15,7 @@ class TwigLayoutIteratorTest extends TestCase
     public function testRender()
     {
         $layout = new TwigLayout();
-        $layout->load(__DIR__ . '/../Stubs/TestIterableDataSource.html.twig');
+        $layout->load( 'TestIterableDataSource.html.twig');
         $templates = $layout->getTemplates();
 
         foreach ($templates as $template) {

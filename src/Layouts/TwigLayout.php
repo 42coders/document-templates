@@ -22,7 +22,7 @@ class TwigLayout extends Layout implements LayoutInterface
 
     public function load($template)
     {
-        $templatePath = dirname($template);
+        $templatePath = config('bwf.layout_path');
         $templateName = basename($template);
         $this->setName($templateName);
 

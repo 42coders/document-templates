@@ -41,8 +41,6 @@ class DocumentTemplateTest extends TestCase
     {
         parent::setUp();
 
-        config(['bwf.layout_path' => __DIR__ . '/../Stubs/']);
-
         $this->documentTemplate = new DemoDocumentTemplate();
         $this->documentTemplate->init();
     }

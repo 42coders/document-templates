@@ -25,13 +25,11 @@ trait DocumentTemplate
         $this->renderer = new TwigRenderer();
         $this->layout = new TwigLayout();
 
-        $layoutPath = config('bwf.layout_path');
-
         if ($this->model) {
             $layoutName = $this->model->getLayoutName();
 
             if ($layoutName) {
-                $this->layout->load($layoutPath . $layoutName);
+                $this->layout->load($layoutName);
             }
         }
     }
