@@ -2,6 +2,7 @@
 
 namespace BWF\DocumentTemplates\Layouts;
 
+use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
 use BWF\DocumentTemplates\EditableTemplates\HtmlTemplate;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
@@ -39,7 +40,7 @@ class TwigLayout extends Layout implements LayoutInterface
         $templates = [];
 
         foreach ($blocks as $block) {
-            $template = new HtmlTemplate();
+            $template = new EditableTemplate();
             $template->setName($block);
 
             $templates[] = $template;

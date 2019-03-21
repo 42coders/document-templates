@@ -16,7 +16,7 @@ class CreateDocumentTemplatesTable extends Migration
         Schema::create('document_templates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('document');
+            $table->string('document_class');
             $table->string('layout');
             $table->timestamps();
         });

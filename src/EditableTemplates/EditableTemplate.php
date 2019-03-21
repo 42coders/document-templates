@@ -4,7 +4,7 @@ namespace BWF\DocumentTemplates\EditableTemplates;
 
 use Illuminate\Database\Eloquent\Model;
 
-abstract class EditableTemplate extends Model implements EditableTemplateInterface
+class EditableTemplate extends Model implements EditableTemplateInterface
 {
     protected $table = 'editable_templates';
 

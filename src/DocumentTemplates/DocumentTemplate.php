@@ -6,20 +6,22 @@ namespace BWF\DocumentTemplates\DocumentTemplates;
 use BWF\DocumentTemplates\Layouts\TwigLayout;
 use BWF\DocumentTemplates\Renderers\TwigRenderer;
 
-abstract class DocumentTemplate extends BaseDocumentTemplate implements DocumentTemplateInterface
+trait DocumentTemplate
 {
+    use BaseDocumentTemplate;
+
     /**
      * @var \BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel
      */
     protected $model = null;
 
     /**
-     * DocumentTemplate constructor.
-     * @param \BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface $model
+     * DocumentTemplate initialisation.
      */
-    public function __construct(DocumentTemplateModelInterface $model)
+    public function init()
     {
-        $this->model = $model;
+        $this->model = DocumentTemplateModel::byDocumentClass(get_class($this))->first();
+
         $this->renderer = new TwigRenderer();
         $this->layout = new TwigLayout();
 
@@ -37,7 +39,7 @@ abstract class DocumentTemplate extends BaseDocumentTemplate implements Document
      */
     public function getTemplates()
     {
-        $layoutTemplates = parent::getTemplates();
+        $layoutTemplates = $this->layout->getTemplates();
 
         $templates = $this->model->getEditableTemplates();
         /** @var EditableTemplate $layoutTemplate */

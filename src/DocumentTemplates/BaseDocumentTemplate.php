@@ -8,7 +8,7 @@ use BWF\DocumentTemplates\Layouts\LayoutInterface;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
 
-abstract class BaseDocumentTemplate implements DocumentTemplateInterface
+trait BaseDocumentTemplate
 {
     /**
      * @var \BWF\DocumentTemplates\Layouts\Layout
@@ -68,19 +68,11 @@ abstract class BaseDocumentTemplate implements DocumentTemplateInterface
         return $placeholders;
     }
 
-    /**
-     * @return EditableTemplate[]|\BWF\DocumentTemplates\EditableTemplates\EditableTemplateInterface[]
-     */
-    public function getTemplates()
-    {
-        return $this->layout->getTemplates();
-    }
-
     public function toArray()
     {
         return $documentTemplate = [
             'name' => '',
-            'document' => get_class($this),
+            'document_class' => get_class($this),
             'layout' => $this->layout->getName()
         ];
     }

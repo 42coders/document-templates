@@ -43,12 +43,14 @@ class DocumentTemplateTest extends TestCase
         $this->documentTemplateModel = new DemoDocumentTemplateModel();
         $this->documentTemplateModel->fill([
             'name' => '',
-            'document' => DemoDocumentTemplate::class,
+            'document_class' => DemoDocumentTemplate::class,
             'layout' => 'TestIterableDataSource.html.twig'
         ]);
 
         $this->documentTemplateModel->save();
-        $this->documentTemplate = new DemoDocumentTemplate($this->documentTemplateModel);
+
+        $this->documentTemplate = new DemoDocumentTemplate();
+        $this->documentTemplate->init();
     }
 
     public function testGetTemplatePlaceholders()
@@ -63,7 +65,7 @@ class DocumentTemplateTest extends TestCase
 
         $expectedData = [
             'name' => '',
-            'document' => DemoDocumentTemplate::class,
+            'document_class' => DemoDocumentTemplate::class,
             'layout' => 'TestIterableDataSource.html.twig'
         ];
 

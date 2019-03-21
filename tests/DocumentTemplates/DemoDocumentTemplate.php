@@ -5,10 +5,12 @@ namespace BWF\DocumentTemplates\Tests\DocumentTemplates;
 
 
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplate;
+use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateInterface;
 use BWF\DocumentTemplates\Tests\Stubs\IterableTemplateData;
 
-class DemoDocumentTemplate extends DocumentTemplate
+class DemoDocumentTemplate implements DocumentTemplateInterface
 {
+    use DocumentTemplate;
     use IterableTemplateData;
 
     protected function dataSources()
