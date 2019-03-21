@@ -10,10 +10,12 @@ use BWF\DocumentTemplates\Layouts\TwigLayout;
 use BWF\DocumentTemplates\Renderers\TwigRenderer;
 use BWF\DocumentTemplates\Tests\Stubs\IterableTemplateData;
 use BWF\DocumentTemplates\Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DocumentTemplateTest extends TestCase
 {
     use IterableTemplateData;
+    use RefreshDatabase;
 
     /**
      * @var DocumentTemplate $documentTemplate
@@ -76,15 +78,13 @@ class DocumentTemplateTest extends TestCase
 
         $this->assertCount(2, $templates);
         $this->assertTrue($templates->contains(
-            function ($value) {
-                /** @var EditableTemplate $value */
+            function (EditableTemplate $value) {
                 return $value->getName() == 'user_table_rows';
             })
         );
 
         $this->assertTrue($templates->contains(
-            function ($value) {
-                /** @var EditableTemplate $value */
+            function (EditableTemplate $value) {
                 return $value->getName() == 'order_table_rows';
             })
         );
