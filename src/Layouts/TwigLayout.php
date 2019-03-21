@@ -20,16 +20,52 @@ class TwigLayout extends Layout implements LayoutInterface
      */
     protected $layout;
 
+    /**
+     * @var string Base path for template loading
+     */
+    protected $basePath;
+
+    /**
+     * TwigLayout constructor.
+     */
+    public function __construct()
+    {
+        $this->basePath = config('bwf.layout_path');
+    }
+
+    /**
+     * @param string $template
+     * @return mixed|void
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function load($template)
     {
-        $templatePath = config('bwf.layout_path');
         $templateName = basename($template);
         $this->setName($templateName);
 
-        $loader = new FilesystemLoader($templatePath);
+        $loader = new FilesystemLoader($this->basePath);
         $this->twig = new Environment($loader);
 
         $this->layout = $this->twig->load($templateName);
+    }
+
+    /**
+     * return string[]
+     */
+    public function getAvailableLayouts()
+    {
+        $files = [];
+        $iterator = new \DirectoryIterator($this->basePath);
+        /** @var \SplFileInfo $fileinfo */
+        foreach ($iterator as $fileinfo) {
+            if (!$fileinfo->isDot() && $fileinfo->getExtension() === 'twig') {
+                $files[] = $fileinfo->getBasename();
+            }
+        }
+
+        return $files;
     }
 
     public function getTemplates()

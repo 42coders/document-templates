@@ -26,6 +26,11 @@ interface LayoutInterface
     public function load($template);
 
     /**
+     * @return string[]
+     */
+    public function getAvailableLayouts();
+
+    /**
      * @param EditableTemplate[] $templates
      * @param TemplateDataSourceInterface[] $dataSources
      * @return string

@@ -34,6 +34,19 @@ class TwigLayoutSimpleTest extends TestCase
         }
     }
 
+    public function testGetAvailableLayout()
+    {
+        $expectedResults = [
+            0 => "TestLayout.html.twig",
+            1 => "TestIterableDataSource.html.twig"
+        ];
+
+        $layout = new TwigLayout();
+        $availableLayouts = $layout->getAvailableLayouts();
+
+        $this->assertEquals($expectedResults, $availableLayouts);
+    }
+
     public function testRender()
     {
         $layout = new TwigLayout();
