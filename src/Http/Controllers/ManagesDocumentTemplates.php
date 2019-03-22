@@ -11,6 +11,9 @@ use BWF\DocumentTemplates\Layouts\TwigLayout;
 
 trait ManagesDocumentTemplates
 {
+    /**
+     * @return array|string[]
+     */
     protected function  getAvailableLayouts()
     {
         $layout = new TwigLayout();
