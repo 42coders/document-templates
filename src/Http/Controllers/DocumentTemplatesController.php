@@ -155,11 +155,32 @@ class DocumentTemplatesController extends Controller
         $documentTemplateModel = DocumentTemplateModel::findOrFail($id);
         $documentTemplate = DocumentTemplateFactory::build($documentTemplateModel);
 
+        $testObject = new \stdClass();
+        $testObject->title = 'This is the object\'s title';
+        $testObject->name = 'This is the object\'s name';
+
         $documentTemplate->addTemplateData($this->getTestUsers(), 'users');
         $documentTemplate->addTemplateData($this->getTestOrders(), 'orders');
+        $documentTemplate->addTemplateData($testObject, 'test');
 
         echo $documentTemplate->render();
         exit;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $documentTemplates = DocumentTemplateModel::all();
+
+        $params = compact(
+            'documentTemplates'
+        );
+
+        return view('document-templates::document-templates.index', $params);
     }
 
 }
