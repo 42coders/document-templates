@@ -30,7 +30,7 @@ class TwigLayout extends Layout implements LayoutInterface
      */
     public function __construct()
     {
-        $this->basePath = config('bwf.layout_path');
+        $this->basePath = config('document_templates.layout_path');
     }
 
     /**

@@ -11,7 +11,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     {
         parent::setUp();
 
-        config(['bwf.layout_path' => __DIR__ . '/Stubs/']);
+        config(['document_templates.layout_path' => __DIR__ . '/Stubs/']);
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 

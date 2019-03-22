@@ -28,7 +28,7 @@ class DocumentTemplatesServiceProvider extends ServiceProvider
             ], 'document-templates-components');
 
             $this->publishes([
-                __DIR__ . '/../config/bwf.php' => config_path('bwf.php'),
+                __DIR__ . '/../config/document_templates.php' => config_path('document_templates.php'),
             ]);
         }
     }
