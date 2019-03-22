@@ -17,7 +17,7 @@ class CreateEditableTemplatesTable extends Migration
             $table->increments('id');
             $table->integer('document_template_id');
             $table->string('name');
-            $table->string('content');
+            $table->string('content')->nullable();
             $table->timestamps();
         });
     }

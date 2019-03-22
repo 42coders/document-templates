@@ -4,10 +4,12 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-9">
-                <form>
+                <form method="POST" action="{{route('document-templates.store')}}">
+                    {{csrf_token()}}
+                    {{ method_field('POST') }}
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Name</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="name" placeholder="Document name">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="name" placeholder="Document name" value="Document name">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Layout</label>
@@ -19,16 +21,13 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Class</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="class">
+                        <select class="form-control" id="exampleFormControlSelect1" name="document_class">
                             @foreach($classes as $index => $class)
                                 <option value="{{$index}}">{{$class}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Example textarea</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Save</button>
                 </form>
             </div>
         </div>

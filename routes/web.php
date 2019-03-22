@@ -12,15 +12,13 @@
 */
 
 Route::resource('document-templates', 'BWF\DocumentTemplates\Http\Controllers\DocumentTemplatesController', [
-    'except' => [
-        'show'
-    ],
     'names' => [
-        'index' => 'admin.users.index',
-        'create' => 'admin.users.create',
-        'store' => 'admin.users.store',
-        'edit' => 'admin.users.edit',
-        'update' => 'admin.users.update',
-        'destroy' => 'admin.users.destroy'
+        'index' => 'document-templates.index',
+        'create' => 'document-templates.create',
+        'store' => 'document-templates.store',
+        'edit' => 'document-templates.edit',
+        'update' => 'document-templates.update',
+        'destroy' => 'document-templates.destroy',
+        'show' => 'document-templates.show',
     ]
 ]);
