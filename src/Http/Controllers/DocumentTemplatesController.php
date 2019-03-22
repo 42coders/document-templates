@@ -163,8 +163,11 @@ class DocumentTemplatesController extends Controller
         $documentTemplate->addTemplateData($this->getTestOrders(), 'orders');
         $documentTemplate->addTemplateData($testObject, 'test');
 
-        echo $documentTemplate->render();
-        exit;
+        $params = compact(
+            'documentTemplate'
+        );
+
+        return view('document-templates::document-templates.show', $params);;
     }
 
     /**
