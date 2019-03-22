@@ -12,6 +12,11 @@ interface DocumentTemplateModelInterface
     public function getLayoutName();
 
     /**
+     * @return string
+     */
+    public function getDocumentClass();
+
+    /**
      * @param string[] $names
      * @return mixed
      */

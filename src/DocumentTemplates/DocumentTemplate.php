@@ -17,10 +17,16 @@ trait DocumentTemplate
 
     /**
      * DocumentTemplate initialisation.
+     * @param \BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface $model
      */
-    public function init()
+    public function init(DocumentTemplateModelInterface $model = null)
     {
-        $this->model = DocumentTemplateModel::byDocumentClass(get_class($this))->first();
+        if($model){
+            $this->model = $model;
+        }
+        else{
+            $this->model = DocumentTemplateModel::byDocumentClass(get_class($this))->first();
+        }
 
         $this->renderer = new TwigRenderer();
         $this->layout = new TwigLayout();
