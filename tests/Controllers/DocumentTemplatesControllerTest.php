@@ -47,8 +47,8 @@ class DocumentTemplatesControllerTest extends TestCase
 
     public function testTemplatesWithOutModel()
     {
-        $this->request->layout = 'TestIterableDataSource.html.twig';
-        $this->request->document_class = DemoDocumentTemplate::class;
+        $this->request->layout = 0;
+        $this->request->document_class = 0;
 
         $templates = $this->controller->templates($this->request);
 
@@ -67,8 +67,8 @@ class DocumentTemplatesControllerTest extends TestCase
 
     public function testPlaceholdersWithOutModel()
     {
-        $this->request->layout = 'TestIterableDataSource.html.twig';
-        $this->request->document_class = DemoDocumentTemplate::class;
+        $this->request->layout = 1;
+        $this->request->document_class = 0;
 
         $placeholders = $this->controller->placeholders($this->request);
 
