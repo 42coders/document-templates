@@ -62,35 +62,4 @@ class DocumentTemplateCrudTest extends TestCase
             })
         );
     }
-
-    public function testGetClasses()
-    {
-        $classes = collect([
-            'class1',
-            'class2',
-            DemoDocumentTemplate::class
-        ]);
-
-        $expectedClasses = collect([
-                'class1',
-                'class2',
-            ]
-        );
-
-        $documentTemplateModel = new DemoDocumentTemplateModel();
-
-        $documentTemplateData = [
-            'name' => '',
-            'document_class' => DemoDocumentTemplate::class,
-            'layout' => 'TestIterableDataSource.html.twig'
-        ];
-
-        $documentTemplateModel->fill($documentTemplateData);
-        $documentTemplateModel->save();
-
-        $savedClasses = DocumentTemplateModel::all()->pluck('document_class');
-        $availableClasses = $classes->diff($savedClasses);
-
-        $this->assertEquals($expectedClasses, $availableClasses);
-    }
 }
