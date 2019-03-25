@@ -7,7 +7,6 @@ use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateFactory;
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel;
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface;
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
-use BWF\DocumentTemplates\Tests\DocumentTemplates\DemoDocumentTemplate;
 use BWF\DocumentTemplates\Tests\Stubs\IterableTemplateData;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -15,8 +14,6 @@ use Illuminate\Routing\Controller;
 class DocumentTemplatesController extends Controller
 {
     use ManagesDocumentTemplates;
-
-    use IterableTemplateData;
 
     protected $documentClasses = [];
 
