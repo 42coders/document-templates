@@ -17,8 +17,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "BWF\\DocumentTemplates\\": "src",
-            "BWF\\DocumentTemplates\\Tests\\": "tests"
+            "BWF\\DocumentTemplates\\": "src"
         }
     },
     "autoload-dev": {
