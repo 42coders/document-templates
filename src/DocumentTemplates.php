@@ -6,7 +6,7 @@ namespace BWF\DocumentTemplates;
 
 use Illuminate\Support\Facades\Route;
 
-class DocumentTemplate
+class DocumentTemplates
 {
     public static function routes($controller, $uri = 'document-templates')
     {
