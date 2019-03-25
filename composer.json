@@ -1,5 +1,5 @@
 {
-    "name": "bwf/document-templates",
+    "name": "42coders/document-templates",
     "description": "Document template management package.",
     "require": {
         "laravel/framework": "^5.7",
@@ -28,5 +28,13 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html tests/coverage"
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": [],
+            "providers": [
+                "BWF\\DocumentTemplates\\DocumentTemplatesServiceProvider"
+            ]
+        }
     }
 }
