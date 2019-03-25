@@ -10,6 +10,12 @@ use Illuminate\Support\Collection;
 interface DocumentTemplateInterface
 {
     /**
+     * @param DocumentTemplateModelInterface|null $model
+     * @return mixed
+     */
+    public function init(DocumentTemplateModelInterface $model = null);
+
+    /**
      * @param LayoutInterface $layout
      * @return void
      */
