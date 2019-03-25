@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-9">
                 <form method="POST" action="{{route('document-templates.update', $documentTemplate->id)}}">
-                    {{csrf_token()}}
+                    @csrf
                     {{ method_field('PUT') }}
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Name</label>
