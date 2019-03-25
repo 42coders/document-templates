@@ -30,7 +30,7 @@ trait ModelProvidesTemplateData
         $templateFields = $this->getTemplateFields();
 
         foreach ($templateFields as $field) {
-            $data[$field] = $this->attributes[$field];
+            $data[$field] = $this->{$field};
         }
 
         return $data;
