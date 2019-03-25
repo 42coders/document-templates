@@ -4,6 +4,7 @@ namespace BWF\DocumentTemplates\Tests\TemplateDataSources;
 
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
+use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface;
 use BWF\DocumentTemplates\Tests\TestCase;
 
 class TemplateDataSourceFactoryTest extends TestCase
@@ -27,5 +28,14 @@ class TemplateDataSourceFactoryTest extends TestCase
 
         $templateDataSource = TemplateDataSourceFactory::build($collection, 'test-name');
         $this->assertInstanceOf(TemplateDataSource::class, $templateDataSource);
+    }
+
+    public function testBuildFromModel()
+    {
+        $model = new DemoDataSourceModel();
+
+        $templateDataSource = TemplateDataSourceFactory::build($model, 'test-name');
+        $this->assertEquals($templateDataSource->getNameSpace(), 'test-name');
+        $this->assertInstanceOf(TemplateDataSourceInterface::class, $templateDataSource);
     }
 }

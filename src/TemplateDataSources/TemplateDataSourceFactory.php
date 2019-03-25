@@ -23,6 +23,9 @@ class TemplateDataSourceFactory
             if(!$reflexionData->implementsInterface(TemplateDataSourceInterface::class)){
                 $buildRequired = true;
             }
+            else{
+                $data->setNamespace($name);
+            }
         }
 
         if($buildRequired){

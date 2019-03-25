@@ -17,4 +17,14 @@ interface TemplateDataSourceInterface
      * @return string[]
      */
     public function getPlaceholders();
+
+    /**
+     * @param $namespace
+     */
+    public function setNamespace($namespace);
+
+    /**
+     * @return string
+     */
+    public function getNamespace();
 }
