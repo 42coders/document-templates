@@ -18,9 +18,7 @@ class DocumentTemplatesController extends Controller
 
     use IterableTemplateData;
 
-    protected $documentClasses = [
-        DemoDocumentTemplate::class
-    ];
+    protected $documentClasses = [];
 
     protected function createDocumentTemplateModelFromRequest(Request $request)
     {
@@ -150,24 +148,16 @@ class DocumentTemplatesController extends Controller
         return redirect(route('document-templates.edit', [$documentTemplate]));
     }
 
-    public function show(Request $request, $id)
-    {
+    public function show(Request $request, $id){
+
         $documentTemplateModel = DocumentTemplateModel::findOrFail($id);
         $documentTemplate = DocumentTemplateFactory::build($documentTemplateModel);
-
-        $testObject = new \stdClass();
-        $testObject->title = 'This is the object\'s title';
-        $testObject->name = 'This is the object\'s name';
-
-        $documentTemplate->addTemplateData($this->getTestUsers(), 'users');
-        $documentTemplate->addTemplateData($this->getTestOrders(), 'orders');
-        $documentTemplate->addTemplateData($testObject, 'test');
 
         $params = compact(
             'documentTemplate'
         );
 
-        return view('document-templates::document-templates.show', $params);;
+        return view('document-templates::document-templates.show', $params);
     }
 
     /**
