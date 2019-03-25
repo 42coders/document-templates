@@ -7,6 +7,7 @@ use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
 use BWF\DocumentTemplates\Layouts\LayoutInterface;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
+use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface;
 
 trait BaseDocumentTemplate
 {
@@ -30,7 +31,7 @@ trait BaseDocumentTemplate
     protected abstract function dataSources();
 
     /**
-     * @param array|\stdClass $data
+     * @param array|\stdClass|TemplateDataSourceInterface $data
      * @param string $name
      * @param bool $isIterable
      * @param string $iterableName Use as an iterable variable in the template
