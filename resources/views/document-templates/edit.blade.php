@@ -39,7 +39,11 @@
                 <ul>
                     @foreach($placeholders as $key => $placeholder)
                         @if(is_array($placeholder))
-                            <li>{{$key}}
+                            @php
+                                $childPlaceholder = $placeholder[0];
+                                $childPlaceholderParts = explode('.', $childPlaceholder);
+                            @endphp
+                            <li> {%  for {{$childPlaceholderParts[0]}} in {{$key}} %}
                                 <ul>
                             @foreach($placeholder as $childPlaceholder)
                                 <li>
@@ -47,6 +51,7 @@
                                 </li>
                             @endforeach
                                 </ul>
+                                {% endfor %}
                             </li>
                         @else
                             <li>
