@@ -12,7 +12,7 @@ class DocumentTemplatesServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'document-templates');
         $this->loadMigrationsFrom(__DIR__ . '/../database/');
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
