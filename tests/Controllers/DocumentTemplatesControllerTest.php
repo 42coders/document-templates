@@ -28,7 +28,7 @@ class DocumentTemplatesControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->controller = new DocumentTemplatesController();
+        $this->controller = new DemoDocumentTemplatesController();
         $this->request = new Request();
     }
 
@@ -45,15 +45,15 @@ class DocumentTemplatesControllerTest extends TestCase
         $this->assertCount(2, $templates);
     }
 
-//    public function testTemplatesWithOutModel()
-//    {
-//        $this->request->layout = 0;
-//        $this->request->document_class = 0;
-//
-//        $templates = $this->controller->templates($this->request);
-//
-//        $this->assertCount(2, $templates);
-//    }
+    public function testTemplatesWithOutModel()
+    {
+        $this->request->layout = 0;
+        $this->request->document_class = 0;
+
+        $templates = $this->controller->templates($this->request);
+
+        $this->assertCount(2, $templates);
+    }
 
     public function testPlaceholdersWithModel()
     {
@@ -65,15 +65,15 @@ class DocumentTemplatesControllerTest extends TestCase
         $this->assertCount(4, $placeholders);
     }
 
-//    public function testPlaceholdersWithOutModel()
-//    {
-//        $this->request->layout = 1;
-//        $this->request->document_class = 0;
-//
-//        $placeholders = $this->controller->placeholders($this->request);
-//
-//        $this->assertCount(4, $placeholders);
-//    }
+    public function testPlaceholdersWithOutModel()
+    {
+        $this->request->layout = 1;
+        $this->request->document_class = 0;
+
+        $placeholders = $this->controller->placeholders($this->request);
+
+        $this->assertCount(4, $placeholders);
+    }
 
     public function testGetAvailableClasses()
     {
