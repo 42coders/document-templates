@@ -7,7 +7,7 @@
                         <label for="exampleFormControlInput1">Name</label>
                         <input type="text" class="form-control" id="exampleFormControlInput1" name="name"
                                v-model="documentTemplate.name"
-                               placeholder="Document name" value="Document name">
+                               placeholder="Document name">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Layout</label>
