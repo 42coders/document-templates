@@ -23,14 +23,15 @@ class DocumentTemplatesController extends Controller
         $layout = $request->layout;
         $documentClass = $request->document_class;
 
+
         $availableClasses = $this->getAvailableClasses();
         $availableLayouts = $this->getAvailableLayouts();
 
         $documentTemplateModel = new DocumentTemplateModel();
         $documentTemplateModel->fill([
             'name' => $name,
-            'document_class' => $availableClasses[$documentClass],
-            'layout' => $availableLayouts[$layout]
+            'document_class' => collect($this->documentClasses)->contains($documentClass) ? $documentClass : null,
+            'layout' => $availableLayouts->contains($layout) ? $layout : null
         ]);
 
         return $documentTemplateModel;
@@ -108,6 +109,8 @@ class DocumentTemplatesController extends Controller
             'placeholders' => $placeholders,
             'templates' => $templates
         ];
+
+        $params['data'] = $params;
 
         return view('document-templates::document-templates.edit', $params);
     }

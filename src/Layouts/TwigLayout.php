@@ -65,7 +65,7 @@ class TwigLayout extends Layout implements LayoutInterface
             }
         }
 
-        return $files;
+        return collect($files);
     }
 
     public function getTemplates()

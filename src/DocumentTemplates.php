@@ -21,5 +21,8 @@ class DocumentTemplates
                 'show' => $uri . '.show',
             ]
         ]);
+
+        Route::post($uri . '/templates', $controller . '@templates');
+        Route::post($uri . '/placeholders', $controller . '@placeholders');
     }
 }

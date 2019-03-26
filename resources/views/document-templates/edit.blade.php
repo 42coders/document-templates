@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <document-template-form :initial-data="{{ collect($data) }}"></document-template-form>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-9">
@@ -47,7 +48,7 @@
                                 <ul>
                             @foreach($placeholder as $childPlaceholder)
                                 <li>
-                                    &#123;&#123;{{$childPlaceholder}}&#125;&#125;
+                                    {{$childPlaceholder}}
                                 </li>
                             @endforeach
                                 </ul>
@@ -55,7 +56,7 @@
                             </li>
                         @else
                             <li>
-                                &#123;&#123;{{$placeholder}}&#125;&#125;
+                                {{$placeholder}}
                             </li>
                         @endif
                     @endforeach

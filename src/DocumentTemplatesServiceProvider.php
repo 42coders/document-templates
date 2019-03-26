@@ -24,7 +24,7 @@ class DocumentTemplatesServiceProvider extends ServiceProvider
             ], 'document-templates-views');
 
             $this->publishes([
-                __DIR__ . '/../resources/js/components' => base_path('resources/js/components/document-templates'),
+                __DIR__ . '/../resources/js/components' => base_path('resources/js/vendor/document-templates/components'),
             ], 'document-templates-components');
 
             $this->publishes([
