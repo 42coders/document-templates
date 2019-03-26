@@ -12,10 +12,10 @@ class DocumentTemplateCrudTest extends TestCase
 {
     public function testCreate()
     {
-        $expectedLayouts = [
+        $expectedLayouts = collect([
             0 => "TestLayout.html.twig",
             1 => "TestIterableDataSource.html.twig"
-        ];
+        ]);
 
         $layout = new TwigLayout();
         $availableLayouts = $layout->getAvailableLayouts();

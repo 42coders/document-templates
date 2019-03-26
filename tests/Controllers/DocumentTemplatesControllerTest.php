@@ -47,8 +47,8 @@ class DocumentTemplatesControllerTest extends TestCase
 
     public function testTemplatesWithOutModel()
     {
-        $this->request->layout = 0;
-        $this->request->document_class = 0;
+        $this->request->layout = 'TestLayout.html.twig';
+        $this->request->document_class = DemoDocumentTemplate::class;
 
         $templates = $this->controller->templates($this->request);
 
@@ -67,8 +67,8 @@ class DocumentTemplatesControllerTest extends TestCase
 
     public function testPlaceholdersWithOutModel()
     {
-        $this->request->layout = 1;
-        $this->request->document_class = 0;
+        $this->request->layout = 'TestIterableDataSource.html.twig';
+        $this->request->document_class = DemoDocumentTemplate::class;
 
         $placeholders = $this->controller->placeholders($this->request);
 
@@ -118,10 +118,10 @@ class DocumentTemplatesControllerTest extends TestCase
         $getAvailableLayoutsMethod = $class->getMethod('getAvailableLayouts');
         $getAvailableLayoutsMethod->setAccessible(true);
 
-        $expectedLayouts = [
+        $expectedLayouts = collect([
             0 => "TestLayout.html.twig",
             1 => "TestIterableDataSource.html.twig"
-        ];
+        ]);
 
         $availableLayouts = $getAvailableLayoutsMethod->invoke($this->controller);
 

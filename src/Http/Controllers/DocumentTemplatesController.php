@@ -17,7 +17,7 @@ class DocumentTemplatesController extends Controller
 
     protected $documentClasses = [];
 
-    protected function createDocumentTemplateModelFromRequest(Request $request)
+    protected function createDocumentTemplateModelFromRequest(Request $request, $documentTemplate = null)
     {
         $name = $request->name;
         $layout = $request->layout;
@@ -27,43 +27,36 @@ class DocumentTemplatesController extends Controller
         $availableClasses = $this->getAvailableClasses();
         $availableLayouts = $this->getAvailableLayouts();
 
-        $documentTemplateModel = new DocumentTemplateModel();
-        $documentTemplateModel->fill([
-            'name' => $name,
-            'document_class' => collect($this->documentClasses)->contains($documentClass) ? $documentClass : null,
-            'layout' => $availableLayouts->contains($layout) ? $layout : null
-        ]);
+        if($documentTemplate === null){
+            $documentTemplate = new DocumentTemplateModel();
+        }
 
-        return $documentTemplateModel;
+        if($name){
+            $documentTemplate->setAttribute('name', $name);
+        }
+
+        if($layout && $availableLayouts->contains($layout)){
+            $documentTemplate->setAttribute('layout', $layout);
+        }
+
+        if($documentClass && collect($this->documentClasses)->contains($documentClass)){
+            $documentTemplate->setAttribute('document_class', $documentClass);
+        }
+
+
+        return $documentTemplate;
     }
 
-    public function templates(Request $request, $id = null)
+    public function templates(Request $request, DocumentTemplateModelInterface $documentTemplate = null)
     {
-        $documentTemplate = null;
-
-        if($id){
-            $documentTemplate = DocumentTemplateModel::findOrFail($id);
-        }
-
-        if ($documentTemplate === null) {
-            $documentTemplate = $this->createDocumentTemplateModelFromRequest($request);
-        }
-        else{
-            $layout = $request->layout;
-            $availableLayouts = $this->getAvailableLayouts();
-            $documentTemplate->fill([
-                'layout' => $availableLayouts->contains($layout) ? $layout : null
-            ]);
-        }
+        $documentTemplate = $this->createDocumentTemplateModelFromRequest($request, $documentTemplate);
 
         return $this->getTemplates($documentTemplate);
     }
 
     public function placeholders(Request $request, DocumentTemplateModelInterface $documentTemplate = null)
     {
-        if ($documentTemplate === null) {
-            $documentTemplate = $this->createDocumentTemplateModelFromRequest($request);
-        }
+        $documentTemplate = $this->createDocumentTemplateModelFromRequest($request, $documentTemplate);
 
         return $this->getPlaceholders($documentTemplate);
     }

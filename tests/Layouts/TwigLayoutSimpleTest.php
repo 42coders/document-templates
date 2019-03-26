@@ -36,10 +36,10 @@ class TwigLayoutSimpleTest extends TestCase
 
     public function testGetAvailableLayout()
     {
-        $expectedResults = [
+        $expectedResults = collect([
             0 => "TestLayout.html.twig",
             1 => "TestIterableDataSource.html.twig"
-        ];
+        ]);
 
         $layout = new TwigLayout();
         $availableLayouts = $layout->getAvailableLayouts();

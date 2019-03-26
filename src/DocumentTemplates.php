@@ -4,6 +4,7 @@
 namespace BWF\DocumentTemplates;
 
 
+use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel;
 use Illuminate\Support\Facades\Route;
 
 class DocumentTemplates
@@ -22,7 +23,9 @@ class DocumentTemplates
             ]
         ]);
 
-        Route::post($uri . '/templates/{id?}', $controller . '@templates');
+        Route::post($uri . '/templates/{documentTemplate?}', $controller . '@templates');
         Route::post($uri . '/placeholders', $controller . '@placeholders');
+
+        Route::model('documentTemplate', DocumentTemplateModel::class);
     }
 }
