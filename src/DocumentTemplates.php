@@ -24,7 +24,7 @@ class DocumentTemplates
         ]);
 
         Route::post($uri . '/templates/{documentTemplate?}', $controller . '@templates');
-        Route::post($uri . '/placeholders', $controller . '@placeholders');
+        Route::post($uri . '/placeholders/{documentTemplate?}', $controller . '@placeholders');
 
         Route::model('documentTemplate', DocumentTemplateModel::class);
     }

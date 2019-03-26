@@ -70,13 +70,11 @@ class DocumentTemplatesController extends Controller
     public function create(Request $request)
     {
         $layouts = $this->getAvailableLayouts();
-        $classes = $this->getAvailableClasses();
+        $documentTemplate = new DocumentTemplateModel();
+        $documentTemplate->document_class = $this->documentClasses[0];
+        $documentTemplate->layout = $layouts[0];
 
-        return view('document-templates::document-templates.create', [
-                'layouts' => $layouts,
-                'classes' => $classes
-            ]
-        );
+        return $this->edit($documentTemplate);
     }
 
     /**
@@ -88,28 +86,26 @@ class DocumentTemplatesController extends Controller
     public function store(Request $request)
     {
         $documentTemplate = $this->createDocumentTemplateModelFromRequest($request);
+        $documentTemplate->save();
 
-        if ($documentTemplate->save()) {
-            return redirect(route('document-templates.edit', [$documentTemplate]));
-        }
-
+        return $this->update($request, $documentTemplate);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  DocumentTemplateModelInterface $documentTemplate
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(DocumentTemplateModel $documentTemplate)
     {
-        $documentTemplate = DocumentTemplateModel::findOrFail($id);
-
         $layouts = $this->getAvailableLayouts();
+        $documentClasses = collect($this->documentClasses);
         $placeholders = $this->getPlaceholders($documentTemplate);
         $templates = $this->getTemplates($documentTemplate);
 
         $params = [
+            'documentClasses' => $documentClasses,
             'documentTemplate' => $documentTemplate,
             'layouts' => $layouts,
             'placeholders' => $placeholders,
@@ -125,27 +121,17 @@ class DocumentTemplatesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  DocumentTemplateModelInterface $documentTemplate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, DocumentTemplateModel $documentTemplate)
     {
-        $documentTemplate = DocumentTemplateModel::findOrFail($id);
-
-        $name = $request->name;
-        $layout = $request->layout;
-
-        $availableLayouts = $this->getAvailableLayouts();
-
-        $documentTemplate->fill([
-            'name' => $name,
-            'layout' => $availableLayouts->contains($layout) ? $layout : null
-        ]);
+        $documentTemplate = $this->createDocumentTemplateModelFromRequest($request, $documentTemplate);
 
         $status = $documentTemplate->save();
 
         foreach($request->templates as $template){
-            $editableTemplate = EditableTemplate::firstOrNew(['id' => $template['id']]);
+            $editableTemplate = EditableTemplate::firstOrNew(['id' => ($template['id'] ?? null) ]);
             $editableTemplate->document_template_id = $documentTemplate->id;
             $editableTemplate->fill($template);
             $editableTemplate->save();
@@ -153,6 +139,7 @@ class DocumentTemplatesController extends Controller
 
         $result = [
             'status' => $status,
+            'documentTemplate' => $documentTemplate
         ];
 
         return $result;
