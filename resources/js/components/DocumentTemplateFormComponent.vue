@@ -2,10 +2,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-9">
-                <form method="POST" action="">
+                <form method="POST" action="" @submit.prevent="save">
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Name</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="name"
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="name" v-model="name"
                                placeholder="Document name" value="Document name">
                     </div>
                     <div class="form-group">
@@ -17,12 +17,12 @@
                     </div>
                     <div v-for="(template, index) in templates" class="form-group">
                         <label for="exampleFormControlTextarea1">Template "<b>{{template.name}}</b>"</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="" rows="3">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="" rows="3" v-model="template.content">
                             {{template.content}}
                         </textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary mb-2">Save</button>
+                    <button type="submit" class="btn btn-primary mb-2" >Save</button>
                     <a class="btn btn-secondary mb-2" target="_blank" href="">Render</a>
                 </form>
             </div>
@@ -38,10 +38,13 @@
         props: ['initialData'],
         data() {
             return {
+
                 placeholders: this.initialData.placeholders,
                 templates: this.initialData.templates,
                 layouts: this.initialData.layouts,
                 layout: this.initialData.documentTemplate.layout || null,
+                name: this.initialData.documentTemplate.name,
+                id: this.initialData.documentTemplate.id,
                 documentClass: this.initialData.documentTemplate.document_class || null,
             };
         },
@@ -54,11 +57,13 @@
                 this.getTemplates();
             },
             getTemplates() {
-                axios.post('/document-templates/templates', {
+                console.log(this.templates);
+                axios.post('/document-templates/templates/' + this.id, {
                     layout: this.layout,
                     document_class: this.documentClass,
                 })
                     .then(({data}) => {
+                        console.log(data);
                         this.templates = data;
                     });
             },
@@ -69,6 +74,17 @@
                 })
                 .then(({data}) => {
                     this.placeholders = data;
+                });
+            },
+            save(){
+                axios.put('/document-templates/' + this.id, {
+                    name: this.name,
+                    layout: this.layout,
+                    document_class: this.documentClass,
+                    templates: this.templates
+                })
+                .then(({data}) => {
+                    console.log(data);
                 });
             }
         }

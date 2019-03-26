@@ -37,10 +37,23 @@ class DocumentTemplatesController extends Controller
         return $documentTemplateModel;
     }
 
-    public function templates(Request $request, DocumentTemplateModelInterface $documentTemplate = null)
+    public function templates(Request $request, $id = null)
     {
+        $documentTemplate = null;
+
+        if($id){
+            $documentTemplate = DocumentTemplateModel::findOrFail($id);
+        }
+
         if ($documentTemplate === null) {
             $documentTemplate = $this->createDocumentTemplateModelFromRequest($request);
+        }
+        else{
+            $layout = $request->layout;
+            $availableLayouts = $this->getAvailableLayouts();
+            $documentTemplate->fill([
+                'layout' => $availableLayouts->contains($layout) ? $layout : null
+            ]);
         }
 
         return $this->getTemplates($documentTemplate);
@@ -133,10 +146,10 @@ class DocumentTemplatesController extends Controller
 
         $documentTemplate->fill([
             'name' => $name,
-            'layout' => $availableLayouts[$layout]
+            'layout' => $availableLayouts->contains($layout) ? $layout : null
         ]);
 
-        $documentTemplate->save();
+        $status = $documentTemplate->save();
 
         foreach($request->templates as $template){
             $editableTemplate = EditableTemplate::firstOrNew(['id' => $template['id']]);
@@ -145,7 +158,11 @@ class DocumentTemplatesController extends Controller
             $editableTemplate->save();
         }
 
-        return redirect(route('document-templates.edit', [$documentTemplate]));
+        $result = [
+            'status' => $status,
+        ];
+
+        return $result;
     }
 
     public function show(Request $request, $id){

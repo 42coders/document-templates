@@ -22,7 +22,7 @@ class DocumentTemplates
             ]
         ]);
 
-        Route::post($uri . '/templates', $controller . '@templates');
+        Route::post($uri . '/templates/{id?}', $controller . '@templates');
         Route::post($uri . '/placeholders', $controller . '@placeholders');
     }
 }
