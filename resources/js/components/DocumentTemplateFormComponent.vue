@@ -44,7 +44,7 @@
                 <ul>
                     <li v-for="(placeholder, index) in placeholders">
                         <div v-if="Array.isArray(placeholder)">
-                            {% for {{placeholder[0].split('.')[0]}} in {{placeholder[0]}} %}
+                            {% for {{placeholder[0].split('.')[0]}} in {{index}} %}
                             <ul>
                                 <li v-for="(childPlaceholder, index) in placeholder">
                                     <span v-pre>{{</span>{{childPlaceholder}}<span v-pre>}}</span>
