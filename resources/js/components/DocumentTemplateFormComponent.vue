@@ -36,7 +36,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary mb-2">Save</button>
-                    <a class="btn btn-secondary mb-2" target="_blank" href="">Render</a>
+                    <a class="btn btn-secondary mb-2" target="_blank" :href="'/document-templates' + this.id()">Render</a>
                 </form>
             </div>
             <div class="col-3">
@@ -115,7 +115,8 @@
                     templates: this.templates
                 })
                     .then(({data}) => {
-                        this.documentTemplate = data.documentTemplate
+                        this.documentTemplate = data.documentTemplate,
+                        this.templates = data.templates
                     });
             }
         }

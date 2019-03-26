@@ -130,16 +130,20 @@ class DocumentTemplatesController extends Controller
 
         $status = $documentTemplate->save();
 
+        $savedTemplates = [];
+
         foreach($request->templates as $template){
             $editableTemplate = EditableTemplate::firstOrNew(['id' => ($template['id'] ?? null) ]);
             $editableTemplate->document_template_id = $documentTemplate->id;
             $editableTemplate->fill($template);
             $editableTemplate->save();
+            $savedTemplates[] = $editableTemplate;
         }
 
         $result = [
             'status' => $status,
-            'documentTemplate' => $documentTemplate
+            'documentTemplate' => $documentTemplate,
+            'templates' => collect($savedTemplates),
         ];
 
         return $result;
