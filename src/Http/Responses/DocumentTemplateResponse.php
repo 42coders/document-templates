@@ -5,8 +5,7 @@ namespace BWF\DocumentTemplates\Http\Responses;
 
 
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel;
-use Illuminate\Http\JsonResponse;
-use mysql_xdevapi\Collection;
+use Illuminate\Support\Collection;
 
 class DocumentTemplateResponse
 {
