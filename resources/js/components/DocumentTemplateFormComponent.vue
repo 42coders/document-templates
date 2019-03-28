@@ -120,7 +120,7 @@
                     templates: this.templates
                 })
                     .then(({data}) => {
-                        if (data.hasOwnProperty('redirect')) {
+                        if (data.redirect) {
                             window.location.href = data.redirect;
                             return;
                         }

@@ -7,6 +7,7 @@ use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateFactory;
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel;
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface;
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
+use BWF\DocumentTemplates\Http\Responses\DocumentTemplateResponse;
 use BWF\DocumentTemplates\Tests\Stubs\IterableTemplateData;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -43,6 +44,37 @@ class DocumentTemplatesController extends Controller
 
 
         return $documentTemplate;
+    }
+
+    /**
+     * @param Request $request
+     * @param DocumentTemplateModel $documentTemplate
+     * @return DocumentTemplateResponse
+     */
+    protected function _save(Request $request, DocumentTemplateModel $documentTemplate)
+    {
+        $documentTemplate = $this->createDocumentTemplateModelFromRequest($request, $documentTemplate);
+        $status = $documentTemplate->save();
+
+        $savedTemplates = [];
+
+        foreach($request->templates as $template){
+            $editableTemplate = EditableTemplate::firstOrNew(['id' => ($template['id'] ?? null) ]);
+            $editableTemplate->document_template_id = $documentTemplate->id;
+            $editableTemplate->fill($template);
+            $editableTemplate->save();
+            $savedTemplates[] = $editableTemplate;
+        }
+
+        $result = new DocumentTemplateResponse(
+            $status,
+            $documentTemplate,
+            [],
+            [],
+            collect($savedTemplates)
+        );
+
+        return $result;
     }
 
     public function templates(Request $request, DocumentTemplateModelInterface $documentTemplate = null)
@@ -85,10 +117,10 @@ class DocumentTemplatesController extends Controller
     {
         $documentTemplate = $this->createDocumentTemplateModelFromRequest($request);
 
-        $result = $this->update($request, $documentTemplate);
-        $result['redirect'] = route('document-templates.edit', $documentTemplate->id);
+        $result = $this->_save($request, $documentTemplate);
+        $result->redirect = route('document-templates.edit', $documentTemplate->id);
 
-        return $result;
+        return response()->json($result);
     }
 
     /**
@@ -126,26 +158,9 @@ class DocumentTemplatesController extends Controller
      */
     public function update(Request $request, DocumentTemplateModel $documentTemplate)
     {
-        $documentTemplate = $this->createDocumentTemplateModelFromRequest($request, $documentTemplate);
-        $status = $documentTemplate->save();
+        $result = $this->_save($request, $documentTemplate);
 
-        $savedTemplates = [];
-
-        foreach($request->templates as $template){
-            $editableTemplate = EditableTemplate::firstOrNew(['id' => ($template['id'] ?? null) ]);
-            $editableTemplate->document_template_id = $documentTemplate->id;
-            $editableTemplate->fill($template);
-            $editableTemplate->save();
-            $savedTemplates[] = $editableTemplate;
-        }
-
-        $result = [
-            'status' => $status,
-            'documentTemplate' => $documentTemplate,
-            'templates' => collect($savedTemplates),
-        ];
-
-        return $result;
+        return response()->json($result);
     }
 
     public function show(Request $request, $id){
