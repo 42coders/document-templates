@@ -22,8 +22,10 @@
                         <select class="form-control" id="exampleFormControlSelect1" name="document_class"
                                 v-model="documentTemplate.document_class"
                                 @change="handleClassChange"
-                                >
-                            <option v-for="(documentClass, index) in documentClasses" :value="documentClass">{{documentClass}}</option>
+                        >
+                            <option v-for="(documentClass, index) in documentClasses" :value="documentClass">
+                                {{documentClass}}
+                            </option>
                         </select>
                     </div>
                     <div v-for="(template, index) in templates" class="form-group">
@@ -36,7 +38,8 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary mb-2">Save</button>
-                    <a class="btn btn-secondary mb-2" target="_blank" :href="'/document-templates' + this.id()">Render</a>
+                    <a class="btn btn-secondary mb-2" target="_blank"
+                       :href="'/document-templates' + this.id()">Render</a>
                 </form>
             </div>
             <div class="col-3">
@@ -65,7 +68,9 @@
         props: ['initialData'],
         data() {
             return {
-                id: () => {return this.documentTemplate.id ? '/' + this.documentTemplate.id : ''},
+                id: () => {
+                    return this.documentTemplate.id ? '/' + this.documentTemplate.id : ''
+                },
                 documentClasses: this.initialData.documentClasses,
                 placeholders: this.initialData.placeholders,
                 templates: this.initialData.templates,
@@ -115,7 +120,11 @@
                     templates: this.templates
                 })
                     .then(({data}) => {
-                        this.documentTemplate = data.documentTemplate,
+                        if (data.hasOwnProperty('redirect')) {
+                            window.location.href = data.redirect;
+                            return;
+                        }
+                        this.documentTemplate = data.documentTemplate;
                         this.templates = data.templates
                     });
             }
