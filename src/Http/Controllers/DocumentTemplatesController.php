@@ -23,8 +23,6 @@ class DocumentTemplatesController extends Controller
         $layout = $request->layout;
         $documentClass = $request->document_class;
 
-
-        $availableClasses = $this->getAvailableClasses();
         $availableLayouts = $this->getAvailableLayouts();
 
         if($documentTemplate === null){
@@ -86,9 +84,11 @@ class DocumentTemplatesController extends Controller
     public function store(Request $request)
     {
         $documentTemplate = $this->createDocumentTemplateModelFromRequest($request);
-        $documentTemplate->save();
 
-        return $this->update($request, $documentTemplate);
+        $result = $this->update($request, $documentTemplate);
+        $result['redirect'] = route('document-templates.edit', $documentTemplate->id);
+
+        return $result;
     }
 
     /**
@@ -127,7 +127,6 @@ class DocumentTemplatesController extends Controller
     public function update(Request $request, DocumentTemplateModel $documentTemplate)
     {
         $documentTemplate = $this->createDocumentTemplateModelFromRequest($request, $documentTemplate);
-
         $status = $documentTemplate->save();
 
         $savedTemplates = [];
