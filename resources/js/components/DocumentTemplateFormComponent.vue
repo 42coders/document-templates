@@ -38,8 +38,8 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary mb-2">
-                        <span v-if="isRequestPending"
-                        class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span v-if="isRequestPending && actionPending == ACTIONS.SAVE"
+                              class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         Save
                     </button>
                     <a class="btn btn-secondary mb-2" target="_blank"
@@ -72,6 +72,11 @@
         props: ['initialData'],
         data() {
             return {
+                ACTIONS: {
+                    SAVE: 'save',
+                    GET_TEMPLATES: 'getTemplates',
+                    GET_PLACEHOLDERS: 'getPaceholders'
+                },
                 id: () => {
                     return this.documentTemplate.id ? '/' + this.documentTemplate.id : ''
                 },
@@ -81,6 +86,7 @@
                 layouts: this.initialData.layouts,
                 documentTemplate: this.initialData.documentTemplate,
                 isRequestPending: false,
+                actionPending: ''
             };
         },
         mounted() {
@@ -98,11 +104,13 @@
             init() {
                 axios.interceptors.request.use((config) => {
                     this.isRequestPending = true;
+                    this.actionPending = config.action;
                     return config;
                 });
 
                 axios.interceptors.response.use((response) => {
                     this.isRequestPending = false;
+                    this.actionPending = '';
                     return response;
                 });
             },
@@ -128,14 +136,21 @@
                     });
             },
             save() {
-                var method = this.id() ? axios.put : axios.post;
+                var method = this.id() ? 'put' : 'post';
 
-                method('/document-templates' + this.id(), {
-                    name: this.documentTemplate.name,
-                    layout: this.documentTemplate.layout,
-                    document_class: this.documentTemplate.document_class,
-                    templates: this.templates
-                })
+                axios.request(
+                    {
+                        url: '/document-templates' + this.id(),
+                        method: method,
+                        action: this.ACTIONS.SAVE,
+                        data: {
+                            name: this.documentTemplate.name,
+                            layout: this.documentTemplate.layout,
+                            document_class: this.documentTemplate.document_class,
+                            templates: this.templates
+                        }
+                    }
+                )
                     .then(({data}) => {
                         if (data.redirect) {
                             window.location.href = data.redirect;
