@@ -28,6 +28,12 @@
                             </option>
                         </select>
                     </div>
+                    <div v-if="isRequestPending && actionPending == ACTIONS.GET_TEMPLATES"
+                         class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
                     <div v-for="(template, index) in templates" class="form-group">
                         <label for="exampleFormControlTextarea1">Template "<b>{{template.name}}</b>"</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" name="" rows="3"
@@ -48,6 +54,12 @@
             </div>
             <div class="col-3">
                 <h4>Placeholders</h4>
+                <div v-if="isRequestPending && actionPending == ACTIONS.GET_PLACEHOLDERS"
+                        class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
                 <ul>
                     <li v-for="(placeholder, index) in placeholders">
                         <div v-if="Array.isArray(placeholder)">
@@ -69,7 +81,7 @@
 
 <script>
     export default {
-        props: ['initialData'],
+        props: ['initialData', 'baseUrl'],
         data() {
             return {
                 ACTIONS: {
@@ -92,6 +104,7 @@
         mounted() {
             console.log('Component mounted.');
             console.log(this.initialData);
+            console.log(this.baseUrl);
             this.init();
         },
         methods: {
@@ -116,9 +129,16 @@
             },
             getTemplates() {
                 console.log(this.templates);
-                axios.post('/document-templates/templates' + this.id(), {
-                    layout: this.documentTemplate.layout,
-                    document_class: this.documentTemplate.document_class,
+                this.templates = [];
+                axios.request({
+                    url: 'templates' + this.id(),
+                    method: 'post',
+                    baseURL: this.baseUrl,
+                    action: this.ACTIONS.GET_TEMPLATES,
+                    data: {
+                        layout: this.documentTemplate.layout,
+                        document_class: this.documentTemplate.document_class,
+                    }
                 })
                     .then(({data}) => {
                         console.log(data);
@@ -126,9 +146,16 @@
                     });
             },
             getPlaceholders() {
-                axios.post('/document-templates/placeholders' + this.id(), {
-                    layout: this.documentTemplate.layout,
-                    document_class: this.documentTemplate.document_class,
+                this.placeholders = [];
+                axios.request({
+                    method: 'post',
+                    url: 'placeholders' + this.id(),
+                    baseURL: this.baseUrl,
+                    action: this.ACTIONS.GET_PLACEHOLDERS,
+                    data: {
+                        layout: this.documentTemplate.layout,
+                        document_class: this.documentTemplate.document_class,
+                    }
                 })
                     .then(({data}) => {
                         console.log(data);
@@ -140,8 +167,9 @@
 
                 axios.request(
                     {
-                        url: '/document-templates' + this.id(),
+                        url: this.id(),
                         method: method,
+                        baseURL: this.baseUrl,
                         action: this.ACTIONS.SAVE,
                         data: {
                             name: this.documentTemplate.name,
