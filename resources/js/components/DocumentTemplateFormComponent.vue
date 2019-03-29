@@ -37,7 +37,11 @@
                         </textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary mb-2">Save</button>
+                    <button type="submit" class="btn btn-primary mb-2">
+                        <span v-if="isRequestPending"
+                        class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Save
+                    </button>
                     <a class="btn btn-secondary mb-2" target="_blank"
                        :href="'/document-templates' + this.id()">Render</a>
                 </form>
@@ -75,12 +79,14 @@
                 placeholders: this.initialData.placeholders,
                 templates: this.initialData.templates,
                 layouts: this.initialData.layouts,
-                documentTemplate: this.initialData.documentTemplate
+                documentTemplate: this.initialData.documentTemplate,
+                isRequestPending: false,
             };
         },
         mounted() {
             console.log('Component mounted.');
             console.log(this.initialData);
+            this.init();
         },
         methods: {
             handleLayoutChange: function (e) {
@@ -88,6 +94,17 @@
             },
             handleClassChange: function (e) {
                 this.getPlaceholders();
+            },
+            init() {
+                axios.interceptors.request.use((config) => {
+                    this.isRequestPending = true;
+                    return config;
+                });
+
+                axios.interceptors.response.use((response) => {
+                    this.isRequestPending = false;
+                    return response;
+                });
             },
             getTemplates() {
                 console.log(this.templates);
