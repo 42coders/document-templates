@@ -169,6 +169,7 @@ class DocumentTemplatesControllerTest extends FeatureTestCase
 
         $result = $this->route('PUT', 'document-templates.update', ['documentTemplate' => $documentTemplate->id], $dataToSave);
 
+        $this->assertResponseOk();
         $this->assertDatabaseHas('document_templates', ['name' => 'Document Template Test Save',]);
 
 
