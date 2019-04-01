@@ -8,6 +8,7 @@ use BWF\DocumentTemplates\Http\Controllers\DocumentTemplatesController;
 use BWF\DocumentTemplates\Tests\DocumentTemplates\DemoDocumentTemplate;
 use BWF\DocumentTemplates\Tests\DocumentTemplates\DemoDocumentTemplateModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class DocumentTemplatesControllerTest extends FeatureTestCase
 {
@@ -174,4 +175,18 @@ class DocumentTemplatesControllerTest extends FeatureTestCase
 
 
     }
+
+//    public function testEdit()
+//    {
+//        $documentTemplate = DocumentTemplateModel::create([
+//            'name' => 'Document Template',
+//            'layout' => 'TestIterableDataSource.html.twig',
+//            'document_class' => DemoDocumentTemplate::class,
+//        ]);
+//
+//        $documentTemplate->save();
+//        $result = $this->get(route('document-templates.edit', $documentTemplate->id ));
+//
+//        $this->assertResponseOk();
+//    }
 }
