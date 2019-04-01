@@ -2,14 +2,14 @@
 
 namespace BWF\DocumentTemplates\Tests\Controllers;
 
+use BWF\DocumentTemplates\DocumentTemplates;
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel;
 use BWF\DocumentTemplates\Http\Controllers\DocumentTemplatesController;
 use BWF\DocumentTemplates\Tests\DocumentTemplates\DemoDocumentTemplate;
 use BWF\DocumentTemplates\Tests\DocumentTemplates\DemoDocumentTemplateModel;
-use BWF\DocumentTemplates\Tests\TestCase;
 use Illuminate\Http\Request;
 
-class DocumentTemplatesControllerTest extends TestCase
+class DocumentTemplatesControllerTest extends FeatureTestCase
 {
     /**
      * @var \BWF\DocumentTemplates\Http\Controllers\DocumentTemplatesController
@@ -126,5 +126,51 @@ class DocumentTemplatesControllerTest extends TestCase
         $availableLayouts = $getAvailableLayoutsMethod->invoke($this->controller);
 
         $this->assertEquals($expectedLayouts, $availableLayouts);
+    }
+
+    public function testUpdate()
+    {
+        $documentTemplate = DocumentTemplateModel::create([
+            'name' => 'Document Template',
+            'layout' => 'TestIterableDataSource.html.twig',
+            'document_class' => DemoDocumentTemplate::class,
+        ]);
+
+        $documentTemplate->save();
+
+        $dataToSave = array(
+            'name' => 'Document Template Test Save',
+            'layout' => 'TestIterableDataSource.html.twig',
+            'document_class' => DemoDocumentTemplate::class,
+            'templates' =>
+                array(
+                    0 =>
+                        array(
+                            'id' => 1,
+                            'document_template_id' => 1,
+                            'name' => 'user_table_rows',
+                            'content' => '{% for user in users %}{{user.id}}{{user.name}}{% endfor %}
+
+{{test.name}}{{test.title}}',
+                            'created_at' => '2019-03-26 15:19:39',
+                            'updated_at' => '2019-03-26 15:19:39',
+                        ),
+                    1 =>
+                        array(
+                            'id' => 2,
+                            'document_template_id' => 1,
+                            'name' => 'order_table_rows',
+                            'content' => '{% for order in orders %}{{order.id}}{{order.description}}{% endfor %}',
+                            'created_at' => '2019-03-26 15:19:39',
+                            'updated_at' => '2019-03-28 10:23:12',
+                        ),
+                ),
+        );
+
+        $result = $this->route('PUT', 'document-templates.update', ['documentTemplate' => $documentTemplate->id], $dataToSave);
+
+        $this->assertDatabaseHas('document_templates', ['name' => 'Document Template Test Save',]);
+
+
     }
 }
