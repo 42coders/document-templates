@@ -8,7 +8,6 @@ use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel;
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface;
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
 use BWF\DocumentTemplates\Http\Responses\DocumentTemplateResponse;
-use BWF\DocumentTemplates\Tests\Stubs\IterableTemplateData;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -94,10 +93,10 @@ class DocumentTemplatesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     * @return mixed
      */
-    public function create(Request $request)
+    public function create()
     {
         $layouts = $this->getAvailableLayouts();
         $documentTemplate = new DocumentTemplateModel();
@@ -126,7 +125,8 @@ class DocumentTemplatesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  DocumentTemplateModelInterface $documentTemplate
+     * @param  DocumentTemplateModel $documentTemplate
+     * @throws \Exception
      * @return \Illuminate\Http\Response
      */
     public function edit(DocumentTemplateModel $documentTemplate)
@@ -153,7 +153,7 @@ class DocumentTemplatesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  DocumentTemplateModelInterface $documentTemplate
+     * @param  DocumentTemplateModel $documentTemplate
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, DocumentTemplateModel $documentTemplate)

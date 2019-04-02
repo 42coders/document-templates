@@ -2,9 +2,7 @@
 
 namespace BWF\DocumentTemplates\Layouts;
 
-use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplateInterface;
-use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface;
 use Illuminate\Support\Collection;
 
 interface LayoutInterface
@@ -31,8 +29,8 @@ interface LayoutInterface
     public function getAvailableLayouts();
 
     /**
-     * @param EditableTemplate[] $templates
-     * @param TemplateDataSourceInterface[] $dataSources
+     * @param \BWF\DocumentTemplates\EditableTemplates\EditableTemplate[] $templates
+     * @param \BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface[] $dataSources
      * @return string
      */
     public function render($templates, $dataSources);

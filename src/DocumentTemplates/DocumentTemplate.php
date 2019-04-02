@@ -16,8 +16,10 @@ trait DocumentTemplate
     protected $model = null;
 
     /**
-     * DocumentTemplate initialisation.
-     * @param \BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface $model
+     * @param \BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface|null $model
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function init(DocumentTemplateModelInterface $model = null)
     {

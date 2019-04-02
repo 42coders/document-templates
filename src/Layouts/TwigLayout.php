@@ -33,12 +33,13 @@ class TwigLayout extends Layout implements LayoutInterface
         $this->basePath = config('document_templates.layout_path');
     }
 
+
     /**
      * @param string $template
      * @return mixed|void
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function load($template)
     {
@@ -132,9 +133,9 @@ class TwigLayout extends Layout implements LayoutInterface
      * @param \BWF\DocumentTemplates\EditableTemplates\EditableTemplate[] $templates
      * @param \BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface[] $dataSourcesSources
      * @return string
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function render($templates, $dataSourcesSources)
     {

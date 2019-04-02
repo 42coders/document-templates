@@ -8,11 +8,12 @@ use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateFactory;
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel;
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface;
 use BWF\DocumentTemplates\Layouts\TwigLayout;
+use Illuminate\Support\Collection;
 
 trait ManagesDocumentTemplates
 {
     /**
-     * @return array|string[]
+     * @return Collection|string[]
      */
     protected function  getAvailableLayouts()
     {
