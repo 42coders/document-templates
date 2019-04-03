@@ -2,5 +2,5 @@
 
 return [
 
-    'layout_path' => __DIR__ . '/../resources/templates'
+    'layout_path' => resource_path('templates')
 ];
