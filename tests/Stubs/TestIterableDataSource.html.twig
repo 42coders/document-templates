@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+    </title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% block user_table_rows %}
+            {% endblock %}
+        </tbody>
+    </table>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% block order_table_rows %}
+            {% endblock %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+    "name": "42coders/document-templates",
+    "description": "Document template management package.",
+    "version": "0.1.0",
+    "require": {
+        "php" : "^7.1",
+        "laravel/framework": "^5.7",
+        "twig/twig": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0",
+        "orchestra/testbench": "^3.5",
+        "orchestra/testbench-browser-kit": "^3.5"
+    },
+    "authors": [
+        {
+            "name": "Daniel Verner",
+            "email": "daniel.verner@42coders.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "BWF\\DocumentTemplates\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BWF\\DocumentTemplates\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html tests/coverage"
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": [],
+            "providers": [
+                "BWF\\DocumentTemplates\\DocumentTemplatesServiceProvider"
+            ]
+        }
+    }
+}
