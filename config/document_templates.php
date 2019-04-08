@@ -13,7 +13,7 @@ return [
         'allowedTags' => ['for'],
         'allowedFilters' => ['escape'],
         'allowedMethods' => [],
-        'allowedProperties' => [],
+        'allowedProperties' => ['*'],
         'allowedFunctions' => []
     ]
 ];

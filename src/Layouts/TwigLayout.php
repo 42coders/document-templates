@@ -5,6 +5,7 @@ namespace BWF\DocumentTemplates\Layouts;
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplateInterface;
 use BWF\DocumentTemplates\EditableTemplates\HtmlTemplate;
+use BWF\DocumentTemplates\Sandbox\SecurityPolicy;
 use Twig\Environment;
 use Twig\Extension\SandboxExtension;
 use Twig\Loader\ArrayLoader;
@@ -56,7 +57,7 @@ class TwigLayout extends Layout implements LayoutInterface
         $loader = new FilesystemLoader($this->basePath);
         $this->twig = new Environment($loader);
 
-        $policy = new \Twig\Sandbox\SecurityPolicy(
+        $policy = new SecurityPolicy(
             config('document_templates.template_sandbox.allowedTags'),
             config('document_templates.template_sandbox.allowedFilters'),
             config('document_templates.template_sandbox.allowedMethods'),
