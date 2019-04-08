@@ -30,7 +30,8 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html tests/coverage"
+        "test-coverage": "vendor/bin/phpunit --coverage-html tests/coverage",
+        "build-docs": "/usr/local/bin/phpdox"
     },
     "extra": {
         "laravel": {
