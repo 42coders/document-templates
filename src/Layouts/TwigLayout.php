@@ -3,8 +3,11 @@
 namespace BWF\DocumentTemplates\Layouts;
 
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
+use BWF\DocumentTemplates\EditableTemplates\EditableTemplateInterface;
 use BWF\DocumentTemplates\EditableTemplates\HtmlTemplate;
+use BWF\DocumentTemplates\Sandbox\SecurityPolicy;
 use Twig\Environment;
+use Twig\Extension\SandboxExtension;
 use Twig\Loader\ArrayLoader;
 use Twig\Loader\FilesystemLoader;
 
@@ -14,6 +17,11 @@ class TwigLayout extends Layout implements LayoutInterface
      * @var Environment
      */
     protected $twig;
+
+    /**
+     * @var \Twig\Extension\SandboxExtension
+     */
+    protected $sandbox;
 
     /**
      * @var \Twig\TemplateWrapper
@@ -48,6 +56,16 @@ class TwigLayout extends Layout implements LayoutInterface
 
         $loader = new FilesystemLoader($this->basePath);
         $this->twig = new Environment($loader);
+
+        $policy = new SecurityPolicy(
+            config('document_templates.template_sandbox.allowedTags'),
+            config('document_templates.template_sandbox.allowedFilters'),
+            config('document_templates.template_sandbox.allowedMethods'),
+            config('document_templates.template_sandbox.allowedProperties'),
+            config('document_templates.template_sandbox.allowedFunctions')
+        );
+        $this->sandbox = new \Twig\Extension\SandboxExtension($policy);
+        $this->twig->addExtension($this->sandbox);
 
         $this->layout = $this->twig->load($templateName);
     }
@@ -91,13 +109,30 @@ class TwigLayout extends Layout implements LayoutInterface
         return collect($templates);
     }
 
+    protected function renderWithSandbox(EditableTemplateInterface $template, $templateData)
+    {
+        $this->sandbox->enableSandbox();
+
+        $templateName = 'template_' . $template->getName();
+        $loader = new ArrayLoader([
+            $templateName => $template->getContent()
+        ]);
+        $this->twig->setLoader($loader);
+        $rendered = $this->twig->render($templateName, $templateData);
+
+        $this->sandbox->disableSandbox();
+
+        return $rendered;
+    }
+
     /**
      * Generates a new template by extending the layout with the given templates
      *
      * @param array $templates
+     * @param  array $templateData
      * @return string
      */
-    protected function extendLayout($templates)
+    protected function extendLayout($templates, $templateData)
     {
         $extendedTemplate = '{% extends layout %}';
 
@@ -105,7 +140,7 @@ class TwigLayout extends Layout implements LayoutInterface
             $extendedTemplate .= sprintf(
                 '{%% block %1$s %%}%2$s{%% endblock %1$s %%}',
                 $template->getName(),
-                $template->getContent()
+                $this->renderWithSandbox($template, $templateData)
             );
         }
 
@@ -131,20 +166,21 @@ class TwigLayout extends Layout implements LayoutInterface
 
     /**
      * @param \BWF\DocumentTemplates\EditableTemplates\EditableTemplate[] $templates
-     * @param \BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface[] $dataSourcesSources
+     * @param \BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface[] $dataSources
      * @return string
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function render($templates, $dataSourcesSources)
+    public function render($templates, $dataSources)
     {
+        $templateData = $this->generateTemplateData($dataSources);
+
         $loader = new ArrayLoader([
-            'extendedLayout' => $this->extendLayout($templates),
+            'extendedLayout' => $this->extendLayout($templates, $templateData),
         ]);
 
         $this->twig->setLoader($loader);
-        $templateData = $this->generateTemplateData($dataSourcesSources);
 
         return $this->twig->render('extendedLayout', $templateData);
 

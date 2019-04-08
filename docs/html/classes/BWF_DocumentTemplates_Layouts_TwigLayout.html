@@ -65,7 +65,7 @@
             <a href="#methods">Methods</a>
           </li>
           <li>
-            <a href="../source/Layouts/TwigLayout.php.html#line11">Source</a>
+            <a href="../source/Layouts/TwigLayout.php.html#line14">Source</a>
           </li>
         </ul>
       </nav>
@@ -79,6 +79,7 @@
                 implements
                 <a title="BWF\DocumentTemplates\Layouts\LayoutInterface" href="../interfaces/BWF_DocumentTemplates_Layouts_LayoutInterface.html">LayoutInterface</a>
             {<br/><ul class="none"><li>// members</li><li>protected <span title="Twig\Environment">Environment</span> <a href="#members">$twig</a>;
+                    </li><li>protected <span title="\Twig\Extension\SandboxExtension">SandboxExtension</span> <a href="#members">$sandbox</a>;
                     </li><li>protected <span title="\Twig\TemplateWrapper">TemplateWrapper</span> <a href="#members">$layout</a>;
                     </li><li>protected  <a href="#members">$basePath</a>;
                     </li></ul><ul class="none"><li>// Inherited members from <span title="BWF\DocumentTemplates\Layouts\Layout">Layout</span></li><li>protected  <a href="#members">$name</a>;
@@ -86,6 +87,7 @@
                     </li><li>public mixed|void <a title="BWF\DocumentTemplates\Layouts\TwigLayout" href="../classes/BWF_DocumentTemplates_Layouts_TwigLayout/load.html">load</a>()
                     </li><li>public void <a title="BWF\DocumentTemplates\Layouts\TwigLayout" href="../classes/BWF_DocumentTemplates_Layouts_TwigLayout/getAvailableLayouts.html">getAvailableLayouts</a>()
                     </li><li>public void <a title="BWF\DocumentTemplates\Layouts\TwigLayout" href="../classes/BWF_DocumentTemplates_Layouts_TwigLayout/getTemplates.html">getTemplates</a>()
+                    </li><li>protected void <a title="BWF\DocumentTemplates\Layouts\TwigLayout" href="../classes/BWF_DocumentTemplates_Layouts_TwigLayout/renderWithSandbox.html">renderWithSandbox</a>()
                     </li><li>protected string <a title="BWF\DocumentTemplates\Layouts\TwigLayout" href="../classes/BWF_DocumentTemplates_Layouts_TwigLayout/extendLayout.html">extendLayout</a>()
                     </li><li>protected array <a title="BWF\DocumentTemplates\Layouts\TwigLayout" href="../classes/BWF_DocumentTemplates_Layouts_TwigLayout/generateTemplateData.html">generateTemplateData</a>()
                     </li><li>public string <a title="BWF\DocumentTemplates\Layouts\TwigLayout" href="../classes/BWF_DocumentTemplates_Layouts_TwigLayout/render.html">render</a>()
@@ -122,6 +124,9 @@
             <li id="name">
               <strong>$name</strong>
             </li>
+            <li id="sandbox"><strong>$sandbox</strong>
+                —
+                <a title="\Twig\Extension\SandboxExtension" href="../classes/_Twig_Extension_SandboxExtension.html">\Twig\Extension\SandboxExtension</a></li>
             <li id="twig"><strong>$twig</strong>
                 —
                 <a title="Twig\Environment" href="../classes/Twig_Environment.html">Twig\Environment</a></li>
@@ -135,6 +140,9 @@
                 — Generates a new template by extending the layout with the given templates</li>
             <li id="generateTemplateData">
               <a title="BWF\DocumentTemplates\Layouts\TwigLayout" href="../classes/BWF_DocumentTemplates_Layouts_TwigLayout/generateTemplateData.html">generateTemplateData()</a>
+            </li>
+            <li id="renderWithSandbox">
+              <a title="BWF\DocumentTemplates\Layouts\TwigLayout" href="../classes/BWF_DocumentTemplates_Layouts_TwigLayout/renderWithSandbox.html">renderWithSandbox()</a>
             </li>
           </ul>
           <h4>public</h4>

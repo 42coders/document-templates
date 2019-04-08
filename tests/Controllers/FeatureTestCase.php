@@ -19,6 +19,8 @@ abstract class FeatureTestCase extends \Orchestra\Testbench\BrowserKit\TestCase
     {
         parent::setUp();
 
+        $documentTemplatesConfig = include __DIR__ . '/../../config/document_templates.php';
+        config( ['document_templates' => $documentTemplatesConfig]);
         config(['document_templates.layout_path' => __DIR__ . '/../Stubs/']);
 
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');

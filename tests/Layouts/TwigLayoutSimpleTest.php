@@ -76,4 +76,33 @@ class TwigLayoutSimpleTest extends TestCase
 
         $this->assertEquals($expectedOutput, $output);
     }
+
+    public function testRenderWithNotAllowedTag()
+    {
+        $layout = new TwigLayout();
+        $layout->load('TestLayout.html.twig');
+        $templates = $layout->getTemplates();
+
+        foreach ($templates as $template) {
+            switch ($template->getName()) {
+                case 'title':
+                    $template->setContent('{% if true %}If tag is not allowed{% endif %}' . PHP_EOL);
+                    break;
+                case 'content':
+                    $template->setContent('<p>Hello {{name_source.name}}, this is the content!</p>' . PHP_EOL);
+                    break;
+            }
+        }
+
+        $dataSources = [];
+
+        $dataSources[] = new TemplateDataSource(['title' => 'Testing the layout render'], 'Title Source');
+        $dataSource = new TemplateDataSource(['name' => 'Layout Test']);
+        $dataSource->setNamespace('Name source');
+        $dataSources[] = $dataSource;
+
+        $this->expectException(\Twig\Sandbox\SecurityNotAllowedTagError::class);
+
+        $output = $layout->render($templates, $dataSources);
+    }
 }

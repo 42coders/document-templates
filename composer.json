@@ -1,7 +1,7 @@
 {
     "name": "42coders/document-templates",
     "description": "Document template management package.",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "require": {
         "php" : "^7.1",
         "laravel/framework": "^5.7",
@@ -30,7 +30,8 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html tests/coverage"
+        "test-coverage": "vendor/bin/phpunit --coverage-html tests/coverage",
+        "build-docs": "/usr/local/bin/phpdox"
     },
     "extra": {
         "laravel": {
