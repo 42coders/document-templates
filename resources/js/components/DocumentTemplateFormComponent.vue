@@ -83,6 +83,7 @@
 
 <script>
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+    import Placeholder from './../ckeditor/plugins/placeholder/placeholder';
 
     export default {
         props: ['initialData', 'baseUrl'],
@@ -105,7 +106,11 @@
                 actionPending: '',
                 editor: ClassicEditor,
                 editorConfig: {
-                    // The configuration of the editor.
+                    plugins: [ Placeholder ],
+                    toolbar: [ '|', 'placeholder' ],
+                    placeholder: {
+                        types: [ 'model', 'make', 'color' ]                                             // ADDED
+                    }
                 }
             };
         },
