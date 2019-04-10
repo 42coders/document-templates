@@ -10,16 +10,17 @@
                                placeholder="Document name">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Layout</label>
-                        <select @change="handleLayoutChange" class="form-control" id="exampleFormControlSelect1"
+                        <label for="layoutSelector">Layout</label>
+                        <select @change="handleLayoutChange" class="form-control" id="layoutSelector"
                                 name="layout"
                                 v-model="documentTemplate.layout">
                             <option v-for="(layout, index) in layouts" :value="layout">{{layout}}</option>
                         </select>
                     </div>
                     <div v-if="documentClasses" class="form-group">
-                        <label for="exampleFormControlSelect1">Class</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="document_class"
+                        <label for="documentClassSelector">Class</label>
+                        <select class="form-control" name="document_class"
+                                id="documentClassSelector"
                                 v-model="documentTemplate.document_class"
                                 @change="handleClassChange"
                         >
@@ -36,11 +37,12 @@
                     </div>
                     <div v-for="(template, index) in templates" class="form-group">
                         <label for="exampleFormControlTextarea1">Template "<b>{{template.name}}</b>"</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="" rows="3"
-                                  v-model="template.content"
-                        >
-                            {{template.content}}
-                        </textarea>
+                        <ckeditor :editor="editor" v-model="template.content" :config="editorConfig"></ckeditor>
+<!--                        <textarea class="form-control" id="exampleFormControlTextarea1" name="" rows="3"-->
+<!--                                  v-model="template.content"-->
+<!--                        >-->
+<!--                            {{template.content}}-->
+<!--                        </textarea>-->
                     </div>
 
                     <button type="submit" class="btn btn-primary mb-2">
@@ -80,6 +82,8 @@
 </template>
 
 <script>
+    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
     export default {
         props: ['initialData', 'baseUrl'],
         data() {
@@ -98,7 +102,11 @@
                 layouts: this.initialData.layouts,
                 documentTemplate: this.initialData.documentTemplate,
                 isRequestPending: false,
-                actionPending: ''
+                actionPending: '',
+                editor: ClassicEditor,
+                editorConfig: {
+                    // The configuration of the editor.
+                }
             };
         },
         mounted() {
