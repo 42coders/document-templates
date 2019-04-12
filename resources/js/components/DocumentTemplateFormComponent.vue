@@ -36,8 +36,9 @@
                         </div>
                     </div>
                     <div v-for="(template, index) in templates" class="form-group">
-                        <label for="exampleFormControlTextarea1">Template "<b>{{template.name}}</b>"</label>
-                        <textarea class="form-control" ref="templateEditors" :id="getEditorId(index)" name="templateeditor" rows="3"
+                        <label :for="createEditorId(index)">Template "<b>{{template.name}}</b>"</label>
+                        <textarea class="form-control" ref="templateEditors" :id="createEditorId(index)"
+                                  name="templateeditor" rows="3"
                                   v-model="template.content"
                         >
                             {{template.content}}
@@ -109,8 +110,17 @@
             console.log(this.baseUrl);
             this.init();
         },
+        watch: {
+            templates: function () {
+                var _this = this;
+
+                Vue.nextTick(function() {
+                    _this.initEditors();
+                });
+            }
+        },
         methods: {
-            getEditorId(index){
+            createEditorId(index) {
                 return 'templateEditor' + index;
             },
             handleLayoutChange: function (e) {
@@ -134,23 +144,38 @@
 
                 this.initEditors();
             },
-            initEditors(){
+            initEditors() {
                 var _this = this;
-                setTimeout(function(){
-                    _this.templates.forEach((template, index) => {
-                        var editorId = _this.getEditorId(index);
-                        CKEDITOR.replace(editorId, {
-                            customConfig: ''
-                        });
 
-                        CKEDITOR.instances[editorId].on('change', () => {
-                            let ckeditorData = CKEDITOR.instances[editorId].getData()
-                            if (ckeditorData !== template.content) {
-                                template.content = ckeditorData;
-                            }
-                        })
+                this.templates.forEach((template, index) => {
+                    var editorId = _this.createEditorId(index);
+
+                    if(CKEDITOR.instances.hasOwnProperty(editorId)){
+                        CKEDITOR.instances[editorId].destroy()
+                    }
+
+                    CKEDITOR.replace(editorId, {
+                        customConfig: '',
+                        extraPlugins: 'richcombo,placeholder_select',
+                        toolbar: [
+                            {
+                                name: 'basicstyles',
+                                items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat']
+                            },
+                            '/',
+                            ['placeholder_select'],
+                        ],
+                        placeholder_select: {
+                            placeholders: _this.placeholders,
+                            format: '{{%placeholder%}}'
+                        }
+                    });
+
+                    CKEDITOR.instances[editorId].on('change', () => {
+                        let ckeditorData = CKEDITOR.instances[editorId].getData();
+                        template.content = ckeditorData;
                     })
-                }, 0);
+                })
             },
             getTemplates() {
                 console.log(this.templates);
@@ -168,7 +193,6 @@
                     .then(({data}) => {
                         console.log(data);
                         this.templates = data;
-                        this.initEditors();
                     });
             },
             getPlaceholders() {
