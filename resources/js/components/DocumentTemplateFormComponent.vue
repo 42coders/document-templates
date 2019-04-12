@@ -37,12 +37,11 @@
                     </div>
                     <div v-for="(template, index) in templates" class="form-group">
                         <label for="exampleFormControlTextarea1">Template "<b>{{template.name}}</b>"</label>
-                        <ckeditor :editor="editor" v-model="template.content" :config="editorConfig"></ckeditor>
-<!--                        <textarea class="form-control" id="exampleFormControlTextarea1" name="" rows="3"-->
-<!--                                  v-model="template.content"-->
-<!--                        >-->
-<!--                            {{template.content}}-->
-<!--                        </textarea>-->
+                        <textarea class="form-control" ref="templateEditors" :id="getEditorId(index)" name="templateeditor" rows="3"
+                                  v-model="template.content"
+                        >
+                            {{template.content}}
+                        </textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary mb-2">
@@ -57,7 +56,7 @@
             <div class="col-3">
                 <h4>Placeholders</h4>
                 <div v-if="isRequestPending && actionPending == ACTIONS.GET_PLACEHOLDERS"
-                        class="d-flex justify-content-center">
+                     class="d-flex justify-content-center">
                     <div class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
@@ -82,8 +81,6 @@
 </template>
 
 <script>
-    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-    import Placeholder from './../ckeditor/plugins/placeholder/placeholder';
 
     export default {
         props: ['initialData', 'baseUrl'],
@@ -103,15 +100,7 @@
                 layouts: this.initialData.layouts,
                 documentTemplate: this.initialData.documentTemplate,
                 isRequestPending: false,
-                actionPending: '',
-                editor: ClassicEditor,
-                editorConfig: {
-                    plugins: [ Placeholder ],
-                    toolbar: [ '|', 'placeholder' ],
-                    placeholder: {
-                        types: [ 'model', 'make', 'color' ]                                             // ADDED
-                    }
-                }
+                actionPending: ''
             };
         },
         mounted() {
@@ -121,6 +110,9 @@
             this.init();
         },
         methods: {
+            getEditorId(index){
+                return 'templateEditor' + index;
+            },
             handleLayoutChange: function (e) {
                 this.getTemplates();
             },
@@ -139,6 +131,26 @@
                     this.actionPending = '';
                     return response;
                 });
+
+                this.initEditors();
+            },
+            initEditors(){
+                var _this = this;
+                setTimeout(function(){
+                    _this.templates.forEach((template, index) => {
+                        var editorId = _this.getEditorId(index);
+                        CKEDITOR.replace(editorId, {
+                            customConfig: ''
+                        });
+
+                        CKEDITOR.instances[editorId].on('change', () => {
+                            let ckeditorData = CKEDITOR.instances[editorId].getData()
+                            if (ckeditorData !== template.content) {
+                                template.content = ckeditorData;
+                            }
+                        })
+                    })
+                }, 0);
             },
             getTemplates() {
                 console.log(this.templates);
@@ -156,6 +168,7 @@
                     .then(({data}) => {
                         console.log(data);
                         this.templates = data;
+                        this.initEditors();
                     });
             },
             getPlaceholders() {

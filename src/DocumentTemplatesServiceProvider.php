@@ -30,6 +30,11 @@ class DocumentTemplatesServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../config/document_templates.php' => config_path('document_templates.php'),
             ], 'config');
+
+            $this->publishes([
+                __DIR__ . '/../resources/js/lib' => public_path('vendor/document-templates/js/lib'),
+                __DIR__ . '/../node_modules/ckeditor' => public_path('vendor/document-templates/js/lib/ckeditor'),
+            ], 'public');
         }
     }
 }

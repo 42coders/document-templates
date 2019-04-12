@@ -19,9 +19,9 @@ Vue.component('document-template-form', require('./components/DocumentTemplateFo
 
 window.DocumentTemplateApp = new Vue();
 
-import CKEditor from '@ckeditor/ckeditor5-vue';
+window.CKEDITOR_BASEPATH = '/vendor/document-templates/js/lib/ckeditor/';
 
-Vue.use( CKEditor );
+require('ckeditor/ckeditor');
 
 // const app = new Vue({
 //     el: '#app'
