@@ -54,29 +54,6 @@
                        :href="'/document-templates' + this.id()">Render</a>
                 </form>
             </div>
-            <div class="col-3">
-                <h4>Placeholders</h4>
-                <div v-if="isRequestPending && actionPending == ACTIONS.GET_PLACEHOLDERS"
-                     class="d-flex justify-content-center">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </div>
-                <ul>
-                    <li v-for="(placeholder, index) in placeholders">
-                        <div v-if="Array.isArray(placeholder)">
-                            {% for {{placeholder[0].split('.')[0]}} in {{index}} %}
-                            <ul>
-                                <li v-for="(childPlaceholder, index) in placeholder">
-                                    <span v-pre>{{</span>{{childPlaceholder}}<span v-pre>}}</span>
-                                </li>
-                            </ul>
-                            {% endfor %}
-                        </div>
-                        <span v-else><span v-pre>{{</span>{{placeholder}}<span v-pre>}}</span></span>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
 </template>
