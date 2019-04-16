@@ -9,8 +9,4 @@ export default class PlaceholderBase {
 
     getPlaceholder() {
     }
-
-    getWidgets() {
-    }
-
 }
