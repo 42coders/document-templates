@@ -73,7 +73,7 @@ trait ProvidesTemplateData
     }
 
     /**
-     * @return array|string[]
+     * @return \BWF\DocumentTemplates\TemplateDataSources\PlaceholderGroup
      */
     public function getPlaceholders()
     {
@@ -82,6 +82,6 @@ trait ProvidesTemplateData
             $placeholders[] = $this->createPlaceholder($key);
         }
 
-        return $placeholders;
+        return new PlaceholderGroup($this->getNameSpace(), $placeholders, TYPE_SINGLE_PLACEHOLDER);
     }
 }

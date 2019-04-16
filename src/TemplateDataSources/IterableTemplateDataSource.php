@@ -53,13 +53,11 @@ class IterableTemplateDataSource extends TemplateDataSource implements TemplateD
             break;
         }
 
-        if ($this->namespace) {
-            $placeholders = [
-                $this->getNameSpace() => $placeholders
-            ];
-        }
+        $placeholderGroup = new PlaceholderGroup(
+            $this->getNameSpace(), $placeholders->getPlaceholders(), TYPE_ITERABLE_PLACEHOLDER
+        );
 
-        return $placeholders;
+        return $placeholderGroup;
     }
 
 }

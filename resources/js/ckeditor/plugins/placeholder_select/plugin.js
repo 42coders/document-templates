@@ -10,6 +10,8 @@
  *
  */
 
+import PlaceholderGroup from "./PlaceholderGroup";
+
 CKEDITOR.plugins.add('placeholder_select',
 {
 	requires : ['richcombo'],
@@ -33,12 +35,13 @@ CKEDITOR.plugins.add('placeholder_select',
 
 		// run through an create the set of items to use
 		for (var i in config.placeholders) {
-			var placeholder = config.placeholders.hasOwnProperty(i) ? config.placeholders[i] : '';
+			var placeholderData = config.placeholders.hasOwnProperty(i) ? config.placeholders[i] : '';
 			// get our potentially custom placeholder format
-			if(typeof placeholder === 'string') {
-				var placeholder = config.format.replace('%placeholder%', placeholder);
-				placeholders.push([placeholder, config.placeholders[i], config.placeholders[i]]);
-			}
+			// if(typeof placeholderData === 'string') {
+				var placeholderGroup = new PlaceholderGroup(placeholderData);
+				//var placeholder = config.format.replace('%placeholder%', placeholder);
+				placeholders.push(placeholderGroup);
+			// }
 		}
 
 		// add the menu to the editor
@@ -60,7 +63,10 @@ CKEDITOR.plugins.add('placeholder_select',
 				this.startGroup( "Insert placeholder" );
 				for (var i in placeholders)
 				{
-					this.add(placeholders[i][0], placeholders[i][1], placeholders[i][2]);
+					placeholders[i].getPlaceholders().forEach((placeholder, index) => {
+						this.add(placeholder.getPlaceholder(), placeholder.getLabel(), placeholder.getLabel());
+					})
+
 				}
 			},
 
