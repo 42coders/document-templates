@@ -55,7 +55,7 @@ class DemoModelDataSourceTest extends TestCase
         $demoDataSource = $demoDataSource->first();
 
         $placeholders = $demoDataSource->getPlaceholders();
-        $this->assertEquals($expectedPlaceholders, $placeholders);
+        $this->assertEquals($expectedPlaceholders, $placeholders->getPlaceholders());
     }
 
 
@@ -71,7 +71,7 @@ class DemoModelDataSourceTest extends TestCase
 
         $placeholders = $demoDataSource->getPlaceholders();
 
-        $this->assertEquals($expectedPlaceholders, $placeholders);
+        $this->assertEquals($expectedPlaceholders, $placeholders->getPlaceholders());
     }
 
     public function testGetTemplateDataWithTemplateField()

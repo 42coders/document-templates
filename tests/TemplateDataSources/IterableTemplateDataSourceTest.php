@@ -30,10 +30,8 @@ class IterableTemplateDataSourceTest extends TestCase
     ];
 
     protected $expectedPlaceholders = [
-        "users" => [
-            "user.id",
-            "user.name"
-        ]
+        "user.id",
+        "user.name"
     ];
 
     public function setUp(): void
@@ -46,7 +44,7 @@ class IterableTemplateDataSourceTest extends TestCase
     public function testGetPlaceholders()
     {
         $placeholders = $this->dataSource->getPlaceholders();
-        $this->assertEquals($this->expectedPlaceholders, $placeholders);
+        $this->assertEquals($this->expectedPlaceholders, $placeholders->getPlaceholders());
     }
 
     public function testGetTemplateData()

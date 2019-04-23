@@ -63,7 +63,7 @@ trait BaseDocumentTemplate
         $placeholders = [];
 
         foreach ($this->dataSources() as $dataSource) {
-            $placeholders = array_merge($placeholders, $dataSource->getPlaceholders());
+            $placeholders[] = $dataSource->getPlaceholders();
         }
 
         return $placeholders;

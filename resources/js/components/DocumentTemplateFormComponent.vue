@@ -37,7 +37,8 @@
                     </div>
                     <div v-for="(template, index) in templates" class="form-group">
                         <label :for="createEditorId(index)">Template "<b>{{template.name}}</b>"</label>
-                        <textarea class="form-control" ref="templateEditors" :id="createEditorId(index)" name="templateeditor" rows="3"
+                        <textarea class="form-control" ref="templateEditors" :id="createEditorId(index)"
+                                  name="templateeditor" rows="3"
                                   v-model="template.content"
                         >
                             {{template.content}}
@@ -52,29 +53,6 @@
                     <a class="btn btn-secondary mb-2" target="_blank"
                        :href="'/document-templates' + this.id()">Render</a>
                 </form>
-            </div>
-            <div class="col-3">
-                <h4>Placeholders</h4>
-                <div v-if="isRequestPending && actionPending == ACTIONS.GET_PLACEHOLDERS"
-                     class="d-flex justify-content-center">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </div>
-                <ul>
-                    <li v-for="(placeholder, index) in placeholders">
-                        <div v-if="Array.isArray(placeholder)">
-                            {% for {{placeholder[0].split('.')[0]}} in {{index}} %}
-                            <ul>
-                                <li v-for="(childPlaceholder, index) in placeholder">
-                                    <span v-pre>{{</span>{{childPlaceholder}}<span v-pre>}}</span>
-                                </li>
-                            </ul>
-                            {% endfor %}
-                        </div>
-                        <span v-else><span v-pre>{{</span>{{placeholder}}<span v-pre>}}</span></span>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
@@ -119,7 +97,7 @@
             }
         },
         methods: {
-            createEditorId(index){
+            createEditorId(index) {
                 return 'templateEditor' + index;
             },
             handleLayoutChange: function (e) {
@@ -143,20 +121,33 @@
 
                 this.initEditors();
             },
-            initEditors(){
+            initEditors() {
                 var _this = this;
 
                 this.templates.forEach((template, index) => {
                     var editorId = _this.createEditorId(index);
+
+                    if(CKEDITOR.instances.hasOwnProperty(editorId)){
+                        CKEDITOR.instances[editorId].destroy()
+                    }
+
                     CKEDITOR.replace(editorId, {
-                        customConfig: ''
+                        customConfig: '',
+                        extraPlugins: 'richcombo,placeholder_select',
+                        toolbarGroups:[
+                            { name: 'basicstyles' },
+                            '/',
+                            { name: 'placeholder_select'}
+                        ],
+                        placeholder_select: {
+                            placeholders: _this.placeholders,
+                            format: '{{%placeholder%}}'
+                        }
                     });
 
                     CKEDITOR.instances[editorId].on('change', () => {
-                        let ckeditorData = CKEDITOR.instances[editorId].getData()
-                        if (ckeditorData !== template.content) {
-                            template.content = ckeditorData;
-                        }
+                        let ckeditorData = CKEDITOR.instances[editorId].getData();
+                        template.content = ckeditorData;
                     })
                 })
             },
@@ -176,6 +167,7 @@
                     .then(({data}) => {
                         console.log(data);
                         this.templates = data;
+                        this.initEditors();
                     });
             },
             getPlaceholders() {
