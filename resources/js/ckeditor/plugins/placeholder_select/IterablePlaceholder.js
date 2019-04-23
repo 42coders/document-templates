@@ -4,7 +4,7 @@ import Placeholder from './Placeholder'
 export default class IterablePlaceholder extends PlaceholderBase {
 
     getPlaceholder() {
-        return '{% for ' + this.data + ' %} {% endfor %}'
+        return '{% for ' + this.data + ' %} <br/> {% endfor %}'
     }
 
     getWidgets() {

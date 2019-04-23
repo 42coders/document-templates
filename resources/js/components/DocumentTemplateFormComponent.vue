@@ -134,13 +134,10 @@
                     CKEDITOR.replace(editorId, {
                         customConfig: '',
                         extraPlugins: 'richcombo,placeholder_select',
-                        toolbar: [
-                            {
-                                name: 'basicstyles',
-                                items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat']
-                            },
+                        toolbarGroups:[
+                            { name: 'basicstyles' },
                             '/',
-                            ['placeholder_select'],
+                            { name: 'placeholder_select'}
                         ],
                         placeholder_select: {
                             placeholders: _this.placeholders,
