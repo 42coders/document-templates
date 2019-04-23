@@ -94,6 +94,13 @@
                 Vue.nextTick(function() {
                     _this.initEditors();
                 });
+            },
+            placeholders: function () {
+                var _this = this;
+
+                Vue.nextTick(function() {
+                    _this.initEditors();
+                });
             }
         },
         methods: {
@@ -141,7 +148,6 @@
                         ],
                         placeholder_select: {
                             placeholders: _this.placeholders,
-                            format: '{{%placeholder%}}'
                         }
                     });
 
@@ -171,7 +177,6 @@
                     });
             },
             getPlaceholders() {
-                this.placeholders = [];
                 axios.request({
                     method: 'post',
                     url: 'placeholders' + this.id(),
