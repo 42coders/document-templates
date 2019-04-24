@@ -63,7 +63,7 @@ class DocumentTemplatesControllerUnitTest extends FeatureTestCase
 
         $placeholders = $this->controller->placeholders($this->request, $documentTemplateModel);
 
-        $this->assertCount(4, $placeholders);
+        $this->assertCount(3, $placeholders);
     }
 
     public function testPlaceholdersWithOutModel()
@@ -73,7 +73,7 @@ class DocumentTemplatesControllerUnitTest extends FeatureTestCase
 
         $placeholders = $this->controller->placeholders($this->request);
 
-        $this->assertCount(4, $placeholders);
+        $this->assertCount(3, $placeholders);
     }
 
     public function testGetAvailableClasses()

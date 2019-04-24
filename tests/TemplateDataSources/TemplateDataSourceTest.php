@@ -55,7 +55,7 @@ class TemplateDataSourceTest extends TestCase
     public function testGetPlaceholders()
     {
         $placeholders = $this->dataSource->getPlaceholders();
-        $this->assertEquals($this->expectedPlaceholders, $placeholders);
+        $this->assertEquals($this->expectedPlaceholders, $placeholders->getPlaceholders());
     }
 
     public function testGetPlaceholdersFromObject()
@@ -63,6 +63,6 @@ class TemplateDataSourceTest extends TestCase
         $this->dataSource = new TemplateDataSource($this->testDataObject, 'Test Source');
 
         $placeholders = $this->dataSource->getPlaceholders();
-        $this->assertEquals($this->expectedPlaceholders, $placeholders);
+        $this->assertEquals($this->expectedPlaceholders, $placeholders->getPlaceholders());
     }
 }

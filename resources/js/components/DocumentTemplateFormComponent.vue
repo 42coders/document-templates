@@ -10,16 +10,17 @@
                                placeholder="Document name">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Layout</label>
-                        <select @change="handleLayoutChange" class="form-control" id="exampleFormControlSelect1"
+                        <label for="layoutSelector">Layout</label>
+                        <select @change="handleLayoutChange" class="form-control" id="layoutSelector"
                                 name="layout"
                                 v-model="documentTemplate.layout">
                             <option v-for="(layout, index) in layouts" :value="layout">{{layout}}</option>
                         </select>
                     </div>
                     <div v-if="documentClasses" class="form-group">
-                        <label for="exampleFormControlSelect1">Class</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="document_class"
+                        <label for="documentClassSelector">Class</label>
+                        <select class="form-control" name="document_class"
+                                id="documentClassSelector"
                                 v-model="documentTemplate.document_class"
                                 @change="handleClassChange"
                         >
@@ -35,8 +36,9 @@
                         </div>
                     </div>
                     <div v-for="(template, index) in templates" class="form-group">
-                        <label for="exampleFormControlTextarea1">Template "<b>{{template.name}}</b>"</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="" rows="3"
+                        <label :for="createEditorId(index)">Template "<b>{{template.name}}</b>"</label>
+                        <textarea class="form-control" ref="templateEditors" :id="createEditorId(index)"
+                                  name="templateeditor" rows="3"
                                   v-model="template.content"
                         >
                             {{template.content}}
@@ -52,34 +54,12 @@
                        :href="'/document-templates' + this.id()">Render</a>
                 </form>
             </div>
-            <div class="col-3">
-                <h4>Placeholders</h4>
-                <div v-if="isRequestPending && actionPending == ACTIONS.GET_PLACEHOLDERS"
-                        class="d-flex justify-content-center">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </div>
-                <ul>
-                    <li v-for="(placeholder, index) in placeholders">
-                        <div v-if="Array.isArray(placeholder)">
-                            {% for {{placeholder[0].split('.')[0]}} in {{index}} %}
-                            <ul>
-                                <li v-for="(childPlaceholder, index) in placeholder">
-                                    <span v-pre>{{</span>{{childPlaceholder}}<span v-pre>}}</span>
-                                </li>
-                            </ul>
-                            {% endfor %}
-                        </div>
-                        <span v-else><span v-pre>{{</span>{{placeholder}}<span v-pre>}}</span></span>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
 </template>
 
 <script>
+
     export default {
         props: ['initialData', 'baseUrl'],
         data() {
@@ -107,7 +87,26 @@
             console.log(this.baseUrl);
             this.init();
         },
+        watch: {
+            templates: function () {
+                var _this = this;
+
+                Vue.nextTick(function() {
+                    _this.initEditors();
+                });
+            },
+            placeholders: function () {
+                var _this = this;
+
+                Vue.nextTick(function() {
+                    _this.initEditors();
+                });
+            }
+        },
         methods: {
+            createEditorId(index) {
+                return 'templateEditor' + index;
+            },
             handleLayoutChange: function (e) {
                 this.getTemplates();
             },
@@ -126,6 +125,37 @@
                     this.actionPending = '';
                     return response;
                 });
+
+                this.initEditors();
+            },
+            initEditors() {
+                var _this = this;
+
+                this.templates.forEach((template, index) => {
+                    var editorId = _this.createEditorId(index);
+
+                    if(CKEDITOR.instances.hasOwnProperty(editorId)){
+                        CKEDITOR.instances[editorId].destroy()
+                    }
+
+                    CKEDITOR.replace(editorId, {
+                        customConfig: '',
+                        extraPlugins: 'richcombo,placeholder_select',
+                        toolbarGroups:[
+                            { name: 'basicstyles' },
+                            '/',
+                            { name: 'placeholder_select'}
+                        ],
+                        placeholder_select: {
+                            placeholders: _this.placeholders,
+                        }
+                    });
+
+                    CKEDITOR.instances[editorId].on('change', () => {
+                        let ckeditorData = CKEDITOR.instances[editorId].getData();
+                        template.content = ckeditorData;
+                    })
+                })
             },
             getTemplates() {
                 console.log(this.templates);
@@ -143,10 +173,10 @@
                     .then(({data}) => {
                         console.log(data);
                         this.templates = data;
+                        this.initEditors();
                     });
             },
             getPlaceholders() {
-                this.placeholders = [];
                 axios.request({
                     method: 'post',
                     url: 'placeholders' + this.id(),

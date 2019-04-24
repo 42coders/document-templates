@@ -25,16 +25,18 @@ class DocumentTemplateTest extends TestCase
     protected $documentTemplateModel;
 
     protected $expectedPlaceholders = [
-        "users" => [
+        [
             0 => "user.id",
             1 => "user.name",
         ],
-        "orders" => [
+        [
             0 => "order.id",
             1 => "order.description",
         ],
-        0 => "test.title",
-        1 => "test.name",
+        [
+            0 => "test.title",
+            1 => "test.name",
+        ]
     ];
 
     protected function setUp(): void
@@ -48,7 +50,10 @@ class DocumentTemplateTest extends TestCase
     public function testGetTemplatePlaceholders()
     {
         $placeholders = $this->documentTemplate->getTemplatePlaceholders();
-        $this->assertEquals($this->expectedPlaceholders, $placeholders);
+        foreach ($placeholders as $index => $placeholderGroup) {
+            $this->assertEquals($this->expectedPlaceholders[$index], $placeholderGroup->getPlaceholders());
+        }
+
     }
 
     public function testSave()
