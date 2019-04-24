@@ -23,7 +23,7 @@ php artisan vendor:publish --provider="BWF\DocumentTemplates\DocumentTemplatesSe
  ## Migration guide
  This release contains changes in the Vue component, you'd need to re-publish the components and public.
  
- **IMPORTANT:** Please note that the command below will overwrite the existing Vue component If you made changes to the component, create a backup of the file before running the command:
+ **IMPORTANT:** Please note that the command below will overwrite the existing Vue component. If you made changes to the component, create a backup of the file before running the command:
  
  ```sh
  php artisan vendor:publish --provider="BWF\DocumentTemplates\DocumentTemplatesServiceProvider" --tag=components --force
@@ -32,5 +32,5 @@ php artisan vendor:publish --provider="BWF\DocumentTemplates\DocumentTemplatesSe
  Publish the Ckeditor to the public:
  ```sh
   php artisan vendor:publish --provider="BWF\DocumentTemplates\DocumentTemplatesServiceProvider" --tag=public --force
-  ```
+```
   
