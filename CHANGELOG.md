@@ -15,4 +15,22 @@ This release contains incompatible changes in the config file, you'd need to re-
 php artisan vendor:publish --provider="BWF\DocumentTemplates\DocumentTemplatesServiceProvider" --tag=config --force
 ``` 
 
+# 0.3.0 (2019-04-24)
+ ## Enhancements
+ - Added CKEditor
+ - Created placeholder plugin for CKEditor
  
+ ## Migration guide
+ This release contains changes in the Vue component, you'd need to re-publish the components and public.
+ 
+ **IMPORTANT:** Please note that the command below will overwrite the existing Vue component If you made changes to the component, create a backup of the file before running the command:
+ 
+ ```sh
+ php artisan vendor:publish --provider="BWF\DocumentTemplates\DocumentTemplatesServiceProvider" --tag=components --force
+ ```
+ 
+ Publish the Ckeditor to the public:
+ ```sh
+  php artisan vendor:publish --provider="BWF\DocumentTemplates\DocumentTemplatesServiceProvider" --tag=public --force
+  ```
+  
