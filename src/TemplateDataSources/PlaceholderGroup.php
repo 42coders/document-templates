@@ -16,6 +16,7 @@ class PlaceholderGroup implements PlaceholderGroupInterface, \JsonSerializable
      * Placeholder constructor.
      * @param $name
      * @param $placeholders
+     * @param $type
      */
     public function __construct($name, $placeholders, $type)
     {
