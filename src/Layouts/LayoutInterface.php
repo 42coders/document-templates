@@ -34,4 +34,11 @@ interface LayoutInterface
      * @return string
      */
     public function render($templates, $dataSources);
+
+    /**
+     * @param \BWF\DocumentTemplates\EditableTemplates\EditableTemplateInterface $template
+     * @param \BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface[] $dataSources
+     * @return string
+     */
+    public function renderSingle(EditableTemplateInterface $template, $dataSources);
 }

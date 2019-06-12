@@ -33,4 +33,7 @@ php artisan vendor:publish --provider="BWF\DocumentTemplates\DocumentTemplatesSe
  ```sh
   php artisan vendor:publish --provider="BWF\DocumentTemplates\DocumentTemplatesServiceProvider" --tag=public --force
 ```
-  
+
+# 0.3.1 (2019-06-12)
+ ## Enhancements
+ - Added support for rendering single editable template

@@ -2,6 +2,8 @@
 
 namespace BWF\DocumentTemplates\Layouts;
 
+use BWF\DocumentTemplates\EditableTemplates\EditableTemplateInterface;
+
 abstract class Layout implements LayoutInterface
 {
     protected $name;
@@ -14,5 +16,10 @@ abstract class Layout implements LayoutInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    public function renderSingle(EditableTemplateInterface $template, $dataSources)
+    {
+        return '';
     }
 }
