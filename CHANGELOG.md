@@ -37,3 +37,7 @@ php artisan vendor:publish --provider="BWF\DocumentTemplates\DocumentTemplatesSe
 # 0.3.1 (2019-06-12)
  ## Enhancements
  - Added support for rendering single editable template
+ 
+ # 0.3.2 (2019-06-12)
+  ## Enhancements
+  - Created new MailTemplate trait, to support subject line rendering
