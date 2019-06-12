@@ -39,6 +39,19 @@ class TwigLayout extends Layout implements LayoutInterface
     public function __construct()
     {
         $this->basePath = config('document_templates.layout_path');
+
+        $loader = new FilesystemLoader($this->basePath);
+        $this->twig = new Environment($loader);
+
+        $policy = new SecurityPolicy(
+            config('document_templates.template_sandbox.allowedTags'),
+            config('document_templates.template_sandbox.allowedFilters'),
+            config('document_templates.template_sandbox.allowedMethods'),
+            config('document_templates.template_sandbox.allowedProperties'),
+            config('document_templates.template_sandbox.allowedFunctions')
+        );
+        $this->sandbox = new \Twig\Extension\SandboxExtension($policy);
+        $this->twig->addExtension($this->sandbox);
     }
 
 
@@ -53,20 +66,6 @@ class TwigLayout extends Layout implements LayoutInterface
     {
         $templateName = basename($template);
         $this->setName($templateName);
-
-        $loader = new FilesystemLoader($this->basePath);
-        $this->twig = new Environment($loader);
-
-        $policy = new SecurityPolicy(
-            config('document_templates.template_sandbox.allowedTags'),
-            config('document_templates.template_sandbox.allowedFilters'),
-            config('document_templates.template_sandbox.allowedMethods'),
-            config('document_templates.template_sandbox.allowedProperties'),
-            config('document_templates.template_sandbox.allowedFunctions')
-        );
-        $this->sandbox = new \Twig\Extension\SandboxExtension($policy);
-        $this->twig->addExtension($this->sandbox);
-
         $this->layout = $this->twig->load($templateName);
     }
 
@@ -159,8 +158,6 @@ class TwigLayout extends Layout implements LayoutInterface
             $templateData = array_merge($templateData, $dataSource->getTemplateData());
         }
 
-        $templateData['layout'] = $this->layout;
-
         return $templateData;
     }
 
@@ -175,6 +172,7 @@ class TwigLayout extends Layout implements LayoutInterface
     public function render($templates, $dataSources)
     {
         $templateData = $this->generateTemplateData($dataSources);
+        $templateData['layout'] = $this->layout;
 
         $loader = new ArrayLoader([
             'extendedLayout' => $this->extendLayout($templates, $templateData),
@@ -184,5 +182,10 @@ class TwigLayout extends Layout implements LayoutInterface
 
         return $this->twig->render('extendedLayout', $templateData);
 
+    }
+
+    public function renderSingle(EditableTemplateInterface $template, $dataSources)
+    {
+        return $this->renderWithSandbox($template, $this->generateTemplateData($dataSources));
     }
 }
