@@ -82,9 +82,6 @@
             };
         },
         mounted() {
-            console.log('Component mounted.');
-            console.log(this.initialData);
-            console.log(this.baseUrl);
             this.init();
         },
         watch: {
@@ -140,9 +137,24 @@
 
                     CKEDITOR.replace(editorId, {
                         customConfig: '',
+                        allowedContent: true,
                         extraPlugins: 'richcombo,placeholder_select',
                         toolbarGroups:[
-                            { name: 'basicstyles' },
+                            { name: 'document',    groups: [ 'mode', 'document', 'doctools' ] },
+                            { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+                            { name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
+                            { name: 'forms' },
+                            '/',
+                            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                            { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+                            { name: 'links' },
+                            { name: 'insert' },
+                            '/',
+                            { name: 'styles' },
+                            { name: 'colors' },
+                            { name: 'tools' },
+                            { name: 'others' },
+                            { name: 'about' },
                             '/',
                             { name: 'placeholder_select'}
                         ],
