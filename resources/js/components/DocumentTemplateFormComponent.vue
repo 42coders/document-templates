@@ -163,10 +163,22 @@
                         }
                     });
 
-                    CKEDITOR.instances[editorId].on('change', () => {
-                        let ckeditorData = CKEDITOR.instances[editorId].getData();
-                        template.content = ckeditorData;
-                    })
+                    let editor = CKEDITOR.instances[editorId];
+                    editor.on('change', () => {
+                        template.content = editor.getData();
+                    });
+
+                    // The change event doesn't work in source editing mode, must use the key event
+                    // @see https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_editor.html#event-change
+                    editor.on('mode', function() {
+                        if (this.mode === 'source') {
+                            template.content = editor.getData();
+                            var editable = editor.editable();
+                            editable.attachListener(editable, 'key', function() {
+                                template.content = editor.getData();
+                            });
+                        }
+                    });
                 })
             },
             getTemplates() {
