@@ -1,15 +1,3 @@
-/**
- * A plugin to enable placeholder tokens to be inserted into the CKEditor message. Use on its own or with teh placeholder plugin.
- * The default format is compatible with the placeholders syntex
- *
- * @version 0.1
- * @Author Troy Lutton
- * @license MIT
- *
- * This is a pure modification for the placeholders plugin. All credit goes to Stuart Sillitoe for creating the original (stuartsillitoe.co.uk)
- *
- */
-
 import PlaceholderGroup from "./PlaceholderGroup";
 
 CKEDITOR.plugins.add('placeholder_select',
@@ -74,7 +62,12 @@ CKEDITOR.plugins.add('placeholder_select',
 
             // Put ur init code here.
             editor.widgets.add('placeholder', {
-                // Widget code.
+                init: function() {
+                    this.setData( 'name', this.element.getText() );
+                },
+                downcast: function() {
+                    return new CKEDITOR.htmlParser.text( this.data.name );
+                },
             });
         },
 
@@ -92,7 +85,7 @@ CKEDITOR.plugins.add('placeholder_select',
 
                     return text.replace(placeholderReplaceRegex, function (match) {
                         // Creating widget code.
-                        var widgetWrapper = null,
+                        var widgetWrapper,
                             innerElement = new CKEDITOR.htmlParser.element('span', {
                                 'class': 'cke_placeholder'
                             });
