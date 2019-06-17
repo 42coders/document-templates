@@ -41,3 +41,12 @@ php artisan vendor:publish --provider="BWF\DocumentTemplates\DocumentTemplatesSe
  # 0.3.2 (2019-06-12)
   ## Enhancements
   - Created new MailTemplate trait, to support subject line rendering
+  
+# 0.3.3 (2019-06-17)
+ ## Enhancements
+   - Add more toolbars to the ckeditor, including the source editing
+   - Use RMT (https://github.com/liip/RMT) for release management 
+ ## Fixes
+   - Change the editable templates content field to text
+   - Fix the ckeditor save issue when editing in source mode
+   - Fix the multiplication of the span element after save
