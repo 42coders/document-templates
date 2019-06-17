@@ -82,9 +82,6 @@
             };
         },
         mounted() {
-            console.log('Component mounted.');
-            console.log(this.initialData);
-            console.log(this.baseUrl);
             this.init();
         },
         watch: {
@@ -140,9 +137,24 @@
 
                     CKEDITOR.replace(editorId, {
                         customConfig: '',
+                        allowedContent: true,
                         extraPlugins: 'richcombo,placeholder_select',
                         toolbarGroups:[
-                            { name: 'basicstyles' },
+                            { name: 'document',    groups: [ 'mode', 'document', 'doctools' ] },
+                            { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+                            { name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
+                            { name: 'forms' },
+                            '/',
+                            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                            { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+                            { name: 'links' },
+                            { name: 'insert' },
+                            '/',
+                            { name: 'styles' },
+                            { name: 'colors' },
+                            { name: 'tools' },
+                            { name: 'others' },
+                            { name: 'about' },
                             '/',
                             { name: 'placeholder_select'}
                         ],
@@ -151,10 +163,22 @@
                         }
                     });
 
-                    CKEDITOR.instances[editorId].on('change', () => {
-                        let ckeditorData = CKEDITOR.instances[editorId].getData();
-                        template.content = ckeditorData;
-                    })
+                    let editor = CKEDITOR.instances[editorId];
+                    editor.on('change', () => {
+                        template.content = editor.getData();
+                    });
+
+                    // The change event doesn't work in source editing mode, must use the key event
+                    // @see https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_editor.html#event-change
+                    editor.on('mode', function() {
+                        if (this.mode === 'source') {
+                            template.content = editor.getData();
+                            var editable = editor.editable();
+                            editable.attachListener(editable, 'key', function() {
+                                template.content = editor.getData();
+                            });
+                        }
+                    });
                 })
             },
             getTemplates() {
