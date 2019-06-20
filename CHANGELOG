@@ -3,4 +3,5 @@ VERSION 0  CKEDITOR PLUGIN FIXES
 ================================
 
    Version 0.3 - Ckeditor plugin fixes
+      20/06/2019 12:33  0.3.5  Cleanup js dependencies and add ckeditor to publish
       17/06/2019 09:15  0.3.3  initial release

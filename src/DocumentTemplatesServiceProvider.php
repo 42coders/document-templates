@@ -32,9 +32,13 @@ class DocumentTemplatesServiceProvider extends ServiceProvider
             ], 'config');
 
             $this->publishes([
-                __DIR__ . '/../resources/js/lib' => public_path('vendor/document-templates/js/lib'),
-                __DIR__ . '/../node_modules/ckeditor' => public_path('vendor/document-templates/js/lib/ckeditor'),
-            ], 'public');
+                __DIR__ . '/../resources/js/ckeditor' => resource_path('js/vendor/document-templates/js/ckeditor'),
+                __DIR__ . '/../public/js/lib/ckeditor' => public_path('vendor/document-templates/js/lib/ckeditor'),
+            ], 'ckeditor');
+
+            $this->publishes([
+                __DIR__ . '/../resources/js/document-templates.js' => resource_path('js/vendor/document-templates/js/document-templates.js'),
+            ], 'js');
         }
     }
 }
