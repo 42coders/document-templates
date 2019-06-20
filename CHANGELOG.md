@@ -50,3 +50,8 @@ php artisan vendor:publish --provider="BWF\DocumentTemplates\DocumentTemplatesSe
    - Change the editable templates content field to text
    - Fix the ckeditor save issue when editing in source mode
    - Fix the multiplication of the span element after save
+
+# 0.3.5 (2019-06-20)
+ ## Enhancements
+   - Added document-templates.js it does all the necessary initialisations (ckeditor/component/etc)
+   - ServiceProvider publishes ckeditor and document-templates.js
