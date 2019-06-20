@@ -27,7 +27,13 @@ class DocumentTemplates
             Route::post($uri . '/templates/{documentTemplate?}', $controller . '@templates');
             Route::post($uri . '/placeholders/{documentTemplate?}', $controller . '@placeholders');
 
-            Route::model('documentTemplate', DocumentTemplateModel::class);
+//            Route::model('documentTemplate', DocumentTemplateModel::class);
+
+            app()->bind(
+                \BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface::class,
+                \App\DemoDocumentTemplateModel::class
+            );
+
         });
     }
 }

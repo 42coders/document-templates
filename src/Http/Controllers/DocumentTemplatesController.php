@@ -129,8 +129,9 @@ class DocumentTemplatesController extends Controller
      * @throws \Exception
      * @return \Illuminate\Http\Response
      */
-    public function edit(DocumentTemplateModel $documentTemplate)
+    public function edit(DocumentTemplateModelInterface $documentTemplate, $id)
     {
+
         $layouts = $this->getAvailableLayouts();
         $documentClasses = collect($this->documentClasses);
         $placeholders = $this->getPlaceholders($documentTemplate);
