@@ -132,6 +132,7 @@ class DocumentTemplatesController extends Controller
     public function edit(DocumentTemplateModelInterface $documentTemplate, $id)
     {
 
+        $documentTemplate = $documentTemplate->find($id);
         $layouts = $this->getAvailableLayouts();
         $documentClasses = collect($this->documentClasses);
         $placeholders = $this->getPlaceholders($documentTemplate);
