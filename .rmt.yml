@@ -35,5 +35,6 @@ master:
             format: semantic
             dump-commits: true
             exclude-merge-commits: true
-        composer-update: true
+        composer-update:
+            name: composer.json
         vcs-commit: ~              # Commit the CHANGELOG
