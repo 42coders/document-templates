@@ -35,4 +35,5 @@ master:
             format: semantic
             dump-commits: true
             exclude-merge-commits: true
+        composer-update: true
         vcs-commit: ~              # Commit the CHANGELOG
