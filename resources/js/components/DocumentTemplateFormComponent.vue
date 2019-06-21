@@ -59,6 +59,7 @@
 </template>
 
 <script>
+    import TemplateEditor from "../ckeditor/TemplateEditor";
 
     export default {
         props: ['initialData', 'baseUrl'],
@@ -129,39 +130,10 @@
                 var _this = this;
 
                 this.templates.forEach((template, index) => {
-                    var editorId = _this.createEditorId(index);
+                    let editorId = _this.createEditorId(index),
+                        templateEditor = new TemplateEditor(editorId, _this.placeholders);
 
-                    if(CKEDITOR.instances.hasOwnProperty(editorId)){
-                        CKEDITOR.instances[editorId].destroy()
-                    }
-
-                    CKEDITOR.replace(editorId, {
-                        customConfig: '',
-                        allowedContent: true,
-                        extraPlugins: 'richcombo,placeholder_select',
-                        toolbarGroups:[
-                            { name: 'document',    groups: [ 'mode', 'document', 'doctools' ] },
-                            { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
-                            { name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
-                            { name: 'forms' },
-                            '/',
-                            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                            { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
-                            { name: 'links' },
-                            { name: 'insert' },
-                            '/',
-                            { name: 'styles' },
-                            { name: 'colors' },
-                            { name: 'tools' },
-                            { name: 'others' },
-                            { name: 'about' },
-                            '/',
-                            { name: 'placeholder_select'}
-                        ],
-                        placeholder_select: {
-                            placeholders: _this.placeholders,
-                        }
-                    });
+                    templateEditor.init();
 
                     let editor = CKEDITOR.instances[editorId];
                     editor.on('change', () => {
