@@ -34,7 +34,8 @@ export default class TemplateEditor {
             ],
             placeholder_select: {
                 placeholders: this.placeholders,
-            }
+            },
+            protectedSource: [/{%([^{}])+%}/g],
         });
     }
 }
