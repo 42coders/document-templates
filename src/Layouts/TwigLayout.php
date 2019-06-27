@@ -39,7 +39,13 @@ class TwigLayout extends Layout implements LayoutInterface
     public function __construct()
     {
         $this->basePath = config('document_templates.layout_path');
+        $this->createEnvironment();
+    }
 
+    /**
+     * Creates the twig environment and sets the sets up the security policy.
+     */
+    private function createEnvironment(){
         $loader = new FilesystemLoader($this->basePath);
         $this->twig = new Environment($loader);
 
@@ -54,7 +60,6 @@ class TwigLayout extends Layout implements LayoutInterface
         $this->twig->addExtension($this->sandbox);
     }
 
-
     /**
      * @param string $template
      * @return mixed|void
@@ -64,6 +69,7 @@ class TwigLayout extends Layout implements LayoutInterface
      */
     public function load($template)
     {
+        $this->createEnvironment();
         $templateName = basename($template);
         $this->setName($templateName);
         $this->layout = $this->twig->load($templateName);
@@ -94,6 +100,8 @@ class TwigLayout extends Layout implements LayoutInterface
             throw new \Exception('Layout is not loaded!');
         }
 
+        //It is necessary to load the template again, without this, the rendering fails when used with Laravel queues.
+        $this->load($this->name);
         $context = $this->layout->getSourceContext();
         $blocks = $this->layout->getBlockNames([$context]);
 
