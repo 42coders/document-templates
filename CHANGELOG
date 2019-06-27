@@ -2,6 +2,15 @@
 VERSION 0  CKEDITOR PLUGIN FIXES
 ================================
 
+   Version 0.4 - Mailable support
+      27/06/2019 14:29  0.4.0  initial release
+         2c1874e Allow placeholder insert in source view as well, and make the iterable placeholder protected
+         075e74e Refactor the ckeditor initialization
+         c2955c1 Add template mailable to support sending the document via email
+         a490021 Add subject field to document templates
+         025d38d Use find to get the model from the database
+         75fc56a Bind the model interface to the concrete implementation in service container
+
    Version 0.3 - Ckeditor plugin fixes
       27/06/2019 09:12  0.3.7  Fix rendering when using laravel queues
          97c4701 Update .rmt.yml
