@@ -36,6 +36,7 @@ CKEDITOR.plugins.add('placeholder_select',
                         className: 'cke_format',
                         multiSelect: false,
                         toolbar: 'placeholder_select',
+                        modes: { wysiwyg:1, source:1 },
                         panel:
                             {
                                 css: [editor.config.contentsCss, CKEDITOR.skin.getPath('editor')],
@@ -52,7 +53,15 @@ CKEDITOR.plugins.add('placeholder_select',
                         onClick: function (value) {
                             editor.focus();
                             editor.fire('saveSnapshot');
-                            editor.insertHtml(value);
+                            if(editor.mode =='wysiwyg') {
+                                editor.insertHtml(value);
+                            }
+                            else {
+                                let caretPosition = $(editor.container.$).find('.cke_source')[0].selectionStart || 0,
+                                    textAreaValue = editor.getData();
+
+                                editor.setData(textAreaValue.substring(0, caretPosition) + value + textAreaValue.substring(caretPosition));
+                            }
                             editor.fire('saveSnapshot');
                         }
                     });
