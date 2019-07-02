@@ -47,7 +47,7 @@ class TwigLayout extends Layout implements LayoutInterface
      */
     private function createEnvironment(){
         $loader = new FilesystemLoader($this->basePath);
-        $this->twig = new Environment($loader);
+        $this->twig = new Environment($loader, config('document_templates.twig.environment'));
 
         $policy = new SecurityPolicy(
             config('document_templates.template_sandbox.allowedTags'),
