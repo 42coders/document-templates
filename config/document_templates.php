@@ -15,5 +15,17 @@ return [
         'allowedMethods' => [],
         'allowedProperties' => ['*'],
         'allowedFunctions' => []
+    ],
+    'twig' => [
+        'environment' => [
+            'debug' => false,
+            'charset' => 'utf-8',
+            'base_template_class' => '\Twig\Template',
+            'cache' => false,
+            'auto_reload' => false,
+            'strict_variables' => false,
+            'autoescape' => false,
+            'optimizations' => -1
+        ]
     ]
 ];
