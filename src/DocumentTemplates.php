@@ -5,6 +5,7 @@ namespace BWF\DocumentTemplates;
 
 
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel;
+use BWF\DocumentTemplates\Tests\DocumentTemplates\DemoDocumentTemplateModel;
 use Illuminate\Support\Facades\Route;
 
 class DocumentTemplates
@@ -31,7 +32,7 @@ class DocumentTemplates
 
             app()->bind(
                 \BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface::class,
-                \App\DemoDocumentTemplateModel::class
+                DemoDocumentTemplateModel::class
             );
 
         });

@@ -129,10 +129,13 @@ class DocumentTemplatesController extends Controller
      * @throws \Exception
      * @return \Illuminate\Http\Response
      */
-    public function edit(DocumentTemplateModelInterface $documentTemplate, $id)
+    public function edit(DocumentTemplateModelInterface $documentTemplate, $id = null)
     {
 
-        $documentTemplate = $documentTemplate->find($id);
+        if($id){
+            $documentTemplate = $documentTemplate->find($id);
+        }
+
         $layouts = $this->getAvailableLayouts();
         $documentClasses = collect($this->documentClasses);
         $placeholders = $this->getPlaceholders($documentTemplate);
