@@ -16,6 +16,11 @@ return [
         'allowedProperties' => ['*'],
         'allowedFunctions' => []
     ],
+    /**
+     * Twig environment configuration
+     *
+     * @see https://twig.symfony.com/doc/2.x/api.html#environment-options
+     */
     'twig' => [
         'environment' => [
             'debug' => false,
