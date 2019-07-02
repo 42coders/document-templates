@@ -3,6 +3,9 @@ VERSION 0  CKEDITOR PLUGIN FIXES
 ================================
 
    Version 0.4 - Mailable support
+      02/07/2019 11:19  0.4.1  Add twig environment options to config
+         d79f205 Add twig environment options to config, add test for twig strict variables
+         7352328 Fix the model bindings in controllers
       27/06/2019 14:29  0.4.0  initial release
          2c1874e Allow placeholder insert in source view as well, and make the iterable placeholder protected
          075e74e Refactor the ckeditor initialization
