@@ -18,13 +18,13 @@
                     <tbody>
                         @foreach($documentTemplates as $documentTempate)
                             <tr>
-                                <td><a href="{{route('document-templates.edit', $documentTempate->id)}}">{{$documentTempate->name}}</a></td>
+                                <td><a href="{{route(config('document_templates.base_url') . '.edit', $documentTempate->id)}}">{{$documentTempate->name}}</a></td>
                                 <td>{{$documentTempate->document_class}}</td>
                                 <td>{{$documentTempate->layout}}</td>
                                 <td>{{$documentTempate->created_at}}</td>
                                 <td>{{$documentTempate->updated_at}}</td>
                                 <td>
-                                    <a class="btn btn btn-primary" target="_blank" href="{{route('document-templates.show', $documentTempate->id)}}">Render</a>
+                                    <a class="btn btn btn-primary" target="_blank" href="{{route(config('document_templates.base_url') . '.show', $documentTempate->id)}}">Render</a>
                                 </td>
                             </tr>
                         @endforeach
