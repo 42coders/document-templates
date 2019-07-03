@@ -55,3 +55,8 @@ php artisan vendor:publish --provider="BWF\DocumentTemplates\DocumentTemplatesSe
  ## Enhancements
    - Added document-templates.js it does all the necessary initialisations (ckeditor/component/etc)
    - ServiceProvider publishes ckeditor and document-templates.js
+   
+# 0.4.0 (2019-06-27)
+ ## Enhancements
+  - Add template mailable to support sending the document via email
+  - Allow placeholder insert in source view in Ckeditor
