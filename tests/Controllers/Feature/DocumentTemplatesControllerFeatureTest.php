@@ -2,11 +2,13 @@
 
 namespace BWF\DocumentTemplates\Tests\Controllers\Feature;
 
+use BWF\DocumentTemplates\DocumentTemplates;
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel;
 use BWF\DocumentTemplates\Tests\Controllers\DemoDocumentTemplatesController;
 use BWF\DocumentTemplates\Tests\Controllers\FeatureTestCase;
 use BWF\DocumentTemplates\Tests\DocumentTemplates\DemoDocumentTemplate;
 use Illuminate\Http\Request;
+use PHPUnit\Framework\TestResult;
 
 class DocumentTemplatesControllerFeatureTest extends FeatureTestCase
 {
@@ -23,9 +25,16 @@ class DocumentTemplatesControllerFeatureTest extends FeatureTestCase
 
     protected $request;
 
+    protected $baseUrl = '';
+
     protected function setUp(): void
     {
         parent::setUp();
+
+        if($this->baseUrl){
+            config(['document_templates.base_url' => $this->baseUrl]);
+            DocumentTemplates::routes(DemoDocumentTemplatesController::class);
+        }
 
         $this->controller = new DemoDocumentTemplatesController();
         $this->request = new Request();
@@ -70,7 +79,7 @@ class DocumentTemplatesControllerFeatureTest extends FeatureTestCase
                 ),
         );
 
-        $this->route('PUT', 'document-templates.update', ['documentTemplate' => $documentTemplate->id], $dataToSave);
+        $this->route('PUT', $this->baseUrl . '.update', ['documentTemplate' => $documentTemplate->id], $dataToSave);
 
         $this->assertResponseOk();
         $this->assertDatabaseHas('document_templates', ['name' => 'Document Template Test Save',]);
@@ -85,14 +94,14 @@ class DocumentTemplatesControllerFeatureTest extends FeatureTestCase
         ]);
 
         $documentTemplate->save();
-        $this->get(route('document-templates.edit', $documentTemplate->id ));
+        $this->get(route($this->baseUrl . '.edit', $documentTemplate->id ));
 
         $this->assertResponseOk();
     }
 
     public function testCreate()
     {
-        $this->get(route('document-templates.create' ));
+        $this->get(route($this->baseUrl .  '.create' ));
         $this->assertResponseOk();
     }
 
@@ -106,13 +115,13 @@ class DocumentTemplatesControllerFeatureTest extends FeatureTestCase
 
         $documentTemplate->save();
 
-        $this->get(route('document-templates.show', $documentTemplate->id ));
+        $this->get(route($this->baseUrl .  '.show', $documentTemplate->id ));
         $this->assertResponseOk();
     }
 
     public function testIndex()
     {
-        $this->get(route('document-templates.index' ));
+        $this->get(route($this->baseUrl . '.index' ));
         $this->assertResponseOk();
     }
 
@@ -147,9 +156,51 @@ class DocumentTemplatesControllerFeatureTest extends FeatureTestCase
                 ),
         );
 
-        $this->route('POST', 'document-templates.store', [], $dataToSave);
+        $this->route('POST', $this->baseUrl . '.store', [], $dataToSave);
 
         $this->assertResponseOk();
         $this->assertDatabaseHas('document_templates', ['name' => 'Document Template Test Store',]);
+    }
+
+    public function testTemplates(){
+        $params = [
+            "layout" => "TestLayout.html.twig",
+            "document_class" => "BWF\\DocumentTemplates\\Tests\\DocumentTemplates\\DemoDocumentTemplateModel"
+            ];
+
+        DocumentTemplateModel::create([
+            'name' => 'test document template',
+            "layout" => "TestLayout.html.twig",
+            "document_class" => "BWF\\DocumentTemplates\\Tests\\DocumentTemplates\\DemoDocumentTemplate"
+        ]);
+
+        $this->route('POST', $this->baseUrl . '.templates', ['document_template' => 1], $params);
+        $this->assertResponseOk();
+    }
+
+    public function testPlaceholders(){
+        $params = [
+            "layout" => "TestLayout.html.twig",
+            "document_class" => "BWF\\DocumentTemplates\\Tests\\DocumentTemplates\\DemoDocumentTemplateModel"
+        ];
+
+        DocumentTemplateModel::create([
+            'name' => 'test document template',
+            "layout" => "TestLayout.html.twig",
+            "document_class" => "BWF\\DocumentTemplates\\Tests\\DocumentTemplates\\DemoDocumentTemplate"
+        ]);
+
+        $this->route('POST', $this->baseUrl . '.placeholders', ['document_template' => 1], $params);
+        $this->assertResponseOk();
+    }
+
+    public function run(TestResult $result = null): TestResult
+    {
+        $this->baseUrl = 'documents';
+        $result = parent::run($result);
+        $this->baseUrl = 'newsletters';
+        $result = parent::run($result);
+
+        return $result;
     }
 }

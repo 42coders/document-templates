@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Route;
 
 class DocumentTemplates
 {
-    public static function routes($controller, $uri = 'document-templates')
+    public static function routes($controller)
     {
+        $uri = config('document_templates.base_url');
+
         Route::middleware(['bindings'])->group(function () use($uri, $controller) {
             Route::resource($uri, $controller, [
                 'names' => [
@@ -23,17 +25,14 @@ class DocumentTemplates
                     'destroy' => $uri . '.destroy',
                     'show' => $uri . '.show',
                 ]
-            ]);
+            ])->parameters([
+                $uri => 'document_template'
+            ]);;
 
-            Route::post($uri . '/templates/{documentTemplate?}', $controller . '@templates');
-            Route::post($uri . '/placeholders/{documentTemplate?}', $controller . '@placeholders');
+            Route::post($uri . '/templates/{document_template?}', $controller . '@templates')->name($uri . '.templates');
+            Route::post($uri . '/placeholders/{document_template?}', $controller . '@placeholders')->name( $uri . '.placeholders');
 
-//            Route::model('documentTemplate', DocumentTemplateModel::class);
-
-            app()->bind(
-                \BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface::class,
-                DemoDocumentTemplateModel::class
-            );
+            Route::model('document_template', config('document_templates.model_class'));
 
         });
     }

@@ -17,7 +17,7 @@ class DocumentTemplatesController extends Controller
 
     protected $documentClasses = [];
 
-    protected function createDocumentTemplateModelFromRequest(Request $request, $documentTemplate = null)
+    protected function createDocumentTemplateModelFromRequest(Request $request, DocumentTemplateModelInterface $documentTemplateModel = null)
     {
         $name = $request->name;
         $layout = $request->layout;
@@ -25,34 +25,35 @@ class DocumentTemplatesController extends Controller
 
         $availableLayouts = $this->getAvailableLayouts();
 
-        if($documentTemplate === null){
-            $documentTemplate = new DocumentTemplateModel();
+        if($documentTemplateModel === null){
+            $modelClass = config('document_templates.model_class', DocumentTemplateModel::class);
+            $documentTemplateModel = new $modelClass();
         }
 
         if($name){
-            $documentTemplate->setAttribute('name', $name);
+            $documentTemplateModel->setAttribute('name', $name);
         }
 
         if($layout && $availableLayouts->contains($layout)){
-            $documentTemplate->setAttribute('layout', $layout);
+            $documentTemplateModel->setAttribute('layout', $layout);
         }
 
         if($documentClass && collect($this->documentClasses)->contains($documentClass)){
-            $documentTemplate->setAttribute('document_class', $documentClass);
+            $documentTemplateModel->setAttribute('document_class', $documentClass);
         }
 
 
-        return $documentTemplate;
+        return $documentTemplateModel;
     }
 
     /**
      * @param Request $request
-     * @param DocumentTemplateModel $documentTemplate
+     * @param DocumentTemplateModelInterface $documentTemplateModel
      * @return DocumentTemplateResponse
      */
-    protected function _save(Request $request, DocumentTemplateModel $documentTemplate)
+    protected function _save(Request $request, DocumentTemplateModelInterface $documentTemplateModel)
     {
-        $documentTemplate = $this->createDocumentTemplateModelFromRequest($request, $documentTemplate);
+        $documentTemplate = $this->createDocumentTemplateModelFromRequest($request, $documentTemplateModel);
         $status = $documentTemplate->save();
 
         $savedTemplates = [];
@@ -76,16 +77,16 @@ class DocumentTemplatesController extends Controller
         return $result;
     }
 
-    public function templates(Request $request, DocumentTemplateModelInterface $documentTemplate = null)
+    public function templates(Request $request, DocumentTemplateModelInterface $documentTemplateModel = null)
     {
-        $documentTemplate = $this->createDocumentTemplateModelFromRequest($request, $documentTemplate);
+        $documentTemplate = $this->createDocumentTemplateModelFromRequest($request, $documentTemplateModel);
 
         return $this->getTemplates($documentTemplate);
     }
 
-    public function placeholders(Request $request, DocumentTemplateModelInterface $documentTemplate = null)
+    public function placeholders(Request $request, DocumentTemplateModelInterface $documentTemplateModel = null)
     {
-        $documentTemplate = $this->createDocumentTemplateModelFromRequest($request, $documentTemplate);
+        $documentTemplate = $this->createDocumentTemplateModelFromRequest($request, $documentTemplateModel);
 
         return $this->getPlaceholders($documentTemplate);
     }
@@ -125,25 +126,20 @@ class DocumentTemplatesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  DocumentTemplateModel $documentTemplate
+     * @param  DocumentTemplateModelInterface $documentTemplateModel
      * @throws \Exception
      * @return \Illuminate\Http\Response
      */
-    public function edit(DocumentTemplateModelInterface $documentTemplate, $id = null)
+    public function edit(DocumentTemplateModelInterface $documentTemplateModel)
     {
-
-        if($id){
-            $documentTemplate = $documentTemplate->find($id);
-        }
-
         $layouts = $this->getAvailableLayouts();
         $documentClasses = collect($this->documentClasses);
-        $placeholders = $this->getPlaceholders($documentTemplate);
-        $templates = $this->getTemplates($documentTemplate);
+        $placeholders = $this->getPlaceholders($documentTemplateModel);
+        $templates = $this->getTemplates($documentTemplateModel);
 
         $params = [
             'documentClasses' => $documentClasses,
-            'documentTemplate' => $documentTemplate,
+            'documentTemplate' => $documentTemplateModel,
             'layouts' => $layouts,
             'placeholders' => $placeholders,
             'templates' => $templates
@@ -158,19 +154,17 @@ class DocumentTemplatesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  DocumentTemplateModel $documentTemplate
+     * @param  DocumentTemplateModelInterface $documentTemplateModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DocumentTemplateModel $documentTemplate)
+    public function update(Request $request, DocumentTemplateModelInterface $documentTemplateModel)
     {
-        $result = $this->_save($request, $documentTemplate);
+        $result = $this->_save($request, $documentTemplateModel);
 
         return response()->json($result);
     }
 
-    public function show(Request $request, $id){
-
-        $documentTemplateModel = DocumentTemplateModel::findOrFail($id);
+    public function show(Request $request, DocumentTemplateModelInterface $documentTemplateModel){
         $documentTemplate = DocumentTemplateFactory::build($documentTemplateModel);
 
         $params = compact(
