@@ -2,6 +2,25 @@
 VERSION 0  CKEDITOR PLUGIN FIXES
 ================================
 
+   Version 0.5 - Configurable document template model
+      25/07/2019 09:36  0.5.0  initial release
+         6933fb2 Update README.md
+         1eba250 Update RELEASE_NOTES.md
+         a930552 Write tests for all possible sandbox security cases
+         60d489b Fix the list 3rd time, hopefully now it will render correctly on bitbucket
+         fb6f636 Fix the list again
+         035e6a9 Fix the list in the readme
+         92a009c Update the api docs
+         f2fb2cf Rename changelog.md to release_notes.md
+         3d933b1 Update the readme
+         8418947 Update the phpdoc in config file
+         e3b3a75 Test the different base url configurations
+         2515ed2 Use the interface instead of concrete class in controller actions
+         c144d15 Use the base url form the config
+         cf12b37 Add model class and base url to the config
+         fb3e614 Add another author
+         d6f88ae Add comment to config file
+
    Version 0.4 - Mailable support
       02/07/2019 11:19  0.4.1  Add twig environment options to config
          d79f205 Add twig environment options to config, add test for twig strict variables
