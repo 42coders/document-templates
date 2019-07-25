@@ -18,8 +18,11 @@ abstract class Layout implements LayoutInterface
         return $this->name;
     }
 
-    public function renderSingle(EditableTemplateInterface $template, $dataSources)
-    {
-        return '';
-    }
+    /**
+     * @param EditableTemplateInterface $template
+     * @param \BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface[] $dataSources
+     * @return string
+     * @codeCoverageIgnore
+     */
+    abstract function renderSingle(EditableTemplateInterface $template, $dataSources);
 }
