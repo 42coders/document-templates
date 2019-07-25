@@ -51,7 +51,7 @@
                         Save
                     </button>
                     <a class="btn btn-secondary mb-2" target="_blank"
-                       :href="'/document-templates' + this.id()">Render</a>
+                       :href="this.baseUrl + this.id()">Render</a>
                 </form>
             </div>
         </div>

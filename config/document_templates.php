@@ -2,6 +2,9 @@
 
 return [
 
+    /**
+     * The base path to search for the layout twig files
+     */
     'layout_path' => resource_path('templates'),
 
     /**
@@ -16,6 +19,11 @@ return [
         'allowedProperties' => ['*'],
         'allowedFunctions' => []
     ],
+    /**
+     * Twig environment configuration
+     *
+     * @see https://twig.symfony.com/doc/2.x/api.html#environment-options
+     */
     'twig' => [
         'environment' => [
             'debug' => false,
@@ -27,5 +35,16 @@ return [
             'autoescape' => false,
             'optimizations' => -1
         ]
-    ]
+    ],
+
+    /**
+     * The model class to be used with route model binding, and in the DocumentTemplatesController
+     */
+    'model_class' => \BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel::class,
+
+    /**
+     * Base url to use for generating the routes with DocumentTemplate::routes() (e.g /document-templates/, /document-templates/1/edit).
+     * These routes are also named by this base url, and they look like this: route('document-template.index')
+     */
+    'base_url' => 'document-templates'
 ];

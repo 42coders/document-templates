@@ -18,6 +18,10 @@
         {
             "name": "Daniel Verner",
             "email": "daniel.verner@42coders.com"
+        },
+        {
+            "name": "Filip Vucinic",
+            "email": "filip@42coders.com"
         }
     ],
     "autoload": {
