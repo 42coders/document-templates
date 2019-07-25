@@ -60,3 +60,11 @@ php artisan vendor:publish --provider="BWF\DocumentTemplates\DocumentTemplatesSe
  ## Enhancements
   - Add template mailable to support sending the document via email
   - Allow placeholder insert in source view in Ckeditor
+  
+# 0.5.0 (2019-07-25)
+  ## Enhancements
+  - Add support to set the document template model in config file
+  - Add support to set the base url in the config file
+  
+  ## Fixes
+  - Correct the route model binding, use interface instead of model in the controller
