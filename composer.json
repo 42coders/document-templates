@@ -12,7 +12,8 @@
         "phpunit/phpunit": "^7.0",
         "orchestra/testbench": "^3.5",
         "orchestra/testbench-browser-kit": "^3.5",
-        "liip/rmt": "^1.5"
+        "liip/rmt": "^1.5",
+        "phpstan/phpstan": "^0.11.15"
     },
     "authors": [
         {
