@@ -11,6 +11,7 @@ use Twig\Sandbox\SecurityNotAllowedMethodError;
 use Twig\Sandbox\SecurityNotAllowedPropertyError;
 use Twig\Sandbox\SecurityNotAllowedTagError;
 use Twig\Sandbox\SecurityPolicyInterface;
+use Twig\Template;
 
 class SecurityPolicy implements SecurityPolicyInterface
 {
