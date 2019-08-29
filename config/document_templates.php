@@ -46,5 +46,10 @@ return [
      * Base url to use for generating the routes with DocumentTemplate::routes() (e.g /document-templates/, /document-templates/1/edit).
      * These routes are also named by this base url, and they look like this: route('document-template.index')
      */
-    'base_url' => 'document-templates'
+    'base_url' => 'document-templates',
+
+    /**
+     * Configure the pdf renderer to use with the application
+     */
+    'pdf_renderer' => \BWF\DocumentTemplates\Renderers\DomPdfRenderer::class
 ];

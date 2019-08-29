@@ -3,8 +3,9 @@
 
 namespace BWF\DocumentTemplates\DocumentTemplates;
 
-use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
+use BWF\DocumentTemplates\Exceptions\InvalidClassException;
 use BWF\DocumentTemplates\Layouts\LayoutInterface;
+use BWF\DocumentTemplates\Renderers\PdfRendererInterface;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface;
@@ -78,8 +79,39 @@ trait BaseDocumentTemplate
         );
     }
 
+    public function renderPdf($filePath)
+    {
+        $renderer = $this->getPdfRenderer();
+
+        $renderer->render(
+            $this->layout,
+            $this->getTemplates(),
+            $this->templateData,
+            $filePath
+        );
+
+        return $filePath;
+    }
+
     public function setRenderer($renderer)
     {
         $this->renderer = $renderer;
+    }
+
+    /**
+     * @return PdfRendererInterface
+     * @throws InvalidClassException
+     */
+    private function getPdfRenderer() : PdfRendererInterface
+    {
+        $pdfRendererClass = config('document_templates.pdf_renderer');
+        $renderer = new $pdfRendererClass();
+
+        if (!$renderer instanceof PdfRendererInterface) {
+            throw new InvalidClassException(sprintf('The configured pdf renderer (%s) is invalid. The renderer should implement the %s',
+                $pdfRendererClass,
+                PdfRendererInterface::class));
+        }
+        return $renderer;
     }
 }
