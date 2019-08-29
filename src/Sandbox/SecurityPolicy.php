@@ -30,11 +30,19 @@ class SecurityPolicy implements SecurityPolicyInterface
         $this->allowedFunctions = $allowedFunctions;
     }
 
+    /**
+     * @param array $tags
+     * @codeCoverageIgnore
+     */
     public function setAllowedTags(array $tags)
     {
         $this->allowedTags = $tags;
     }
 
+    /**
+     * @param array $filters
+     * @codeCoverageIgnore
+     */
     public function setAllowedFilters(array $filters)
     {
         $this->allowedFilters = $filters;
@@ -48,11 +56,19 @@ class SecurityPolicy implements SecurityPolicyInterface
         }
     }
 
+    /**
+     * @param array $properties
+     * @codeCoverageIgnore
+     */
     public function setAllowedProperties(array $properties)
     {
         $this->allowedProperties = $properties;
     }
 
+    /**
+     * @param array $functions
+     * @codeCoverageIgnore
+     */
     public function setAllowedFunctions(array $functions)
     {
         $this->allowedFunctions = $functions;
@@ -105,7 +121,7 @@ class SecurityPolicy implements SecurityPolicyInterface
     {
         $allowed = false;
 
-        if(!empty($this->allowedProperties) && $this->allowedProperties[0] === '*'){
+        if(!empty($this->allowedProperties) && !empty($this->allowedProperties[0]) && $this->allowedProperties[0] === '*'){
             $allowed = true;
         }
         else{
