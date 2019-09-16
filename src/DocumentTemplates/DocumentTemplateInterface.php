@@ -49,4 +49,11 @@ interface DocumentTemplateInterface
      */
     public function render();
 
+    /**
+     * @param string $filePath
+     *
+     * @return string|boolean
+     */
+    public function renderPdf(string $filePath);
+
 }

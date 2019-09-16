@@ -4,6 +4,7 @@
 namespace BWF\DocumentTemplates;
 
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class DocumentTemplatesServiceProvider extends ServiceProvider
@@ -40,5 +41,13 @@ class DocumentTemplatesServiceProvider extends ServiceProvider
                 __DIR__ . '/../resources/js/document-templates.js' => resource_path('js/vendor/document-templates/js/document-templates.js'),
             ], 'js');
         }
+    }
+
+    public function register()
+    {
+        /*
+        * Register the service provider for the dependency.
+        */
+        App::register(\Barryvdh\DomPDF\ServiceProvider::class);
     }
 }
