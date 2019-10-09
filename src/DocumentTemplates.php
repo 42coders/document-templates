@@ -27,7 +27,6 @@ class DocumentTemplates
             ])->parameters([
                 $uri => 'document_template'
             ]);
-            ;
 
             Route::post(
                 $uri . '/templates/{document_template?}',
