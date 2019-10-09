@@ -23,10 +23,9 @@ trait DocumentTemplate
      */
     public function init(DocumentTemplateModelInterface $model = null)
     {
-        if($model){
+        if ($model) {
             $this->model = $model;
-        }
-        else{
+        } else {
             $this->model = DocumentTemplateModel::byDocumentClass(get_class($this))->first();
         }
 
@@ -49,7 +48,7 @@ trait DocumentTemplate
     {
         $templates = collect();
         $layoutTemplates = $this->layout->getTemplates();
-        $layoutTemplateNames = $layoutTemplates->map(function($item){
+        $layoutTemplateNames = $layoutTemplates->map(function ($item) {
             return $item->getName();
         });
 

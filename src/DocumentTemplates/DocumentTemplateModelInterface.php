@@ -3,7 +3,6 @@
 
 namespace BWF\DocumentTemplates\DocumentTemplates;
 
-
 interface DocumentTemplateModelInterface
 {
     /**

@@ -3,7 +3,6 @@
 
 namespace BWF\DocumentTemplates\TemplateDataSources;
 
-
 class TemplateDataSource implements TemplateDataSourceInterface
 {
     protected $namespace;

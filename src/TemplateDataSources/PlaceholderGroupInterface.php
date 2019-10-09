@@ -3,7 +3,6 @@
 
 namespace BWF\DocumentTemplates\TemplateDataSources;
 
-
 interface PlaceholderGroupInterface
 {
     public function getName();

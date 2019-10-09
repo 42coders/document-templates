@@ -12,7 +12,7 @@ class EditableTemplate extends Model implements EditableTemplateInterface
 
     public function scopeForNames($query, $names)
     {
-        return $query->whereIn('name',  $names);
+        return $query->whereIn('name', $names);
     }
 
     /**

@@ -25,20 +25,20 @@ class DocumentTemplatesController extends Controller
 
         $availableLayouts = $this->getAvailableLayouts();
 
-        if($documentTemplateModel === null){
+        if ($documentTemplateModel === null) {
             $modelClass = config('document_templates.model_class', DocumentTemplateModel::class);
             $documentTemplateModel = new $modelClass();
         }
 
-        if($name){
+        if ($name) {
             $documentTemplateModel->setAttribute('name', $name);
         }
 
-        if($layout && $availableLayouts->contains($layout)){
+        if ($layout && $availableLayouts->contains($layout)) {
             $documentTemplateModel->setAttribute('layout', $layout);
         }
 
-        if($documentClass && collect($this->documentClasses)->contains($documentClass)){
+        if ($documentClass && collect($this->documentClasses)->contains($documentClass)) {
             $documentTemplateModel->setAttribute('document_class', $documentClass);
         }
 
@@ -58,7 +58,7 @@ class DocumentTemplatesController extends Controller
 
         $savedTemplates = [];
 
-        foreach($request->templates as $template){
+        foreach ($request->templates as $template) {
             $editableTemplate = EditableTemplate::firstOrNew(['id' => ($template['id'] ?? null) ]);
             $editableTemplate->document_template_id = $documentTemplate->id;
             $editableTemplate->fill($template);
@@ -164,7 +164,8 @@ class DocumentTemplatesController extends Controller
         return response()->json($result);
     }
 
-    public function show(Request $request, DocumentTemplateModelInterface $documentTemplateModel){
+    public function show(Request $request, DocumentTemplateModelInterface $documentTemplateModel)
+    {
         $documentTemplate = DocumentTemplateFactory::build($documentTemplateModel);
 
         $params = compact(
@@ -189,5 +190,4 @@ class DocumentTemplatesController extends Controller
 
         return view('document-templates::document-templates.index', $params);
     }
-
 }

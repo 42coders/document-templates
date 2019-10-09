@@ -3,7 +3,6 @@
 
 namespace BWF\DocumentTemplates\TemplateDataSources;
 
-
 trait ProvidesTemplateData
 {
     /**
@@ -14,7 +13,8 @@ trait ProvidesTemplateData
     /**
      * @return array
      */
-    protected function getData(){
+    protected function getData()
+    {
         return $this->data;
     }
 

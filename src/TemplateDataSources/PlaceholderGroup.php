@@ -35,7 +35,8 @@ class PlaceholderGroup implements PlaceholderGroupInterface, \JsonSerializable
         return $this->placeholders;
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return [
             'name' => $this->getName(),
             'type' => $this->type,

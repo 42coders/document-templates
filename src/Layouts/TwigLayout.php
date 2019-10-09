@@ -45,7 +45,8 @@ class TwigLayout extends Layout implements LayoutInterface
     /**
      * Creates the twig environment and sets the sets up the security policy.
      */
-    private function createEnvironment(){
+    private function createEnvironment()
+    {
         $loader = new FilesystemLoader($this->basePath);
         $this->twig = new Environment($loader, config('document_templates.twig.environment'));
 
@@ -96,7 +97,7 @@ class TwigLayout extends Layout implements LayoutInterface
     {
         $templates = [];
 
-        if(!$this->layout) {
+        if (!$this->layout) {
             throw new \Exception('Layout is not loaded!');
         }
 
@@ -189,7 +190,6 @@ class TwigLayout extends Layout implements LayoutInterface
         $this->twig->setLoader($loader);
 
         return $this->twig->render('extendedLayout', $templateData);
-
     }
 
     public function renderSingle(EditableTemplateInterface $template, $dataSources)

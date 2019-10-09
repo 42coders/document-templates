@@ -2,7 +2,6 @@
 
 namespace BWF\DocumentTemplates\DocumentTemplates;
 
-
 use BWF\DocumentTemplates\Layouts\LayoutInterface;
 use BWF\Renderers\RendererInterface;
 use Illuminate\Support\Collection;
@@ -55,5 +54,4 @@ interface DocumentTemplateInterface
      * @return string|boolean
      */
     public function renderPdf(string $filePath);
-
 }

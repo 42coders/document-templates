@@ -3,7 +3,6 @@
 
 namespace BWF\DocumentTemplates\DocumentTemplates;
 
-
 use Illuminate\Database\Eloquent\Model;
 
 class DocumentTemplateModel extends Model implements DocumentTemplateModelInterface

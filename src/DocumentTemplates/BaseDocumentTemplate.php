@@ -29,7 +29,7 @@ trait BaseDocumentTemplate
      */
     private $templateData = [];
 
-    protected abstract function dataSources();
+    abstract protected function dataSources();
 
     /**
      * @param array|\stdClass|TemplateDataSourceInterface $data
@@ -108,9 +108,11 @@ trait BaseDocumentTemplate
         $renderer = new $pdfRendererClass();
 
         if (!$renderer instanceof PdfRendererInterface) {
-            throw new InvalidClassException(sprintf('The configured pdf renderer (%s) is invalid. The renderer should implement the %s',
+            throw new InvalidClassException(sprintf(
+                'The configured pdf renderer (%s) is invalid. The renderer should implement the %s',
                 $pdfRendererClass,
-                PdfRendererInterface::class));
+                PdfRendererInterface::class
+            ));
         }
         return $renderer;
     }

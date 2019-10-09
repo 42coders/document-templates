@@ -27,7 +27,7 @@ class TemplateMailable extends Mailable
     public function __construct(DocumentTemplateModelInterface $mailTemplateModel, $templateData = [])
     {
         $this->mailTemplate = DocumentTemplateFactory::build($mailTemplateModel);
-        foreach ($templateData as $name => $data){
+        foreach ($templateData as $name => $data) {
             $this->mailTemplate->addTemplateData($data, $name);
         }
     }

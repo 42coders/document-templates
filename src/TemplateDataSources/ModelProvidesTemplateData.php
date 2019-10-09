@@ -3,7 +3,6 @@
 
 namespace BWF\DocumentTemplates\TemplateDataSources;
 
-
 trait ModelProvidesTemplateData
 {
     use ProvidesTemplateData;

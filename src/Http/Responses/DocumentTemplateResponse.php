@@ -3,7 +3,6 @@
 
 namespace BWF\DocumentTemplates\Http\Responses;
 
-
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel;
 use Illuminate\Support\Collection;
 
@@ -40,5 +39,4 @@ class DocumentTemplateResponse
         $this->templates = $templates;
         $this->redirect = $redirect;
     }
-
- }
+}

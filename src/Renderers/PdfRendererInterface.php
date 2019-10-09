@@ -3,7 +3,6 @@
 
 namespace BWF\DocumentTemplates\Renderers;
 
-
 use BWF\DocumentTemplates\Layouts\LayoutInterface;
 
 interface PdfRendererInterface

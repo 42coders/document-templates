@@ -3,7 +3,6 @@
 
 namespace BWF\DocumentTemplates\Http\Controllers;
 
-
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateFactory;
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel;
 use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface;
@@ -15,7 +14,7 @@ trait ManagesDocumentTemplates
     /**
      * @return Collection|string[]
      */
-    protected function  getAvailableLayouts()
+    protected function getAvailableLayouts()
     {
         $layout = new TwigLayout();
 
@@ -57,5 +56,4 @@ trait ManagesDocumentTemplates
 
         return $documentTemplate->getTemplatePlaceholders();
     }
-
 }

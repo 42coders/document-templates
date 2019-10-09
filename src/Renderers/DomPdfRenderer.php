@@ -3,7 +3,6 @@
 
 namespace BWF\DocumentTemplates\Renderers;
 
-
 use BWF\DocumentTemplates\Layouts\LayoutInterface;
 use Illuminate\Support\Facades\App;
 
@@ -17,5 +16,4 @@ class DomPdfRenderer extends PdfRenderer
 
         return $filePath;
     }
-
 }

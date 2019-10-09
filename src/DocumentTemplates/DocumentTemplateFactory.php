@@ -3,7 +3,6 @@
 
 namespace BWF\DocumentTemplates\DocumentTemplates;
 
-
 class DocumentTemplateFactory
 {
     /**
@@ -18,9 +17,10 @@ class DocumentTemplateFactory
         $instance = null;
         $class = $model->getDocumentClass();
 
-        if (!class_exists($class) || !in_array( DocumentTemplateInterface::class, class_implements($class))) {
+        if (!class_exists($class) || !in_array(DocumentTemplateInterface::class, class_implements($class))) {
             throw new \Exception(
-                sprintf('Document class: "%s" must implement "%s"',
+                sprintf(
+                    'Document class: "%s" must implement "%s"',
                     $class,
                     DocumentTemplateInterface::class
                 )
@@ -32,5 +32,4 @@ class DocumentTemplateFactory
 
         return $instance;
     }
-
 }

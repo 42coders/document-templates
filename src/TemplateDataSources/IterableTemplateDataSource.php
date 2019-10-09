@@ -3,7 +3,6 @@
 
 namespace BWF\DocumentTemplates\TemplateDataSources;
 
-
 class IterableTemplateDataSource extends TemplateDataSource implements TemplateDataSourceInterface
 {
     /**
@@ -54,10 +53,11 @@ class IterableTemplateDataSource extends TemplateDataSource implements TemplateD
         }
 
         $placeholderGroup = new PlaceholderGroup(
-            $this->getNameSpace(), $placeholders->getPlaceholders(), TYPE_ITERABLE_PLACEHOLDER
+            $this->getNameSpace(),
+            $placeholders->getPlaceholders(),
+            TYPE_ITERABLE_PLACEHOLDER
         );
 
         return $placeholderGroup;
     }
-
 }

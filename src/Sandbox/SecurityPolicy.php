@@ -3,7 +3,6 @@
 
 namespace BWF\DocumentTemplates\Sandbox;
 
-
 use Twig\Markup;
 use Twig\Sandbox\SecurityNotAllowedFilterError;
 use Twig\Sandbox\SecurityNotAllowedFunctionError;
@@ -121,10 +120,9 @@ class SecurityPolicy implements SecurityPolicyInterface
     {
         $allowed = false;
 
-        if(!empty($this->allowedProperties) && !empty($this->allowedProperties[0]) && $this->allowedProperties[0] === '*'){
+        if (!empty($this->allowedProperties) && !empty($this->allowedProperties[0]) && $this->allowedProperties[0] === '*') {
             $allowed = true;
-        }
-        else{
+        } else {
             foreach ($this->allowedProperties as $class => $properties) {
                 if ($obj instanceof $class) {
                     $allowed = \in_array($property, \is_array($properties) ? $properties : [$properties]);
