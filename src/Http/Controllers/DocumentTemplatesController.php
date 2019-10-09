@@ -166,7 +166,7 @@ class DocumentTemplatesController extends Controller
         return response()->json($result);
     }
 
-    public function show(Request $request, DocumentTemplateModelInterface $documentTemplateModel)
+    public function show(DocumentTemplateModelInterface $documentTemplateModel)
     {
         $documentTemplate = DocumentTemplateFactory::build($documentTemplateModel);
 

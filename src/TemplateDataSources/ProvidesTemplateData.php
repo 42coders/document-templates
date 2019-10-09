@@ -13,7 +13,7 @@ trait ProvidesTemplateData
     /**
      * @return array
      */
-    protected function getData()
+    public function getData()
     {
         return $this->data;
     }
@@ -35,18 +35,14 @@ trait ProvidesTemplateData
     }
 
     /**
-     * @param bool $useNamespace
      * @return array
      */
-    public function getTemplateData($useNamespace = true)
+    public function getTemplateData()
     {
         $data = $this->getData();
         $name = $this->getNameSpace();
 
-        if ($useNamespace) {
-            $data = $name ? [$name => $data] : $data;
-        }
-        return $data;
+        return  $name ? [$name => $data] : $data;
     }
 
     /**

@@ -23,7 +23,7 @@ trait ModelProvidesTemplateData
     /**
      * @return array
      */
-    protected function getData()
+    public function getData()
     {
         $data = [];
         $templateFields = $this->getTemplateFields();

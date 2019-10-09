@@ -36,7 +36,7 @@ trait BaseDocumentTemplate
      * @param string $name
      * @param bool $isIterable
      * @param string $iterableName Use as an iterable variable in the template
-     * @return TemplateDataSource
+     * @return TemplateDataSourceInterface
      */
     protected function dataSource($data, $name = '', $isIterable = false, $iterableName = '')
     {

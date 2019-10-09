@@ -10,6 +10,8 @@ use Twig\Environment;
 use Twig\Extension\SandboxExtension;
 use Twig\Loader\ArrayLoader;
 use Twig\Loader\FilesystemLoader;
+use \DirectoryIterator;
+use \Exception;
 
 class TwigLayout extends Layout implements LayoutInterface
 {
@@ -57,7 +59,7 @@ class TwigLayout extends Layout implements LayoutInterface
             config('document_templates.template_sandbox.allowedProperties'),
             config('document_templates.template_sandbox.allowedFunctions')
         );
-        $this->sandbox = new \Twig\Extension\SandboxExtension($policy);
+        $this->sandbox = new SandboxExtension($policy);
         $this->twig->addExtension($this->sandbox);
     }
 
@@ -82,7 +84,7 @@ class TwigLayout extends Layout implements LayoutInterface
     public function getAvailableLayouts()
     {
         $files = [];
-        $iterator = new \DirectoryIterator($this->basePath);
+        $iterator = new DirectoryIterator($this->basePath);
         /** @var \SplFileInfo $fileinfo */
         foreach ($iterator as $fileinfo) {
             if (!$fileinfo->isDot() && $fileinfo->getExtension() === 'twig') {
@@ -98,7 +100,7 @@ class TwigLayout extends Layout implements LayoutInterface
         $templates = [];
 
         if (!$this->layout) {
-            throw new \Exception('Layout is not loaded!');
+            throw new Exception('Layout is not loaded!');
         }
 
         //It is necessary to load the template again, without this, the rendering fails when used with Laravel queues.

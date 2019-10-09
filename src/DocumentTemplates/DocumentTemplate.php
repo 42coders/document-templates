@@ -23,9 +23,9 @@ trait DocumentTemplate
      */
     public function init(DocumentTemplateModelInterface $model = null)
     {
-        if ($model) {
-            $this->model = $model;
-        } else {
+        $this->model = $model;
+
+        if ($model === null) {
             $this->model = DocumentTemplateModel::byDocumentClass(get_class($this))->first();
         }
 

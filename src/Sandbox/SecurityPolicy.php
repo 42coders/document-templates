@@ -112,14 +112,14 @@ class SecurityPolicy implements SecurityPolicyInterface
         $method = strtolower($method);
         foreach ($this->allowedMethods as $class => $methods) {
             if ($obj instanceof $class) {
-                $allowed = \in_array($method, $methods);
+                $allowed = in_array($method, $methods);
 
                 break;
             }
         }
 
         if (!$allowed) {
-            $class = \get_class($obj);
+            $class = get_class($obj);
             throw new SecurityNotAllowedMethodError(sprintf(
                 'Calling "%s" method on a "%s" object is not allowed.',
                 $method,
@@ -135,19 +135,18 @@ class SecurityPolicy implements SecurityPolicyInterface
         if (!empty($this->allowedProperties) &&
             !empty($this->allowedProperties[0]) &&
             $this->allowedProperties[0] === '*') {
-            $allowed = true;
-        } else {
-            foreach ($this->allowedProperties as $class => $properties) {
-                if ($obj instanceof $class) {
-                    $allowed = \in_array($property, \is_array($properties) ? $properties : [$properties]);
+            return;
+        }
 
+        foreach ($this->allowedProperties as $class => $properties) {
+            if ($obj instanceof $class) {
+                $allowed = in_array($property, is_array($properties) ? $properties : [$properties]);
                     break;
-                }
             }
         }
 
         if (!$allowed) {
-            $class = \get_class($obj);
+            $class = get_class($obj);
             throw new SecurityNotAllowedPropertyError(sprintf(
                 'Calling "%s" property on a "%s" object is not allowed.',
                 $property,

@@ -21,27 +21,20 @@ class IterableTemplateDataSource extends TemplateDataSource implements TemplateD
     }
 
     /**
-     * @param bool $useNamespace
      * @return array|Array
      */
-    public function getTemplateData($useNamespace = true)
+    public function getTemplateData()
     {
         $templateData = [];
         foreach ($this->data as $dataSource) {
-            $templateData[] = $dataSource->getTemplateData(false);
+            $templateData[] = $dataSource->getData();
         }
 
-        $data = $templateData;
-
-        if ($useNamespace) {
-            $data = $this->namespace ? [$this->getNameSpace() => $templateData] : $templateData;
-        }
-
-        return $data;
+        return $this->namespace ? [$this->getNameSpace() => $templateData] : $templateData;
     }
 
     /**
-     * @return array|string[]
+     * @return PlaceholderGroup
      */
     public function getPlaceholders()
     {

@@ -3,37 +3,30 @@
 
 namespace BWF\DocumentTemplates\TemplateDataSources;
 
+use \ReflectionObject;
+use \IteratorAggregate;
+
 class TemplateDataSourceFactory
 {
     /**
-     * @param array|object $data
+     * @param array|object|TemplateDataSourceInterface $data
      * @param string $name
-     * @return TemplateDataSource
+     * @return TemplateDataSourceInterface
      */
     public static function build($data, $name = '')
     {
-        $templateDataSource = $data;
-        $buildRequired = false;
-
-        if (is_array($data)) {
-            $buildRequired = true;
-        } elseif (is_object($data)) {
-            $reflexionData = new \ReflectionObject($data);
-            if (!$reflexionData->implementsInterface(TemplateDataSourceInterface::class)) {
-                $buildRequired = true;
-            } else {
+        if (is_object($data)) {
+            $reflexionData = new ReflectionObject($data);
+            if ($reflexionData->implementsInterface(TemplateDataSourceInterface::class)) {
                 $data->setNamespace($name);
+                return $data;
             }
         }
 
-        if ($buildRequired) {
-            if ($data instanceof \IteratorAggregate) {
-                $templateDataSource = new IterableTemplateDataSource($data, $name);
-            } else {
-                $templateDataSource = new TemplateDataSource($data, $name);
-            }
+        if ($data instanceof IteratorAggregate) {
+            return new IterableTemplateDataSource($data, $name);
         }
 
-        return $templateDataSource;
+        return new TemplateDataSource($data, $name);
     }
 }
