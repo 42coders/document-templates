@@ -11,6 +11,7 @@
     <!-- se importan los rulesets, en este caso todos. -->
     <rule ref="rulesets/cleancode.xml">
         <exclude name="StaticAccess"/>
+        <exclude name="BooleanArgumentFlag"/>
     </rule>
     <rule ref="rulesets/codesize.xml/CyclomaticComplexity"/>
     <rule ref="rulesets/codesize.xml/NPathComplexity"/>
@@ -29,13 +30,11 @@
     <rule ref="rulesets/design.xml">
         <exclude name="CouplingBetweenObjects"/>
     </rule>
-    <!-- beware the façades yo. -->
     <rule ref="rulesets/design.xml/CouplingBetweenObjects">
         <properties>
             <property name="maximum" value="20"/>
         </properties>
     </rule>
-    <!-- se importa naming y se excluye ShortVariable para ser ajustada despues. -->
     <rule ref="rulesets/naming.xml">
         <exclude name="ShortVariable"/>
         <exclude name="LongVariable"/>
