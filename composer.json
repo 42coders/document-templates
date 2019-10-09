@@ -42,10 +42,11 @@
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html tests/coverage",
         "build-docs": "/usr/local/bin/phpdox",
-        "inspect" : [
+        "inspect": [
             "vendor/bin/phpcs",
             "vendor/bin/phpstan analyze src"
         ],
+        "inspect-fix": "vendor/bin/phpcbf",
         "insights" : "vendor/bin/phpmd src text phpmd.xml"
     },
     "extra": {
