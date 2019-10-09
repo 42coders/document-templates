@@ -79,7 +79,7 @@ trait BaseDocumentTemplate
         );
     }
 
-    public function renderPdf($filePath)
+    public function renderPdf(string $filePath)
     {
         $renderer = $this->getPdfRenderer();
 
