@@ -14,7 +14,8 @@
         "orchestra/testbench": "^3.5",
         "orchestra/testbench-browser-kit": "^3.5",
         "liip/rmt": "^1.5",
-        "phpstan/phpstan": "^0.11.15"
+        "phpstan/phpstan": "^0.11.15",
+        "squizlabs/php_codesniffer": "^3.5"
     },
     "authors": [
         {
@@ -39,7 +40,8 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html tests/coverage",
-        "build-docs": "/usr/local/bin/phpdox"
+        "build-docs": "/usr/local/bin/phpdox",
+        "inspect" : "vendor/bin/phpcs"
     },
     "extra": {
         "laravel": {
