@@ -20,8 +20,13 @@ class SecurityPolicy implements SecurityPolicyInterface
     private $allowedProperties;
     private $allowedFunctions;
 
-    public function __construct(array $allowedTags = [], array $allowedFilters = [], array $allowedMethods = [], array $allowedProperties = [], array $allowedFunctions = [])
-    {
+    public function __construct(
+        array $allowedTags = [],
+        array $allowedFilters = [],
+        array $allowedMethods = [],
+        array $allowedProperties = [],
+        array $allowedFunctions = []
+    ) {
         $this->allowedTags = $allowedTags;
         $this->allowedFilters = $allowedFilters;
         $this->setAllowedMethods($allowedMethods);
@@ -89,7 +94,10 @@ class SecurityPolicy implements SecurityPolicyInterface
 
         foreach ($functions as $function) {
             if (!\in_array($function, $this->allowedFunctions)) {
-                throw new SecurityNotAllowedFunctionError(sprintf('Function "%s" is not allowed.', $function), $function);
+                throw new SecurityNotAllowedFunctionError(
+                    sprintf('Function "%s" is not allowed.', $function),
+                    $function
+                );
             }
         }
     }
@@ -112,7 +120,11 @@ class SecurityPolicy implements SecurityPolicyInterface
 
         if (!$allowed) {
             $class = \get_class($obj);
-            throw new SecurityNotAllowedMethodError(sprintf('Calling "%s" method on a "%s" object is not allowed.', $method, $class), $class, $method);
+            throw new SecurityNotAllowedMethodError(sprintf(
+                'Calling "%s" method on a "%s" object is not allowed.',
+                $method,
+                $class
+            ), $class, $method);
         }
     }
 
@@ -120,7 +132,9 @@ class SecurityPolicy implements SecurityPolicyInterface
     {
         $allowed = false;
 
-        if (!empty($this->allowedProperties) && !empty($this->allowedProperties[0]) && $this->allowedProperties[0] === '*') {
+        if (!empty($this->allowedProperties) &&
+            !empty($this->allowedProperties[0]) &&
+            $this->allowedProperties[0] === '*') {
             $allowed = true;
         } else {
             foreach ($this->allowedProperties as $class => $properties) {
@@ -134,7 +148,11 @@ class SecurityPolicy implements SecurityPolicyInterface
 
         if (!$allowed) {
             $class = \get_class($obj);
-            throw new SecurityNotAllowedPropertyError(sprintf('Calling "%s" property on a "%s" object is not allowed.', $property, $class), $class, $property);
+            throw new SecurityNotAllowedPropertyError(sprintf(
+                'Calling "%s" property on a "%s" object is not allowed.',
+                $property,
+                $class
+            ), $class, $property);
         }
     }
 }

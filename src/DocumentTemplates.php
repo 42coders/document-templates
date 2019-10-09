@@ -29,8 +29,14 @@ class DocumentTemplates
             ]);
             ;
 
-            Route::post($uri . '/templates/{document_template?}', $controller . '@templates')->name($uri . '.templates');
-            Route::post($uri . '/placeholders/{document_template?}', $controller . '@placeholders')->name($uri . '.placeholders');
+            Route::post(
+                $uri . '/templates/{document_template?}',
+                $controller . '@templates'
+            )->name($uri . '.templates');
+            Route::post(
+                $uri . '/placeholders/{document_template?}',
+                $controller . '@placeholders'
+            )->name($uri . '.placeholders');
 
             Route::model('document_template', config('document_templates.model_class'));
         });

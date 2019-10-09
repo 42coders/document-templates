@@ -17,8 +17,10 @@ class DocumentTemplatesController extends Controller
 
     protected $documentClasses = [];
 
-    protected function createDocumentTemplateModelFromRequest(Request $request, DocumentTemplateModelInterface $documentTemplateModel = null)
-    {
+    protected function createDocumentTemplateModelFromRequest(
+        Request $request,
+        DocumentTemplateModelInterface $documentTemplateModel = null
+    ) {
         $name = $request->name;
         $layout = $request->layout;
         $documentClass = $request->document_class;
@@ -51,7 +53,7 @@ class DocumentTemplatesController extends Controller
      * @param DocumentTemplateModelInterface $documentTemplateModel
      * @return DocumentTemplateResponse
      */
-    protected function _save(Request $request, DocumentTemplateModelInterface $documentTemplateModel)
+    protected function save(Request $request, DocumentTemplateModelInterface $documentTemplateModel)
     {
         $documentTemplate = $this->createDocumentTemplateModelFromRequest($request, $documentTemplateModel);
         $status = $documentTemplate->save();
@@ -117,7 +119,7 @@ class DocumentTemplatesController extends Controller
     {
         $documentTemplate = $this->createDocumentTemplateModelFromRequest($request);
 
-        $result = $this->_save($request, $documentTemplate);
+        $result = $this->save($request, $documentTemplate);
         $result->redirect = route('document-templates.edit', $documentTemplate->id);
 
         return response()->json($result);
@@ -159,7 +161,7 @@ class DocumentTemplatesController extends Controller
      */
     public function update(Request $request, DocumentTemplateModelInterface $documentTemplateModel)
     {
-        $result = $this->_save($request, $documentTemplateModel);
+        $result = $this->save($request, $documentTemplateModel);
 
         return response()->json($result);
     }

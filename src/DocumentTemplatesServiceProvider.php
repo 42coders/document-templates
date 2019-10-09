@@ -24,7 +24,8 @@ class DocumentTemplatesServiceProvider extends ServiceProvider
             ], 'views');
 
             $this->publishes([
-                __DIR__ . '/../resources/js/components' => base_path('resources/js/vendor/document-templates/components'),
+                __DIR__ . '/../resources/js/components' =>
+                    base_path('resources/js/vendor/document-templates/components'),
             ], 'components');
 
             $this->publishes([
@@ -32,12 +33,15 @@ class DocumentTemplatesServiceProvider extends ServiceProvider
             ], 'config');
 
             $this->publishes([
-                __DIR__ . '/../resources/js/ckeditor' => resource_path('js/vendor/document-templates/js/ckeditor'),
-                __DIR__ . '/../public/js/lib/ckeditor' => public_path('vendor/document-templates/js/lib/ckeditor'),
+                __DIR__ . '/../resources/js/ckeditor' =>
+                    resource_path('js/vendor/document-templates/js/ckeditor'),
+                __DIR__ . '/../public/js/lib/ckeditor' =>
+                    public_path('vendor/document-templates/js/lib/ckeditor'),
             ], 'ckeditor');
 
             $this->publishes([
-                __DIR__ . '/../resources/js/document-templates.js' => resource_path('js/vendor/document-templates/js/document-templates.js'),
+                __DIR__ . '/../resources/js/document-templates.js' =>
+                    resource_path('js/vendor/document-templates/js/document-templates.js'),
             ], 'js');
         }
     }

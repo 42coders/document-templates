@@ -24,5 +24,5 @@ abstract class Layout implements LayoutInterface
      * @return string
      * @codeCoverageIgnore
      */
-    abstract function renderSingle(EditableTemplateInterface $template, $dataSources);
+    abstract public function renderSingle(EditableTemplateInterface $template, $dataSources);
 }
