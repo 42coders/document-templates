@@ -311,7 +311,7 @@ those endpoints are: `/placeholders` and `/templates`. If you use the trait you 
 
 
 ## Demo application
-Demo application can be found here: https://bitbucket.org/maxhutschenreiter/bwf-demo/. The demo app uses a symlinked version of the document templates package, see in the `composer.json`:
+Demo application can be found here: https://github.com/42coders/bwf-demo. You can use a symlinked version of the document templates package in the `composer.json`:
 ```json
     "repositories": [
         {
