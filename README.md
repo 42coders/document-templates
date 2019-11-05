@@ -262,7 +262,7 @@ Vue.component('document-template-form', require('./vendor/document-templates/com
 Please note that the pats may vary depending on your application's directory structure.
 
 ### Editing the templates
-The admin form component uses CKEditor for the user editable templates. The package ships with a custom built placeholders plugin for CKEditor. The placeholders plugin displays the placeholders as select boxes, every dataSource has it's own select box. The selected placeholders are automatically inserted into the editor's content as CKEditor inline widgets. The placeholder widgets can be moved across the text, and can be removed, but it's content is read only to prevent rendering problems caused by incorrect/modified placeholders.
+The admin form component uses CKEditor for the user editable templates. The package ships with a custom built placeholders plugin for CKEditor. The placeholders plugin displays the placeholders as select boxes, every dataSource has it's own select box. The selected placeholders are automatically inserted into the editor's content as CKEditor inline widgets. The placeholder widgets can be moved across the text, and can be removed, but theirs content is read only to prevent rendering problems caused by incorrect/modified placeholders.
 
 The CKEditor initialization using the placeholders plugin can be found below:
 
