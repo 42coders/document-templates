@@ -1,7 +1,7 @@
 # Document Templates
 
 [![Build Status](https://travis-ci.org/42coders/document-templates.svg?branch=master)](https://travis-ci.org/42coders/document-templates)
-
+![GitHub](https://img.shields.io/github/license/42coders/document-templates)
 ## Introduction
 Document templates Laravel package is intended for creating/managing user editable document templates stored in database, with ability to add placeholders, and assign various data sources (models, collections, arrays, objects) to the placeholders.
 The package uses [Twig](https://twig.symfony.com/) as a main template engine, but it is possible to extend it with other template engines. Document templates can be used as a base for creating editable pdf documents such as invoices, reports etc., for email templates or any other editable, server generated documents. The use editable parts of the document template are secured using [Twig Sandbox Extension](https://twig.symfony.com/doc/2.x/api.html#sandbox-extension), the sandbox behaviour can be configured in the config file.
