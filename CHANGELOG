@@ -3,6 +3,8 @@ VERSION 0  CKEDITOR PLUGIN FIXES
 ================================
 
    Version 0.6 - PDF render support
+      05/11/2019 11:38  0.6.4  License to composer.json
+         62318e5 Add license to composer.json
       05/11/2019 11:31  0.6.3  Update packagist
          905d518 Create LICENSE
          7df832d Bump lodash.mergewith from 4.6.1 to 4.6.2
