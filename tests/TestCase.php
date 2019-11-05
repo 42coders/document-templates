@@ -29,4 +29,11 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             DocumentTemplatesServiceProvider::class
         ];
     }
+
+    public function skipOnTravis()
+    {
+        if (! empty(getenv('TRAVIS_BUILD_ID'))) {
+            $this->markTestSkipped('Skipping because this test does not run properly on Travis');
+        }
+    }
 }
