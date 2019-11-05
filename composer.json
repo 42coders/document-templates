@@ -6,7 +6,7 @@
     "require": {
         "php" : "^7.1",
         "laravel/framework": "^5.7",
-        "twig/twig": "^2.0",
+        "twig/twig": "^2.7",
         "doctrine/dbal": "^2.9",
         "barryvdh/laravel-dompdf": "^0.8.5"
     },
@@ -17,7 +17,8 @@
         "squizlabs/php_codesniffer": "^3.5",
         "liip/rmt": "^1.5",
         "phpstan/phpstan": "^0.11.16",
-        "phpmd/phpmd": "^2.7"
+        "phpmd/phpmd": "^2.7",
+        "mockery/mockery": "^1.2"
     },
     "authors": [
         {
