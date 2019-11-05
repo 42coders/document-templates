@@ -341,5 +341,5 @@ Javascript tests are using [Jasmine](https://jasmine.github.io/) test framework.
 ### Documentation
 Api documentation can be generated with [phpDox](http://phpdox.de/). To download and install `phpDox` please follow the instructions [here](http://phpdox.de/getting-started.html). Once the `phpDox` is installed generate the api documentation by running `composer build-docs`. When the process is finished the documentation can be found in `docs/html` directory.
 
-#License
+## License
 The Document Templates is free software licensed under the MIT license.
