@@ -122,10 +122,10 @@ class DocumentTemplatesControllerUnitTest extends FeatureTestCase
         $expectedLayouts = collect([
             0 => "TestLayout.html.twig",
             1 => "TestIterableDataSource.html.twig"
-        ]);
+        ])->sort();
 
         $availableLayouts = $getAvailableLayoutsMethod->invoke($this->controller);
 
-        $this->assertEquals($expectedLayouts, $availableLayouts);
+        $this->assertEquals($expectedLayouts, $availableLayouts->sort());
     }
 }
