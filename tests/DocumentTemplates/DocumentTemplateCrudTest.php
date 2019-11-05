@@ -15,10 +15,10 @@ class DocumentTemplateCrudTest extends TestCase
         $expectedLayouts = collect([
             0 => "TestLayout.html.twig",
             1 => "TestIterableDataSource.html.twig"
-        ]);
+        ])->sort();
 
         $layout = new TwigLayout();
-        $availableLayouts = $layout->getAvailableLayouts();
+        $availableLayouts = $layout->getAvailableLayouts()->sort();
 
         $this->assertEquals($expectedLayouts, $availableLayouts);
 
