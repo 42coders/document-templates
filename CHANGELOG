@@ -3,6 +3,11 @@ VERSION 0  CKEDITOR PLUGIN FIXES
 ================================
 
    Version 0.6 - PDF render support
+      05/11/2019 11:26  0.6.2  Licence added
+         4cac77d Update README.md
+         e441dd9 Update .gitattributes
+         ad284ff Create .gitattributes
+         ac45253 Update README.md
       05/11/2019 09:09  0.6.1  Code cleanup and style fixes
          287277c Create README.md
          adf6fbf Delete README.md
