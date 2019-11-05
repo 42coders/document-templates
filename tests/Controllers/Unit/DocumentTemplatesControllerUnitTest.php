@@ -126,6 +126,6 @@ class DocumentTemplatesControllerUnitTest extends FeatureTestCase
 
         $availableLayouts = $getAvailableLayoutsMethod->invoke($this->controller);
 
-        $this->assertEquals($expectedLayouts, $availableLayouts);
+        $this->assertTrue($expectedLayouts->diff($availableLayouts)->isEmpty());
     }
 }

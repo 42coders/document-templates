@@ -44,7 +44,7 @@ class TwigLayoutSimpleTest extends TestCase
         $layout = new TwigLayout();
         $availableLayouts = $layout->getAvailableLayouts();
 
-        $this->assertEquals($expectedResults, $availableLayouts);
+        $this->assertTrue($expectedResults->diff($availableLayouts)->isEmpty());
     }
 
     public function testRender()

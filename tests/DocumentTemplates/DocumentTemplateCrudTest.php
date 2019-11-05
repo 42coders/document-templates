@@ -20,30 +20,14 @@ class DocumentTemplateCrudTest extends TestCase
         $layout = new TwigLayout();
         $availableLayouts = $layout->getAvailableLayouts();
 
-        $this->assertEquals($expectedLayouts, $availableLayouts);
+        $this->assertTrue($expectedLayouts->diff($availableLayouts)->isEmpty());
 
         $documentTemplate = new DemoDocumentTemplate();
         $documentTemplate->init();
 
+        $availableLayouts = $availableLayouts->sort()->values()->all();
+
         $layout->load($availableLayouts[0]);
-        $documentTemplate->setLayout($layout);
-
-        $templates = $documentTemplate->getTemplates();
-
-        $this->assertCount(2, $templates);
-        $this->assertTrue($templates->contains(
-            function (EditableTemplate $value) {
-                return $value->getName() == 'title';
-            })
-        );
-
-        $this->assertTrue($templates->contains(
-            function (EditableTemplate $value) {
-                return $value->getName() == 'content';
-            })
-        );
-
-        $layout->load($availableLayouts[1]);
         $documentTemplate->setLayout($layout);
 
         $templates = $documentTemplate->getTemplates();
@@ -59,6 +43,24 @@ class DocumentTemplateCrudTest extends TestCase
         $this->assertTrue($templates->contains(
             function (EditableTemplate $value) {
                 return $value->getName() == 'order_table_rows';
+            })
+        );
+
+        $layout->load($availableLayouts[1]);
+        $documentTemplate->setLayout($layout);
+
+        $templates = $documentTemplate->getTemplates();
+
+        $this->assertCount(2, $templates);
+        $this->assertTrue($templates->contains(
+            function (EditableTemplate $value) {
+                return $value->getName() == 'title';
+            })
+        );
+
+        $this->assertTrue($templates->contains(
+            function (EditableTemplate $value) {
+                return $value->getName() == 'content';
             })
         );
     }
