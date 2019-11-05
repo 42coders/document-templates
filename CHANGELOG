@@ -3,6 +3,19 @@ VERSION 0  CKEDITOR PLUGIN FIXES
 ================================
 
    Version 0.6 - PDF render support
+      05/11/2019 09:09  0.6.1  Code cleanup and style fixes
+         287277c Create README.md
+         adf6fbf Delete README.md
+         1d9698d Update phpmd rules
+         c9c93f5 Add fixer command phpcbf
+         8b42198 Remove unnecessary semicolon
+         772913f Cleanup and optimizations according to phpmd
+         78015f7 Update phpmd rules
+         75cdbdb Use phpmd and phpstan
+         cd92790 Make the method decratation compatible with the interface
+         d91cb7e Fix phpcs errors manually
+         5ae483b Apply auto fixes from phpcsbf
+         5b5f901 Use phpcs
       16/09/2019 11:10  0.6.0  initial release
          d90c3dc Restore the version number
          f6d18e4 Add pdf support to the readme
