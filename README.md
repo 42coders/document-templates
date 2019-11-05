@@ -3,8 +3,8 @@
 [![Build Status](https://travis-ci.org/42coders/document-templates.svg?branch=master)](https://travis-ci.org/42coders/document-templates)
 ![GitHub](https://img.shields.io/github/license/42coders/document-templates)
 ## Introduction
-Document templates Laravel package is intended for creating/managing user editable document templates stored in database, with ability to add placeholders, and assign various data sources (models, collections, arrays, objects) to the placeholders.
-The package uses [Twig](https://twig.symfony.com/) as a main template engine, but it is possible to extend it with other template engines. Document templates can be used as a base for creating editable pdf documents such as invoices, reports etc., for email templates or any other editable, server generated documents. The use editable parts of the document template are secured using [Twig Sandbox Extension](https://twig.symfony.com/doc/2.x/api.html#sandbox-extension), the sandbox behaviour can be configured in the config file.
+Document templates Laravel package is intended for creating/managing user editable document templates, with ability to add placeholders, and fill them from various data sources (models, collections, arrays, objects).
+The package uses [Twig](https://twig.symfony.com/) as a main template engine, but it is possible to extend it with other template engines. Document templates can be used as a base for creating editable pdf documents such as invoices, reports etc., for email templates or any other editable, server generated documents. The user editable parts of the document template are secured using [Twig Sandbox Extension](https://twig.symfony.com/doc/2.x/api.html#sandbox-extension). The sandbox behaviour can be configured in the config file.
 This package is part of the Business Workflow Framework.
 
 ## Getting started
@@ -63,7 +63,7 @@ The routes function accepts 1 argument:
 ## Basics
 
 ### DocumentTemplate
-This trait is responsible for reading the layout files, handling the datasources and rendering the document with data. Can be applied to any class with the convention that the class has only optional parameters in the constructor. These classes acts asa document type, create separate classes for Invoices, Letters, Registration Emails etc.
+This trait is responsible for reading the layout files, handling the datasources and rendering the document with data. Can be applied to any class with the convention that the class has only optional parameters in the constructor. These classes represent the document types, create separate classes for Invoices, Letters, Registration Emails etc.
 
 ### DocumentTemplateModel
 The model responsible to store the document templates, the default table is: `document_templates`.
