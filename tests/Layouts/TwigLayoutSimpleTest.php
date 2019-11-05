@@ -39,10 +39,10 @@ class TwigLayoutSimpleTest extends TestCase
         $expectedResults = collect([
             0 => "TestLayout.html.twig",
             1 => "TestIterableDataSource.html.twig"
-        ])->sort();
+        ])->sort()->values()->all();
 
         $layout = new TwigLayout();
-        $availableLayouts = $layout->getAvailableLayouts()->sort();
+        $availableLayouts = $layout->getAvailableLayouts()->sort()->values()->all();
 
         $this->assertEquals($expectedResults, $availableLayouts);
     }
