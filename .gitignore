@@ -1,0 +1,6 @@
+/vendor/
+/node_modules/
+/tests/coverage
+/build
+.idea
+.DS_Store

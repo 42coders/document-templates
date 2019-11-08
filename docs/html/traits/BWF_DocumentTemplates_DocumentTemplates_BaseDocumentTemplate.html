@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.html">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.html">Namespaces</a>
+        </li>
+        <li>
+          <a href="../interfaces.html">Interfaces</a>
+        </li>
+        <li>
+          <a href="../classes.html">Classes</a>
+        </li>
+        <li>
+          <a href="../traits.html">Traits</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.html">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.html">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../traits.html">Traits</a>
+          </li>
+          <li class="separator">
+            <a href="../traits.html#BWF_DocumentTemplates_DocumentTemplates">BWF\DocumentTemplates\DocumentTemplates</a>
+          </li>
+          <li class="separator">BaseDocumentTemplate</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#members">Members</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="../source/DocumentTemplates/BaseDocumentTemplate.php.html#line13">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>BWF\DocumentTemplates\DocumentTemplates\</small>BaseDocumentTemplate</h1>
+        <h4/>
+        <p/>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">trait BaseDocumentTemplate
+            {<br/><ul class="none"><li>// members</li><li>protected <span title="\BWF\DocumentTemplates\Layouts\Layout">Layout</span> <a href="#members">$layout</a>;
+                    </li><li>protected <span title="\BWF\DocumentTemplates\Renderers\Renderer">Renderer</span> <a href="#members">$renderer</a>;
+                    </li><li>private array <a href="#members">$templateData</a> =
+                        ;
+                    </li></ul><ul class="none"><li>// methods</li><li>protected abstract void <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/dataSources.html">dataSources</a>()
+                    </li><li>protected TemplateDataSource <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/dataSource.html">dataSource</a>()
+                    </li><li>public void <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/setLayout.html">setLayout</a>()
+                    </li><li>public void <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/addTemplateData.html">addTemplateData</a>()
+                    </li><li>public void <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/getTemplatePlaceholders.html">getTemplatePlaceholders</a>()
+                    </li><li>public void <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/render.html">render</a>()
+                    </li><li>public void <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/renderPdf.html">renderPdf</a>()
+                    </li><li>public void <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/setRenderer.html">setRenderer</a>()
+                    </li><li>private <span title="PdfRendererInterface">PdfRendererInterface</span> <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/getPdfRenderer.html">getPdfRenderer</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="templateData"><strong>$templateData</strong>
+                —
+                array<br/><span class="indent">Stores the datasource instances containing the renderable data. Used for template rendering.</span></li>
+          </ul>
+          <h4>protected</h4>
+          <ul class="members">
+            <li id="layout"><strong>$layout</strong>
+                —
+                <a title="\BWF\DocumentTemplates\Layouts\Layout" href="../traits/_BWF_DocumentTemplates_Layouts_Layout.html">\BWF\DocumentTemplates\Layouts\Layout</a></li>
+            <li id="renderer"><strong>$renderer</strong>
+                —
+                <a title="\BWF\DocumentTemplates\Renderers\Renderer" href="../traits/_BWF_DocumentTemplates_Renderers_Renderer.html">\BWF\DocumentTemplates\Renderers\Renderer</a></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>private</h4>
+          <ul>
+            <li id="getPdfRenderer">
+              <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/getPdfRenderer.html">getPdfRenderer()</a>
+            </li>
+          </ul>
+          <h4>protected</h4>
+          <ul>
+            <li id="dataSource">
+              <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/dataSource.html">dataSource()</a>
+            </li>
+            <li id="dataSources">
+              <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/dataSources.html">dataSources()</a>
+            </li>
+          </ul>
+          <h4>public</h4>
+          <ul>
+            <li id="addTemplateData">
+              <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/addTemplateData.html">addTemplateData()</a>
+            </li>
+            <li id="getTemplatePlaceholders">
+              <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/getTemplatePlaceholders.html">getTemplatePlaceholders()</a>
+            </li>
+            <li id="render">
+              <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/render.html">render()</a>
+            </li>
+            <li id="renderPdf">
+              <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/renderPdf.html">renderPdf()</a>
+            </li>
+            <li id="setLayout">
+              <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/setLayout.html">setLayout()</a>
+            </li>
+            <li id="setRenderer">
+              <a title="BWF\DocumentTemplates\DocumentTemplates\BaseDocumentTemplate" href="../traits/BWF_DocumentTemplates_DocumentTemplates_BaseDocumentTemplate/setRenderer.html">setRenderer()</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.12.0 - Copyright (C) 2010 - 2019 by Arne Blankerts and Contributors</span>
+    </footer>
+  </body>
+</html>

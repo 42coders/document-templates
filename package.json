@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "babel-node spec/run.js"
+  },
+  "devDependencies": {
+    "jasmine": "^3.4.0",
+    "@babel/node": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0"
+  },
+  "dependencies": {
+    "ckeditor": "^4.11.4"
+  }
+}
