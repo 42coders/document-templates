@@ -3,6 +3,10 @@ VERSION 1  INITIAL RELEASE
 ==========================
 
    Version 1.0 - Initial release
+      12/11/2019 15:08  1.0.2  Path fixes
+         2e50c23 Update composer.lock
+         3e55c05 Fix require path
+         da65385 Fix the publish path
       12/11/2019 13:17  1.0.1  Laravel 6 support
          541a984 Update for laravel6
       08/11/2019 08:50  1.0.0  initial release
