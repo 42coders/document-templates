@@ -3,4 +3,6 @@ VERSION 1  INITIAL RELEASE
 ==========================
 
    Version 1.0 - Initial release
+      12/11/2019 13:17  1.0.1  Laravel 6 support
+         541a984 Update for laravel6
       08/11/2019 08:50  1.0.0  initial release
