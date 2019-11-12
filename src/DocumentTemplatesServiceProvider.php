@@ -34,7 +34,7 @@ class DocumentTemplatesServiceProvider extends ServiceProvider
 
             $this->publishes([
                 __DIR__ . '/../resources/js/ckeditor' =>
-                    resource_path('js/vendor/document-templates/js/ckeditor'),
+                    resource_path('js/vendor/document-templates/ckeditor'),
                 __DIR__ . '/../public/js/lib/ckeditor' =>
                     public_path('vendor/document-templates/js/lib/ckeditor'),
             ], 'ckeditor');
