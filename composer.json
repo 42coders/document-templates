@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "php" : "^7.1",
-        "laravel/framework": "^5.7",
+        "laravel/framework": "^5.7|^6.0",
         "twig/twig": "^2.7",
         "doctrine/dbal": "^2.9",
         "barryvdh/laravel-dompdf": "^0.8.5"
