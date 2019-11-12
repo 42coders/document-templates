@@ -22,4 +22,4 @@ window.DocumentTemplateApp = new Vue();
 window.CKEDITOR_BASEPATH = '/vendor/document-templates/js/lib/ckeditor/';
 
 require('../../../../../public/vendor/document-templates/js/lib/ckeditor/ckeditor');
-require('./ckeditor/plugins/placeholder_select/plugin');
+require('../ckeditor/plugins/placeholder_select/plugin');
