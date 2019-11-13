@@ -5,7 +5,7 @@
 ## Introduction
 Document templates Laravel package is intended for creating/managing user editable document templates, with ability to add placeholders, and fill them from various data sources (models, collections, arrays, objects).
 The package uses [Twig](https://twig.symfony.com/) as a main template engine, but it is possible to extend it with other template engines. Document templates can be used as a base for creating editable pdf documents such as invoices, reports etc., for email templates or any other editable, server generated documents. The user editable parts of the document template are secured using [Twig Sandbox Extension](https://twig.symfony.com/doc/2.x/api.html#sandbox-extension). The sandbox behaviour can be configured in the config file.
-This package is part of the Business Workflow Framework.
+This package is part of the Business Workflow Framework. For a quick introduction on how to use the package please see this [blog post](https://42coders.com/how-to-create-invoices-easily-with-document-templates-package/).
 
 ![Template editor](https://42coders.com/wp-content/uploads/2019/08/Document_Template_wysiwyg.png "Logo Title Text 1")
 ![Rendered template](https://42coders.com/wp-content/uploads/2019/08/Document_Template_Menu.png "Logo Title Text 1")
