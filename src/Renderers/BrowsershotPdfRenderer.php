@@ -11,7 +11,10 @@ class BrowsershotPdfRenderer extends PdfRenderer
 {
     public function render(LayoutInterface $layout, $templates, $data, $filePath)
     {
-        Browsershot::html($layout->render($templates, $data))->savePdf($filePath);
+        Browsershot::html($layout->render($templates, $data))
+            ->showBackground()
+            ->savePdf($filePath);
+
         return $filePath;
     }
 
