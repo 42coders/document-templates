@@ -9,10 +9,12 @@ use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
 use BWF\DocumentTemplates\EditableTemplates\HtmlTemplate;
 use BWF\DocumentTemplates\Exceptions\InvalidClassException;
 use BWF\DocumentTemplates\Layouts\TwigLayout;
+use BWF\DocumentTemplates\Renderers\BrowsershotPdfRenderer;
 use BWF\DocumentTemplates\Renderers\TwigRenderer;
 use BWF\DocumentTemplates\Tests\Stubs\IterableTemplateData;
 use BWF\DocumentTemplates\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentTemplatePdfTest extends TestCase
 {
@@ -34,6 +36,11 @@ class DocumentTemplatePdfTest extends TestCase
     {
         parent::setUp();
         $this->initDocumentTemplate();
+
+
+        if (file_exists(storage_path('app/test.pdf'))){
+            unlink(storage_path('app/test.pdf'));
+        }
     }
 
     protected function initDocumentTemplate()
@@ -89,5 +96,16 @@ class DocumentTemplatePdfTest extends TestCase
         $this->expectException(InvalidClassException::class);
         $filePath = $this->documentTemplate->renderPdf(storage_path('app/test.pdf'));
 
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_render_pdf_with_browsershot_pdf_renderer()
+    {
+        config(['document_templates.pdf_renderer' => BrowsershotPdfRenderer::class]);
+
+        $filePath = $this->documentTemplate->renderPdf(storage_path('app/test.pdf'));
+        $this->assertFileExists($filePath);
     }
 }

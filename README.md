@@ -239,7 +239,9 @@ The render method is used to render the document with the given data, returns th
 ```
 
 #### Generating PDF
-The need for pdf generation is a quite common thing in web development. The package support pdf generation with [dompdf](https://github.com/dompdf/dompdf), it uses [laravel-dompdf](https://github.com/barryvdh/laravel-dompdf) package.
+The need for pdf generation is a quite common thing in web development. The package support pdf generation 
+with [dompdf](https://github.com/dompdf/dompdf), (using [laravel-dompdf](https://github.com/barryvdh/laravel-dompdf) package) 
+and [pupeteeer](https://github.com/GoogleChrome/puppeteer) (using [spatie/browsershot](https://github.com/spatie/browsershot) package). 
 The document template data should be set up the same way like for the simple rendering (see the previous section: Rendering template with data), but instead of the `render` method you should use the `renderPdf` method:
 
 ```php
@@ -248,16 +250,51 @@ $pdf = $documentTemplate->renderPdf(storage_path( 'app/my_example.pdf'));
 
 The only argument of the method is the desired path and file name, and it returns the path of the generated file.
 
+The package supports multiple pdf renderers, the desired pdf renderer can be set up in the `config/document-templates.php`:
+
+**DomPdf:**
+```php
+    'pdf_renderer' => \BWF\DocumentTemplates\Renderers\DomPdfRenderer::class
+```
+
 If you would like to configure the dompdf package, publish the dompdf configuration with:
 ```php
 php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
 ```
 
-The package supports multiple pdf renderers (although in the current version only one is implemented), the desired pdf renderer can be set up in the `config/document-templates.php`:
+When published, the config file can be found in `config/dompdf.php`.
+For more details about the dompdf configuration please check the [laravel-dompdf documentation](https://github.com/barryvdh/laravel-dompdf#configuration).
 
+
+**Browsershot:**
 ```php
-    'pdf_renderer' => \BWF\DocumentTemplates\Renderers\DomPdfRenderer::class
+    'pdf_renderer' => \BWF\DocumentTemplates\Renderers\BrowsershotPdfRenderer::class
 ```
+
+The browsershot package requires node 7.6.0 or higher and the Puppeteer Node library.
+
+On MacOS you can install Puppeteer in your project via NPM:
+
+```
+npm install puppeteer
+```
+
+Or you could opt to just install it globally
+
+```
+npm install puppeteer --global
+```
+
+On a Forge provisioned Ubuntu 16.04 server you can install the latest stable version of Chrome like this:
+
+```
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
+sudo npm install --global --unsafe-perm puppeteer
+sudo chmod -R o+rx /usr/lib/node_modules/puppeteer/.local-chromium
+```
+
+For more details please check the [browsershot documentation](https://github.com/spatie/browsershot#requirements).
 
 ## Administration
 This package includes Vue component and a resource controller as a starting point for the document template admin implementation. In order to use the components you have to use the [Vue](https://vuejs.org/) JavaScript framework. The component is published to `resources/js/components/document-templates`. Register the component in your application (`app.js`):
