@@ -79,7 +79,7 @@ class DocumentTemplatesControllerFeatureTest extends FeatureTestCase
                 ),
         );
 
-        $this->route('PUT', $this->baseUrl . '.update', ['documentTemplate' => $documentTemplate->id], $dataToSave);
+        $this->route('PUT', $this->baseUrl . '.update', ['document_template' => $documentTemplate->id], $dataToSave);
 
         $this->assertResponseOk();
         $this->assertDatabaseHas('document_templates', ['name' => 'Document Template Test Save',]);

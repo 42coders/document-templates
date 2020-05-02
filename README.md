@@ -135,6 +135,12 @@ These routes are also named by this base url, and they look like this: `route('d
     'base_url' => 'document-templates'
 ```
 
+Configure if the package should load it's default routes
+
+```php
+    'load_default_routes' => false
+```
+
 ### Creating the layout
 Create a layout file in the configured layout path, the layout files should have `.twig` extension. The editable parts in the layout should be defined as blocks in the layout:
 ```twig
