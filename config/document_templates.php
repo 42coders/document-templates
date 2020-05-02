@@ -51,5 +51,10 @@ return [
     /**
      * Configure the pdf renderer to use with the application
      */
-    'pdf_renderer' => \BWF\DocumentTemplates\Renderers\DomPdfRenderer::class
+    'pdf_renderer' => \BWF\DocumentTemplates\Renderers\DomPdfRenderer::class,
+
+    /**
+     * Configure if the package should load it's default routes
+     */
+    'load_default_routes' => false
 ];
