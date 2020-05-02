@@ -1,4 +1,16 @@
 
+VERSION 2  LARAVEL 7 COMPATIBILITY
+==================================
+
+   Version 2.0 - Laravel 7 compatibility
+      02/05/2020 13:33  2.0.0  initial release
+         ec74877 Update README.md
+         1434cf8 Configure if the package should load it's default routes
+         657bb62 npm update
+         1361c05 Update .travis.yml
+         3ff1a68 Travis update
+         c774f02 Add laravel 7 compatibility
+
 VERSION 1  INITIAL RELEASE
 ==========================
 
