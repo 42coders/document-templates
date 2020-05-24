@@ -2,6 +2,12 @@
 VERSION 2  LARAVEL 7 COMPATIBILITY
 ==================================
 
+   Version 2.1 - Fix the loader to allow include in the twig layout
+      24/05/2020 16:52  2.1.0  initial release
+         0022b95 Fix the tests
+         3d33a6b Add test to make sure that include is not available from the editable template
+         d589dc1 Use chain loader to allow include statements in templates
+
    Version 2.0 - Laravel 7 compatibility
       02/05/2020 13:33  2.0.0  initial release
          ec74877 Update README.md
