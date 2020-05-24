@@ -9,7 +9,7 @@ use BWF\DocumentTemplates\Layouts\TwigLayout;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\Tests\TestCase;
 
-class TwigLayoutSimpleTest extends TestCase
+class TwigLayoutIncludeTest extends TestCase
 {
     public function testRender()
     {

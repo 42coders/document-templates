@@ -48,7 +48,7 @@ class TwigLayoutSandboxSecurityTest extends TestCase
     {
         return [
             'not-allowed-include' => [
-                "{{ include('Include.html.twig')}}",
+                "{{ include('include/Include.html.twig')}}",
                 SecurityNotAllowedFunctionError::class
             ],
             'not-allowed-tag' => [
