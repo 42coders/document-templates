@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+</head>
+<body>
+    {% if true %}
+        If tag is allowed in the layout, but not in user content.
+    {% endif %}
+    {% block content %}
+    {% endblock %}
+    {{ include('include/Include.html.twig') }}
+</body>
+</html>

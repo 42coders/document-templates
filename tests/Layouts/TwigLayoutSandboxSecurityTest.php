@@ -47,6 +47,10 @@ class TwigLayoutSandboxSecurityTest extends TestCase
     public function sandboxNotAllowedDataProvider()
     {
         return [
+            'not-allowed-include' => [
+                "{{ include('include/Include.html.twig')}}",
+                SecurityNotAllowedFunctionError::class
+            ],
             'not-allowed-tag' => [
                 '{% if true %}If tag is not allowed{% endif %}',
                 SecurityNotAllowedTagError::class
