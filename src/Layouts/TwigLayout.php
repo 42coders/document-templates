@@ -9,6 +9,7 @@ use BWF\DocumentTemplates\Sandbox\SecurityPolicy;
 use Twig\Environment;
 use Twig\Extension\SandboxExtension;
 use Twig\Loader\ArrayLoader;
+use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
 use \DirectoryIterator;
 use \Exception;
@@ -35,6 +36,9 @@ class TwigLayout extends Layout implements LayoutInterface
      */
     protected $basePath;
 
+    /** @var FilesystemLoader */
+    protected $fileLoader;
+
     /**
      * TwigLayout constructor.
      */
@@ -49,8 +53,8 @@ class TwigLayout extends Layout implements LayoutInterface
      */
     private function createEnvironment()
     {
-        $loader = new FilesystemLoader($this->basePath);
-        $this->twig = new Environment($loader, config('document_templates.twig.environment'));
+        $this->fileLoader = new FilesystemLoader($this->basePath);
+        $this->twig = new Environment($this->fileLoader, config('document_templates.twig.environment'));
 
         $policy = new SecurityPolicy(
             config('document_templates.template_sandbox.allowedTags'),
@@ -129,6 +133,7 @@ class TwigLayout extends Layout implements LayoutInterface
         ]);
         $this->twig->setLoader($loader);
         $rendered = $this->twig->render($templateName, $templateData);
+        $this->twig->setLoader($this->fileLoader);
 
         $this->sandbox->disableSandbox();
 
@@ -189,7 +194,9 @@ class TwigLayout extends Layout implements LayoutInterface
             'extendedLayout' => $this->extendLayout($templates, $templateData),
         ]);
 
-        $this->twig->setLoader($loader);
+        $chainLoader = new ChainLoader([$this->fileLoader,$loader]);
+
+        $this->twig->setLoader($chainLoader);
 
         return $this->twig->render('extendedLayout', $templateData);
     }
