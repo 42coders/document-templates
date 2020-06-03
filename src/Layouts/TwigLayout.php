@@ -5,8 +5,10 @@ namespace BWF\DocumentTemplates\Layouts;
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplate;
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplateInterface;
 use BWF\DocumentTemplates\EditableTemplates\HtmlTemplate;
+use BWF\DocumentTemplates\Exceptions\InvalidTwigExtension;
 use BWF\DocumentTemplates\Sandbox\SecurityPolicy;
 use Twig\Environment;
+use Twig\Extension\ExtensionInterface;
 use Twig\Extension\SandboxExtension;
 use Twig\Loader\ArrayLoader;
 use Twig\Loader\ChainLoader;
@@ -22,7 +24,7 @@ class TwigLayout extends Layout implements LayoutInterface
     protected $twig;
 
     /**
-     * @var \Twig\Extension\SandboxExtension
+     * @var SandboxExtension
      */
     protected $sandbox;
 
@@ -56,6 +58,47 @@ class TwigLayout extends Layout implements LayoutInterface
         $this->fileLoader = new FilesystemLoader($this->basePath);
         $this->twig = new Environment($this->fileLoader, config('document_templates.twig.environment'));
 
+        $this->loadExtensions($this->getExtensions());
+        $this->loadSandbox();
+    }
+
+    /**
+     * Gets the set extensions from the config.
+     *
+     * @return array
+     */
+    private function getExtensions(): array
+    {
+        return config('document_templates.twig.extensions', []);
+    }
+
+    /**
+     * Loads extensions.
+     *
+     * @param array $extensions
+     *
+     * @throws InvalidTwigExtension
+     */
+    private function loadExtensions(array $extensions): void
+    {
+        foreach ($extensions as $extension) {
+            if (!in_array(ExtensionInterface::class, class_implements($extension))) {
+                throw new InvalidTwigExtension(
+                    $extension.' does not implement the required '.ExtensionInterface::class.' interface.'
+                );
+            }
+            if ($this->twig->hasExtension($extension)) {
+                continue;
+            }
+            $this->twig->addExtension(app($extension));
+        }
+    }
+
+    /**
+     * Sets the sets up the security policy and loads the sandbox.
+     */
+    private function loadSandbox(): void
+    {
         $policy = new SecurityPolicy(
             config('document_templates.template_sandbox.allowedTags'),
             config('document_templates.template_sandbox.allowedFilters'),
@@ -66,6 +109,7 @@ class TwigLayout extends Layout implements LayoutInterface
         $this->sandbox = new SandboxExtension($policy);
         $this->twig->addExtension($this->sandbox);
     }
+
 
     /**
      * @param string $template

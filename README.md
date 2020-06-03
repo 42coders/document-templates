@@ -122,6 +122,14 @@ Twig environment options can be configured with the settings below, read more ab
     ]
 ```
 
+Twig extensions can be loaded over `twig.extensions` by adding the extension's class to the array (which extends `\Twig\Extension\AbstractExtension` or implements `\Twig\Extension\ExtensionInterface`).
+
+```php
+    'twig' => [
+        'extensions' => []
+    ]
+```
+
 The model class to be used with route model binding, and in the `DocumentTemplatesController`
 
 ```php
