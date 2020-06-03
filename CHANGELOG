@@ -2,6 +2,10 @@
 VERSION 2  LARAVEL 7 COMPATIBILITY
 ==================================
 
+   Version 2.2 - Twig extension support
+      03/06/2020 10:28  2.2.0  initial release
+         02abc3f Add support for twig extensions
+
    Version 2.1 - Fix the loader to allow include in the twig layout
       24/05/2020 16:52  2.1.0  initial release
          0022b95 Fix the tests
