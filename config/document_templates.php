@@ -34,7 +34,8 @@ return [
             'strict_variables' => false,
             'autoescape' => false,
             'optimizations' => -1
-        ]
+        ],
+        'extensions' => [],
     ],
 
     /**

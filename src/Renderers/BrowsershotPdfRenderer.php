@@ -3,7 +3,6 @@
 
 namespace BWF\DocumentTemplates\Renderers;
 
-
 use BWF\DocumentTemplates\Layouts\LayoutInterface;
 use Spatie\Browsershot\Browsershot;
 
@@ -17,5 +16,4 @@ class BrowsershotPdfRenderer extends PdfRenderer
 
         return $filePath;
     }
-
 }
