@@ -32,7 +32,7 @@ trait BaseDocumentTemplate
     abstract protected function dataSources();
 
     /**
-     * @param array|\stdClass|TemplateDataSourceInterface $data
+     * @param $data
      * @param string $name
      * @param bool $isIterable
      * @param string $iterableName Use as an iterable variable in the template
