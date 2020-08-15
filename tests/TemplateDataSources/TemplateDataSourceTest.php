@@ -2,7 +2,9 @@
 
 namespace BWF\DocumentTemplates\Tests\TemplateDataSources;
 
+use BWF\DocumentTemplates\Exceptions\MissingNamespaceException;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
+use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
 use BWF\DocumentTemplates\Tests\TestCase;
 
 class TemplateDataSourceTest extends TestCase
@@ -64,5 +66,29 @@ class TemplateDataSourceTest extends TestCase
 
         $placeholders = $this->dataSource->getPlaceholders();
         $this->assertEquals($this->expectedPlaceholders, $placeholders->getPlaceholders());
+    }
+
+    public function testGetPlaceholdersFromObjectWithoutNamespace()
+    {
+        $this->dataSource = new TemplateDataSource($this->testDataObject);
+
+        $placeholders = $this->dataSource->getPlaceholders();
+        $this->assertEquals(['title', 'name'], $placeholders->getPlaceholders());
+    }
+
+    public function testGetPlaceholdersFromString()
+    {
+        $this->dataSource = new TemplateDataSource('String as test data', 'Test String');
+
+        $placeholders = $this->dataSource->getPlaceholders();
+        $this->assertEquals(['test_string'], $placeholders->getPlaceholders());
+    }
+
+    public function testGetPlaceholdersFromScalarVariableWithoutNamespaceThrowsException()
+    {
+        $this->expectException(MissingNamespaceException::class);
+        $templateDataSource = new TemplateDataSource('String as test data');
+
+        $templateDataSource->getPlaceholders();
     }
 }

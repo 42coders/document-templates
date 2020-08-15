@@ -3,6 +3,8 @@
 
 namespace BWF\DocumentTemplates\TemplateDataSources;
 
+use BWF\DocumentTemplates\Exceptions\MissingNamespaceException;
+
 trait ProvidesTemplateData
 {
     /**
@@ -58,14 +60,23 @@ trait ProvidesTemplateData
      * @param $key
      * @return string
      */
-    protected function createPlaceholder($key)
+    protected function createPlaceholder($key = null)
     {
-        $placeholder = $key;
-        if ($this->namespace) {
-            $placeholder = $this->getNameSpace() . '.' . $key;
+        if (empty($this->namespace) && empty($key)) {
+            throw new MissingNamespaceException(
+                'The scalar placeholders (string, integer) must define a namespace!'
+            );
         }
 
-        return $placeholder;
+        if (empty($key)) {
+            return $this->getNameSpace();
+        }
+
+        if ($this->namespace) {
+            return $this->getNameSpace() . '.' . $key;
+        }
+
+        return $key;
     }
 
     /**
@@ -73,11 +84,26 @@ trait ProvidesTemplateData
      */
     public function getPlaceholders()
     {
-        $placeholders = [];
-        foreach ($this->getData() as $key => $item) {
-            $placeholders[] = $this->createPlaceholder($key);
-        }
+        $placeholders = $this->createPlaceholders();
 
         return new PlaceholderGroup($this->getNameSpace(), $placeholders, TYPE_SINGLE_PLACEHOLDER);
+    }
+
+    /**
+     * @return array
+     */
+    protected function createPlaceholders(): array
+    {
+        $data = $this->getData();
+
+        if (!is_array($data) && !is_object($data)) {
+            return [$this->createPlaceholder()];
+        }
+
+        $placeholders = [];
+        foreach ($data as $key => $item) {
+            $placeholders[] = $this->createPlaceholder($key);
+        }
+        return $placeholders;
     }
 }
