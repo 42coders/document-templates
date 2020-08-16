@@ -1,6 +1,8 @@
 # Document Templates
 
 [![Build Status](https://travis-ci.org/42coders/document-templates.svg?branch=master)](https://travis-ci.org/42coders/document-templates)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/42coders/document-templates?style=flat-square)](https://packagist.org/packages/42coders/document-templates)
+[![Total Downloads](https://img.shields.io/packagist/dt/42coders/document-templates.svg?style=flat-square)](https://packagist.org/packages/42coders/document-templates)
 ![GitHub](https://img.shields.io/github/license/42coders/document-templates)
 ## Introduction
 Document templates Laravel package is intended for creating/managing user editable document templates, with ability to add placeholders, and fill them from various data sources (models, collections, arrays, objects).
@@ -85,7 +87,7 @@ The default controller for administration of the document templates.
 Placeholders are twig template variables or expressions used in the editable templates to be replaced during the rendering, e.g. `{{user.name}}` or `{% for user in users %}`
 
 ### Data Sources
-Data sources are the objects that provide data to the document template, and replace the placeholders with actual data in the rendering process. Data sources can be created from Models, Objects, or arrays.
+Data sources are the objects that provide data to the document template, and replace the placeholders with actual data in the rendering process. Data sources can be created from Models, Objects, arrays, or from any scalar types (strings, integers).
 
 ## Basic usage
 
@@ -185,6 +187,8 @@ class DemoDocumentTemplate implements DocumentTemplateInterface
             $this->dataSource($userModelInstance, 'user', true, 'users'),
             $this->dataSource($orderAssociativeArray, 'order', true, 'orders'),
             $this->dataSource($anyObject, 'test'),
+            $this->dataSource('', 'text'),
+            $this->dataSource(0, 'number'),
         ];
     }
 }
@@ -193,7 +197,7 @@ class DemoDocumentTemplate implements DocumentTemplateInterface
 The dataSource method accepts 4 arguments:
 
 - `$data` - instance of the data to use, it can be an empty instance, it is used to be able to show the possible placeholders when editing the document template in the admin area.
-- `$name` - defines the namespace for the data object e.g. $name = 'user'. The placeholders will be prefixed with the name: `{{user.name}}`
+- `$name` - defines the namespace for the data object e.g. $name = 'user'. The placeholders will be prefixed with the name: `{{user.name}}`. When using scalar data sources, the namespace is mandatory, for arrays and objects it can be omitted.
 - `$isIterable` - defines if the datasource can be used in a for loop in the template
 - `$iterableName` - defines the name of the iterable variable, which should be used in the template e.g. $iterableName = 'users' the placeholder for iteration would be `{% for user in users %}`
 
@@ -248,6 +252,8 @@ The render method is used to render the document with the given data, returns th
         $documentTemplate->addTemplateData(User::all(), 'users');
         $documentTemplate->addTemplateData($ordersCollection, 'orders');
         $documentTemplate->addTemplateData($testObject, 'test');
+        $documentTemplate->addTemplateData(42, 'number');
+        $documentTemplate->addTemplateData('coders', 'text');
 
         echo $documentTemplate->render();
 ```

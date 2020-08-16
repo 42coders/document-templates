@@ -11,7 +11,7 @@ class TemplateDataSource implements TemplateDataSourceInterface
 
     /**
      * TemplateDataSource constructor.
-     * @param array $data
+     * @param $data
      * @param string $namespace
      */
     public function __construct($data, $namespace = '')

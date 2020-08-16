@@ -6,11 +6,22 @@ use BWF\DocumentTemplates\DocumentTemplatesServiceProvider;
 
 class BasicsTest extends TestCase
 {
-    public function testIfThePhpUnitRuns(){
+    public function testIfThePhpUnitRuns()
+    {
         $this->assertTrue(true);
     }
 
-    public function testIfTheServiceProviderBoots(){
+    public function testIfTheServiceProviderBoots()
+    {
+        $serviceProvider = new DocumentTemplatesServiceProvider(app());
+        $serviceProvider->boot();
+
+        $this->assertInstanceOf(DocumentTemplatesServiceProvider::class, $serviceProvider);
+    }
+
+    public function testIfTheServiceProviderBootsWithLoadsDefaultRoutes()
+    {
+        config(['document_templates.load_default_routes' => 'true']);
         $serviceProvider = new DocumentTemplatesServiceProvider(app());
         $serviceProvider->boot();
 

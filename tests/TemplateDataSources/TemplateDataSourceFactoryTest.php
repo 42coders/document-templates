@@ -2,10 +2,12 @@
 
 namespace BWF\DocumentTemplates\Tests\TemplateDataSources;
 
+use BWF\DocumentTemplates\Exceptions\MissingNamespaceException;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceFactory;
 use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface;
 use BWF\DocumentTemplates\Tests\TestCase;
+use stdClass;
 
 class TemplateDataSourceFactoryTest extends TestCase
 {
@@ -15,10 +17,13 @@ class TemplateDataSourceFactoryTest extends TestCase
         $templateDataSource = TemplateDataSourceFactory::build(['test' => 'data'], 'test-name');
         $this->assertInstanceOf(TemplateDataSource::class, $templateDataSource);
 
-        $testDataObject = new \stdClass();
+        $testDataObject = new stdClass();
         $testDataObject->test = 'data';
 
         $templateDataSource = TemplateDataSourceFactory::build($testDataObject, 'test-name');
+        $this->assertInstanceOf(TemplateDataSource::class, $templateDataSource);
+
+        $templateDataSource = TemplateDataSourceFactory::build('string', 'test-name');
         $this->assertInstanceOf(TemplateDataSource::class, $templateDataSource);
     }
 

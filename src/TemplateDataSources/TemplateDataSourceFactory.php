@@ -9,7 +9,7 @@ use \IteratorAggregate;
 class TemplateDataSourceFactory
 {
     /**
-     * @param array|object|TemplateDataSourceInterface $data
+     * @param $data
      * @param string $name
      * @return TemplateDataSourceInterface
      */
