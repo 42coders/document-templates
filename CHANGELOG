@@ -2,6 +2,15 @@
 VERSION 2  LARAVEL 7 COMPATIBILITY
 ==================================
 
+   Version 2.3 - Add support for scalar types as template data
+      16/08/2020 09:59  2.3.0  initial release
+         a59aac1 Travis remove preferer lowest
+         1b68891 Update travis config, run tests for php 7.3 and 7.4
+         3a6a1a5 #14 Add scalar types to the docs
+         d52572e #14 Fix the data type in phpdoc
+         cb10dab #14 Add support for scalar variable types as template data source
+         52a8fb2 Bump lodash from 4.17.15 to 4.17.19
+
    Version 2.2 - Twig extension support
       03/06/2020 10:28  2.2.0  initial release
          02abc3f Add support for twig extensions
