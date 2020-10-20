@@ -1,7 +1,6 @@
 language: php
 dist: bionic
 php:
-  - 7.2
   - 7.3
   - 7.4
 
@@ -25,7 +24,7 @@ before_install:
 before_script:
   - npm install --global --unsafe-perm puppeteer
   - travis_retry composer self-update
-  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source
+  - travis_retry COMPOSER_MEMORY_LIMIT=-1 composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source
 
 script:
   - vendor/bin/phpunit
