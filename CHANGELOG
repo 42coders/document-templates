@@ -1,4 +1,14 @@
 
+VERSION 3  LARAVEL 8 COMPATIBILITY, PMIN VERSION OF PHP IS 7.3
+==============================================================
+
+   Version 3.0 - Laravel 8 compatibility, pmin version of php is 7.3
+      23/10/2020 05:43  3.0.0  initial release
+         0ed93c4 Update .travis.yml
+         cb42ce8 Travis config update
+         31658a5 Laravel 8 update
+         9cf1be1 Bump symfony/http-kernel from 5.0.8 to 5.1.5
+
 VERSION 2  LARAVEL 7 COMPATIBILITY
 ==================================
 
