@@ -3,6 +3,7 @@
 namespace BWF\DocumentTemplates\Layouts;
 
 use BWF\DocumentTemplates\EditableTemplates\EditableTemplateInterface;
+use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface;
 use Illuminate\Support\Collection;
 
 interface LayoutInterface
@@ -41,4 +42,11 @@ interface LayoutInterface
      * @return string
      */
     public function renderSingle(EditableTemplateInterface $template, $dataSources);
+
+    /**
+     * @param EditableTemplate[] $templates
+     * @param TemplateDataSourceInterface[] $dataSources
+     * @return mixed
+     */
+    public function dump($templates, $dataSources);
 }

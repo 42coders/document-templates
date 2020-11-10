@@ -105,4 +105,35 @@ class TwigLayoutSimpleTest extends TestCase
 
         $output = $layout->render($templates, $dataSources);
     }
+
+    public function testVariableDump()
+    {
+        $layout = new TwigLayout();
+        $layout->load('TestLayout.html.twig');
+        $templates = $layout->getTemplates();
+
+        foreach ($templates as $template) {
+            switch ($template->getName()) {
+                case 'title':
+                    $template->setContent('{{title_source.title}}' . PHP_EOL);
+                    break;
+                case 'content':
+                    $template->setContent('<p>Hello {{name_source.name}}, this is the content!</p>' . PHP_EOL);
+                    break;
+            }
+        }
+
+        $dataSources = [];
+
+        $dataSources[] = new TemplateDataSource(['title' => 'Testing the layout render'], 'Title Source');
+        $dataSource = new TemplateDataSource(['name' => 'Layout Test']);
+        $dataSource->setNamespace('Name source');
+        $dataSources[] = $dataSource;
+
+        $dump = $layout->dump($templates, $dataSources);
+
+        $this->assertNotEmpty($dump);
+        $this->assertSame('Testing the layout render', $dump['title_source.title']);
+        $this->assertSame('Layout Test', $dump['name_source.name']);
+    }
 }
