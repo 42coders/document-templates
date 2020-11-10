@@ -54,4 +54,9 @@ interface DocumentTemplateInterface
      * @return string|boolean
      */
     public function renderPdf(string $filePath);
+
+    /**
+     * @return array
+     */
+    public function dump(): array;
 }
