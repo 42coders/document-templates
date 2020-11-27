@@ -7,6 +7,7 @@ use BWF\DocumentTemplates\EditableTemplates\EditableTemplateInterface;
 use BWF\DocumentTemplates\EditableTemplates\HtmlTemplate;
 use BWF\DocumentTemplates\Exceptions\InvalidTwigExtension;
 use BWF\DocumentTemplates\Sandbox\SecurityPolicy;
+use BWF\DocumentTemplates\Support\TwigDumper;
 use Twig\Environment;
 use Twig\Extension\ExtensionInterface;
 use Twig\Extension\SandboxExtension;
@@ -18,6 +19,9 @@ use \Exception;
 
 class TwigLayout extends Layout implements LayoutInterface
 {
+    public const EXTENDED_LAYOUT_NAME = 'extended';
+    public const BASE_LAYOUT_NAME = 'layout';
+
     /**
      * @var Environment
      */
@@ -41,6 +45,9 @@ class TwigLayout extends Layout implements LayoutInterface
     /** @var FilesystemLoader */
     protected $fileLoader;
 
+    /** @var TwigDumper */
+    protected $dumper;
+
     /**
      * TwigLayout constructor.
      */
@@ -48,6 +55,8 @@ class TwigLayout extends Layout implements LayoutInterface
     {
         $this->basePath = config('document_templates.layout_path');
         $this->createEnvironment();
+
+        $this->dumper = app(TwigDumper::class);
     }
 
     /**
@@ -191,19 +200,53 @@ class TwigLayout extends Layout implements LayoutInterface
      * @param  array $templateData
      * @return string
      */
-    protected function extendLayout($templates, $templateData)
+    protected function renderBlocks($templates, $templateData)
     {
-        $extendedTemplate = '{% extends layout %}';
+        $blocks = '';
 
         foreach ($templates as $template) {
-            $extendedTemplate .= sprintf(
-                '{%% block %1$s %%}%2$s{%% endblock %1$s %%}',
+            $blocks .= $this->createBlock(
                 $template->getName(),
                 $this->renderWithSandbox($template, $templateData)
             );
         }
 
-        return $extendedTemplate;
+        return $this->extendLayout($blocks);
+    }
+
+    /**
+     * Generates a new template by extending the layout with the given templates
+     * and return the source code without rendering
+     *
+     * @param EditableTemplate[] $templates
+     * @return string
+     */
+    protected function createBlocks($templates)
+    {
+        $blocks = '';
+
+        foreach ($templates as $template) {
+            $blocks .= $this->createBlock(
+                $template->getName(),
+                $template->getContent()
+            );
+        }
+
+        return $this->extendLayout($blocks);
+    }
+
+    protected function extendLayout(string $content): string
+    {
+        return '{% extends '.self::BASE_LAYOUT_NAME.' %}' . $content;
+    }
+
+    protected function createBlock(string $name, string $content): string
+    {
+        return sprintf(
+            '{%% block %1$s %%}%2$s{%% endblock %1$s %%}',
+            $name,
+            $content
+        );
     }
 
     /**
@@ -232,21 +275,43 @@ class TwigLayout extends Layout implements LayoutInterface
     public function render($templates, $dataSources)
     {
         $templateData = $this->generateTemplateData($dataSources);
-        $templateData['layout'] = $this->layout;
+        $templateData[self::BASE_LAYOUT_NAME] = $this->layout;
 
         $loader = new ArrayLoader([
-            'extendedLayout' => $this->extendLayout($templates, $templateData),
+            self::EXTENDED_LAYOUT_NAME => $this->renderBlocks($templates, $templateData),
         ]);
 
         $chainLoader = new ChainLoader([$this->fileLoader,$loader]);
 
         $this->twig->setLoader($chainLoader);
 
-        return $this->twig->render('extendedLayout', $templateData);
+        return $this->twig->render(self::EXTENDED_LAYOUT_NAME, $templateData);
     }
 
     public function renderSingle(EditableTemplateInterface $template, $dataSources)
     {
         return $this->renderWithSandbox($template, $this->generateTemplateData($dataSources));
+    }
+
+    /**
+     * Dumps the variables used in the templates
+     *
+     * @param EditableTemplate[] $templates
+     * @param \BWF\DocumentTemplates\TemplateDataSources\TemplateDataSourceInterface[] $dataSources
+     * @return array|mixed
+     * @throws \Twig\Error\LoaderError
+     */
+    public function dump($templates, $dataSources)
+    {
+        $loader = new ArrayLoader([
+            self::EXTENDED_LAYOUT_NAME => $this->createBlocks($templates),
+        ]);
+
+        $chainLoader = new ChainLoader([$this->fileLoader,$loader]);
+
+        return $this->dumper->dump(
+            $chainLoader->getSourceContext(self::EXTENDED_LAYOUT_NAME)->getCode(),
+            $this->generateTemplateData($dataSources)
+        );
     }
 }

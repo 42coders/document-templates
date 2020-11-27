@@ -93,6 +93,16 @@ trait BaseDocumentTemplate
         return $filePath;
     }
 
+    /**
+     * Dumps the variables used in the template
+     *
+     * @return array
+     */
+    public function dump(): array
+    {
+        return $this->layout->dump($this->getTemplates(), $this->templateData);
+    }
+
     public function setRenderer($renderer)
     {
         $this->renderer = $renderer;

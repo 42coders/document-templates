@@ -147,4 +147,46 @@ class DocumentTemplateTest extends TestCase
 
         $this->assertEquals($expectedOutput, $output);
     }
+
+    public function testDumpWithModel()
+    {
+        $this->documentTemplateModel = new DemoDocumentTemplateModel();
+        $this->documentTemplateModel->fill([
+            'name' => '',
+            'document_class' => DemoDocumentTemplate::class,
+            'layout' => 'TestIterableDataSource.html.twig'
+        ]);
+
+        $this->documentTemplateModel->save();
+        $this->documentTemplate->init();
+
+        $templates = $this->documentTemplate->getTemplates();
+
+        foreach ($templates as $template) {
+            switch ($template->getName()) {
+                case 'user_table_rows':
+                    $template->setContent('{% for user in users %}<tr><td>{{user.id}}</td><td>{{user.name}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL);
+                    break;
+                case 'order_table_rows':
+                    $template->setContent('{% for order in orders %}<tr><td>{{order.id}}</td><td>{{order.description}}</td></tr>{% endfor %}' . PHP_EOL . PHP_EOL);
+                    break;
+            }
+
+            $template->fill([
+                'document_template_id' => $this->documentTemplateModel->id,
+            ]);
+            $template->save();
+        }
+
+        $this->documentTemplate->addTemplateData($this->getTestUsers(), 'users');
+        $this->documentTemplate->addTemplateData($this->getTestOrders(), 'orders');
+
+        $dump = $this->documentTemplate->dump();
+
+        $this->assertCount(2, $dump['orders']);
+        $this->assertSame('1', $dump['orders'][0]['id']);
+
+        $this->assertCount(2, $dump['users']);
+        $this->assertSame('1', $dump['users'][0]['id']);
+    }
 }
