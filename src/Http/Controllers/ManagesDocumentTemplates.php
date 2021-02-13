@@ -27,7 +27,8 @@ trait ManagesDocumentTemplates
     protected function getAvailableClasses()
     {
         $classes = collect($this->documentClasses);
-        $savedClasses = DocumentTemplateModel::all()->pluck('document_class');
+        $modelClass = config('document_templates.model_class', DocumentTemplateModel::class);
+        $savedClasses = $modelClass::all()->pluck('document_class');
 
         return $classes->diff($savedClasses);
     }

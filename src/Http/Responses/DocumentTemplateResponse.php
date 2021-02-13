@@ -3,7 +3,7 @@
 
 namespace BWF\DocumentTemplates\Http\Responses;
 
-use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel;
+use BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface;
 use Illuminate\Support\Collection;
 
 class DocumentTemplateResponse
@@ -18,7 +18,7 @@ class DocumentTemplateResponse
     /**
      * DocumentTemplateResponse constructor.
      * @param bool $status
-     * @param DocumentTemplateModel $documentTemplate
+     * @param DocumentTemplateModelInterface $documentTemplate
      * @param Collection $documentClasses
      * @param Collection $placeholders
      * @param Collection $templates
@@ -26,7 +26,7 @@ class DocumentTemplateResponse
      */
     public function __construct(
         $status,
-        DocumentTemplateModel $documentTemplate = null,
+        DocumentTemplateModelInterface $documentTemplate = null,
         $documentClasses = null,
         $placeholders = null,
         $templates = null,

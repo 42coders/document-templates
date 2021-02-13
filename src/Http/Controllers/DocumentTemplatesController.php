@@ -102,7 +102,8 @@ class DocumentTemplatesController extends Controller
     public function create()
     {
         $layouts = $this->getAvailableLayouts();
-        $documentTemplate = new DocumentTemplateModel();
+        $modelClass = config('document_templates.model_class', DocumentTemplateModel::class);
+        $documentTemplate = new $modelClass();
         $documentTemplate->document_class = $this->documentClasses[0];
         $documentTemplate->layout = $layouts[0];
 
@@ -184,7 +185,8 @@ class DocumentTemplatesController extends Controller
      */
     public function index()
     {
-        $documentTemplates = DocumentTemplateModel::all();
+        $modelClass = config('document_templates.model_class', DocumentTemplateModel::class);
+        $documentTemplates = $modelClass::all();
 
         $params = compact(
             'documentTemplates'
