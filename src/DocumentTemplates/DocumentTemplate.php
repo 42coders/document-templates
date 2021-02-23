@@ -11,7 +11,7 @@ trait DocumentTemplate
     use BaseDocumentTemplate;
 
     /**
-     * @var \BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModel
+     * @var \BWF\DocumentTemplates\DocumentTemplates\DocumentTemplateModelInterface
      */
     protected $model = null;
 
@@ -26,7 +26,8 @@ trait DocumentTemplate
         $this->model = $model;
 
         if ($model === null) {
-            $this->model = DocumentTemplateModel::byDocumentClass(get_class($this))->first();
+            $modelClass = config('document_templates.model_class', DocumentTemplateModel::class);
+            $this->model = $modelClass::byDocumentClass(get_class($this))->first();
         }
 
         $this->renderer = new TwigRenderer();
