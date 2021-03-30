@@ -1,4 +1,20 @@
 
+VERSION 4  PHP 8 SUPPORT
+========================
+
+   Version 4.0 - PHP 8 support
+      30/03/2021 13:31  4.0.0  initial release
+         b756be7 Fix json error
+         b520fd6 Move dev dependencies
+         7668a2f - dropped php7.3 support
+         e634e0e - php 8.0 added to travis
+         0c8768e migrated phpunit.xml to v9
+         7ba675a adds support of PHP8
+         2d73775 prepared for PHP8
+         9fcafc7 Bump laravel/framework from 8.23.1 to 8.28.1
+         0beb73a remove template model direct reference
+         7d37587 Bump laravel/framework from 8.10.0 to 8.23.1
+
 VERSION 3  LARAVEL 8 COMPATIBILITY, PMIN VERSION OF PHP IS 7.3
 ==============================================================
 
