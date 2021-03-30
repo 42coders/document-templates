@@ -9,7 +9,7 @@
         "twig/twig": "^2.7",
         "doctrine/dbal": "^3.0",
         "barryvdh/laravel-dompdf": "^0.9.0",
-        "spatie/browsershot": "^3.40.3",
+        "spatie/browsershot": "^3.40.3"
     },
     "require-dev": {
         "liip/rmt": "^1.6.3",
