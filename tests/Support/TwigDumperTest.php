@@ -3,7 +3,10 @@
 namespace BWF\DocumentTemplates\Tests\Support;
 
 use BWF\DocumentTemplates\Support\TwigDumper;
-use PHPUnit\Framework\TestCase;
+use BWF\DocumentTemplates\TemplateDataSources\TemplateDataSource;
+use BWF\DocumentTemplates\Tests\Layouts\TestTwigExtension;
+use BWF\DocumentTemplates\Tests\TestCase;
+use Twig\Extension\CoreExtension;
 
 class TwigDumperTest extends TestCase
 {
@@ -12,6 +15,8 @@ class TwigDumperTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->setUpConfig();
         $this->dumper  = new TwigDumper();
     }
 
@@ -44,5 +49,40 @@ class TwigDumperTest extends TestCase
     {
         $result = $this->dumper->dump('This is a {% for variable in variables %} {% endfor %}.', ['variables' => [1, 2, 3]]);
         $this->assertEquals([1, 2, 3], $result['variables']);
+    }
+
+    public function test_it_can_dump_functions()
+    {
+        $result = $this->dumper->dump('This is a {{return_twig}} {{simpleVariable}}.', ['simpleVariable' => 1]);
+        $this->assertArrayHasKey('return_twig', $result);
+        $this->assertEquals(1, $result['simpleVariable']);
+    }
+
+    public function test_it_can_dump_functions_with_placeholders()
+    {
+        $templateText = 'This is a {{return_twig(\'text with placeholder{{functionPlaceholder}}\')}} {{simpleVariable}}.';
+
+        $result = $this->dumper->dump(
+            $templateText,
+            [
+                'simpleVariable' => 1,
+                'functionPlaceholder' => 2
+            ]);
+
+        $this->assertArrayHasKey('return_twig(text with placeholder{{functionPlaceholder}})', $result);
+        $this->assertEquals(1, $result['simpleVariable']);
+        $this->assertEquals(2, $result['functionPlaceholder']);
+    }
+
+    protected function setUpConfig(): void
+    {
+        config([
+            'document_templates.twig.extensions' => [
+                TestTwigExtension::class,
+            ],
+            'document_templates.template_sandbox.allowedFunctions' => [
+                'return_twig'
+            ]
+        ]);
     }
 }

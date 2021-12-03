@@ -12,8 +12,8 @@ class TestTwigExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('return_twig', function () {
-                return 'Twig';
+            new TwigFunction('return_twig', function ($text = null) {
+                return $text ?? 'Twig';
             }),
         ];
     }
