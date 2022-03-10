@@ -30,10 +30,10 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         ];
     }
 
-    public function skipOnTravis()
+    public function skipOnCI()
     {
-        if (! empty(getenv('TRAVIS_BUILD_ID'))) {
-            $this->markTestSkipped('Skipping because this test does not run properly on Travis');
+        if (! empty(getenv('CI'))) {
+            $this->markTestSkipped('Skipping because this test does not run properly on CI');
         }
     }
 }
