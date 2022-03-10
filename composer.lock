@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "608ba977beed03d3da0b64874930a27b",
+    "content-hash": "2257992d2ba29b0e4143fbd4b19e5244",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -6111,16 +6111,16 @@
         },
         {
             "name": "liip/rmt",
-            "version": "1.6.4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/liip/RMT.git",
-                "reference": "f14c83070565cd066d27648c75d6448a03a8b825"
+                "url": "https://github.com/wdev-rs/RMT.git",
+                "reference": "579311af57948f767721b6c72c26a52eb711044d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/RMT/zipball/f14c83070565cd066d27648c75d6448a03a8b825",
-                "reference": "f14c83070565cd066d27648c75d6448a03a8b825",
+                "url": "https://api.github.com/repos/wdev-rs/RMT/zipball/579311af57948f767721b6c72c26a52eb711044d",
+                "reference": "579311af57948f767721b6c72c26a52eb711044d",
                 "shasum": ""
             },
             "require": {
@@ -6131,6 +6131,7 @@
                 "symfony/yaml": "^3.4|^4.0|^5.0|^6.0",
                 "vierbergenlars/php-semver": "~3.0"
             },
+            "default-branch": true,
             "bin": [
                 "RMT"
             ],
@@ -6145,14 +6146,13 @@
                     "Liip": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
-                    "name": "Laurent Prodon",
-                    "email": "laurent.prodon@liip.ch",
+                    "name": "Jonathan Macheret",
+                    "email": "jonathan.macheret@liip.ch",
                     "role": "Developer"
                 },
                 {
@@ -6173,9 +6173,9 @@
             ],
             "support": {
                 "issues": "http://github.com/liip/RMT/issues",
-                "source": "https://github.com/liip/RMT/tree/1.6.4"
+                "source": "https://github.com/wdev-rs/RMT/tree/master"
             },
-            "time": "2021-11-23T07:59:39+00:00"
+            "time": "2022-03-10T10:33:01+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -9722,7 +9722,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "liip/rmt": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

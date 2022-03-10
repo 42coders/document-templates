@@ -8,7 +8,8 @@ _default:
     #  Custom action can be added by provided a relative path the the php script. Example:
     #   - relative/path/to/your-own-sript.php
     prerequisites:
-     - working-copy-check
+     - working-copy-check:
+        allow-ignore: true
      - display-last-changes
 
     # GENERAL CONFIG
