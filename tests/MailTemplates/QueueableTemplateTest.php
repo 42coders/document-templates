@@ -55,7 +55,7 @@ class QueueableTemplateTest extends TestCase
      */
     public function testShouldRenderAfterSerializeAndUnserialize()
     {
-        $this->skipOnTravis();
+        $this->skipOnCi();
 
         $mailable = unserialize(file_get_contents(__DIR__ . '/serialized.txt'));
         $this->assertEquals('Hello Test User', $mailable->build()->subject);

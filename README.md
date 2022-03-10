@@ -1,6 +1,6 @@
 # Document Templates
 
-[![Build Status](https://travis-ci.org/42coders/document-templates.svg?branch=master)](https://travis-ci.org/42coders/document-templates)
+[![Build Status](https://github.com/42coders/document-templates/actions/workflows/test.yml/badge.svg)](https://github.com/42coders/document-templates/actions/workflows/test.yml)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/42coders/document-templates?style=flat-square)](https://packagist.org/packages/42coders/document-templates)
 [![Total Downloads](https://img.shields.io/packagist/dt/42coders/document-templates.svg?style=flat-square)](https://packagist.org/packages/42coders/document-templates)
 ![GitHub](https://img.shields.io/github/license/42coders/document-templates)
@@ -15,8 +15,17 @@ This package is part of the Business Workflow Framework. For a quick introductio
 
 ## Getting started
 ### Requirements
- - Laravel 5.7 or newer
- - Php 7.1
+#### Document templates version 5 
+ - Laravel 9 or newer
+ - php 8+
+#### Document templates version 4
+- Laravel 5.7 or newer
+- php 7.4+
+#### Document templates version 3
+- Laravel 5.7 or newer
+- php 7.3+
+
+
 ### Installation
 
 Install with composer

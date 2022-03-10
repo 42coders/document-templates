@@ -3,6 +3,7 @@
 
 namespace BWF\DocumentTemplates;
 
+use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Support\Facades\Route;
 
 class DocumentTemplates
@@ -11,7 +12,7 @@ class DocumentTemplates
     {
         $uri = config('document_templates.base_url');
 
-        Route::middleware(['bindings'])->group(function () use ($uri, $controller) {
+        Route::middleware([SubstituteBindings::class])->group(function () use ($uri, $controller) {
             Route::resource($uri, $controller, [
                 'names' => [
                     'index' => $uri . '.index',
