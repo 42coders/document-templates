@@ -3,6 +3,8 @@ VERSION 5  LARAVEL 9 COMPATIBILITY
 ==================================
 
    Version 5.0 - Laravel 9 compatibility
+      10/03/2022 11:03  5.0.1  Release fix
+         2c770f6 Release of new version 5.0.0
       10/03/2022 10:42  5.0.0  initial release
          536bc94 Delete .travis.yml
          9bcac1f Update README.md
