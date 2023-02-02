@@ -4,29 +4,29 @@
     "version": "5.0.1",
     "license": "MIT",
     "require": {
-        "php" : "^8.0",
-        "illuminate/support": "^9.0",
-        "twig/twig": "^2.7",
-        "doctrine/dbal": "^3.0",
-        "barryvdh/laravel-dompdf": "^1.0.0",
-        "spatie/browsershot": "^3.40.3"
+        "php": "^8.1",
+        "illuminate/support": "^10.0",
+        "twig/twig": "^3.5",
+        "doctrine/dbal": "^3.5",
+        "barryvdh/laravel-dompdf": "^2.0",
+        "spatie/browsershot": "^3.57"
     },
     "repositories": [
         {
-        "type": "github",
-        "url": "https://github.com/wdev-rs/rmt.git",
-        "reference": "master"
+            "type": "github",
+            "url": "https://github.com/wdev-rs/rmt.git",
+            "reference": "master"
         }
     ],
     "require-dev": {
         "liip/rmt": "dev-master",
-        "phpunit/phpunit": "^9.4",
-        "orchestra/testbench": "^7.0.0",
-        "orchestra/testbench-browser-kit": "^7.0.0",
-        "squizlabs/php_codesniffer": "^3.5",
-        "phpstan/phpstan": "^0.12.0",
-        "phpmd/phpmd": "^2.7",
-        "mockery/mockery": "^1.2"
+        "phpunit/phpunit": "^9.5.10",
+        "orchestra/testbench": "^8.0",
+        "orchestra/testbench-browser-kit": "^7.12",
+        "squizlabs/php_codesniffer": "^3.7",
+        "phpstan/phpstan": "^1.9",
+        "phpmd/phpmd": "^2.13",
+        "mockery/mockery": "^1.4.4"
     },
     "authors": [
         {
@@ -57,7 +57,7 @@
             "vendor/bin/phpstan analyze src"
         ],
         "inspect-fix": "vendor/bin/phpcbf",
-        "insights" : "vendor/bin/phpmd src text phpmd.xml"
+        "insights": "vendor/bin/phpmd src text phpmd.xml"
     },
     "extra": {
         "laravel": {
