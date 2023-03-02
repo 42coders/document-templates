@@ -18,6 +18,6 @@ jobs:
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
     - name: Install pupeteer
-      run:  sudo npm install --global --unsafe-perm puppeteer
+      run:  sudo npm install --global --unsafe-perm puppeteer@18.2.1
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: vendor/bin/phpunit
