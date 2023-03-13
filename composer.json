@@ -6,7 +6,7 @@
     "require": {
         "php" : "^8.0",
         "illuminate/support": "^9.0",
-        "twig/twig": "^2.7",
+        "twig/twig": "^3.5",
         "doctrine/dbal": "^3.0",
         "barryvdh/laravel-dompdf": "^1.0.0",
         "spatie/browsershot": "^3.40.3"
