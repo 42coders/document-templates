@@ -21,7 +21,7 @@ jobs:
            php-version: ${{ matrix.php-versions }}
     - name: Install Dependencies
       run: | 
-        composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+        composer require "laravel/framework:${{ matrix.laravel-versions }}" --no-interaction --no-update
         composer update -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
     - name: Install pupeteer
       run:  sudo npm install --global --unsafe-perm puppeteer
