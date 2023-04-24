@@ -19,6 +19,8 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
            php-version: ${{ matrix.php-versions }}
+      env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Install Dependencies
       run: | 
         composer require "laravel/framework:${{ matrix.laravel-versions }}" --no-interaction --no-update
