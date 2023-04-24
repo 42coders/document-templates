@@ -11,7 +11,7 @@ jobs:
             php-versions: ['8.0', '8.1']
             laravel-versions: ['9.0', '10.0']
             exclude:
-              - laravel: 10.*
+              - laravel-versions: 10.*
                 php: 8.0
     steps:
     - uses: actions/checkout@v2
