@@ -26,6 +26,6 @@ jobs:
         composer require "laravel/framework:${{ matrix.laravel-versions }}" --no-interaction --no-update
         composer update -W --no-interaction --prefer-dist
     - name: Install pupeteer
-      run:  sudo npm install --global --unsafe-perm puppeteer
+      run:  sudo npm install --global --unsafe-perm puppeteer@18.2.1
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: vendor/bin/phpunit
