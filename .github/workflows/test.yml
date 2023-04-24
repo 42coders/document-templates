@@ -9,15 +9,23 @@ jobs:
     strategy:
         matrix:
             php-versions: ['8.0', '8.1']
+            laravel-versions: ['^9.0', '^10.0']
+            exclude:
+              - laravel-versions: '^10.0'
+                php-versions: 8.0
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
            php-version: ${{ matrix.php-versions }}
+      env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      run: | 
+        composer require "laravel/framework:${{ matrix.laravel-versions }}" --no-interaction --no-update
+        composer update -W --no-interaction --prefer-dist
     - name: Install pupeteer
-      run:  sudo npm install --global --unsafe-perm puppeteer
+      run:  sudo npm install --global --unsafe-perm puppeteer@18.2.1
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: vendor/bin/phpunit
