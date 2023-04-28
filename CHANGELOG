@@ -2,6 +2,22 @@
 VERSION 5  LARAVEL 9 COMPATIBILITY
 ==================================
 
+   Version 5.1 - Laravel 10 compatibility
+      28/04/2023 12:39  5.1.0  initial release
+         3782103 Update .rmt.yml
+         8f90c49 Update test.yml
+         25ba959 Update composer.json
+         d5cb186 Update test.yml
+         c221015 Update test.yml
+         929b6a0 Update test.yml
+         cdf8f6c Update test.yml
+         c5ae5fa Update test.yml
+         cd5cd61 Update test.yml
+         b859b1d Update test.yml
+         8e71771 Update test.yml
+         4364b74 Update test.yml
+         b80fc29 Update dependencies for laravel 10
+
    Version 5.0 - Laravel 9 compatibility
       10/03/2022 11:03  5.0.1  Release fix
          2c770f6 Release of new version 5.0.0
