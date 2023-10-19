@@ -2,5 +2,7 @@
 /node_modules/
 /tests/coverage
 /build
+composer.lock
 .idea
 .DS_Store
+.phpunit.result.cache
