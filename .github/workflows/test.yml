@@ -1,25 +1,32 @@
 name: Tests
 
-on: [push, pull_request]
+on:
+  - push
+  - pull_request
 
 jobs:
   run-tests:
-
     runs-on: ubuntu-latest
+
     strategy:
-        matrix:
-            php-versions: ['8.0', '8.1']
+      matrix:
+        php-versions: ['8.0', '8.1', '8.2']
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-           php-version: ${{ matrix.php-versions }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-    - name: Install pupeteer
-      run:  sudo npm install --global --unsafe-perm puppeteer@18.2.1
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
-      run: vendor/bin/phpunit
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+
+      - name: Install pupeteer
+        run: sudo npm install --global --unsafe-perm puppeteer@18.2.1
+
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run: vendor/bin/phpunit
