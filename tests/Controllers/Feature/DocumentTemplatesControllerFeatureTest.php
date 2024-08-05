@@ -25,13 +25,13 @@ class DocumentTemplatesControllerFeatureTest extends FeatureTestCase
 
     protected $request;
 
-    protected $baseUrl = '';
+    protected $baseUrl = 'documents';
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        if($this->baseUrl){
+        if ($this->baseUrl){
             config(['document_templates.base_url' => $this->baseUrl]);
             DocumentTemplates::routes(DemoDocumentTemplatesController::class);
         }
@@ -194,13 +194,13 @@ class DocumentTemplatesControllerFeatureTest extends FeatureTestCase
         $this->assertResponseOk();
     }
 
-    public function run(TestResult $result = null): TestResult
-    {
-        $this->baseUrl = 'documents';
-        $result = parent::run($result);
-        $this->baseUrl = 'newsletters';
-        $result = parent::run($result);
-
-        return $result;
-    }
+//    public function run(TestResult $result = null): TestResult
+//    {
+//        $this->baseUrl = 'documents';
+//        $result = parent::run($result);
+//        $this->baseUrl = 'newsletters';
+//        $result = parent::run($result);
+//
+//        return $result;
+//    }
 }

@@ -68,7 +68,7 @@ class TwigLayoutRenderSingleTest extends TestCase
         $this->assertEquals($expected, $rendered);
     }
 
-    public function provideScalarData()
+    public static function provideScalarData()
     {
         yield ["This is string", "string"];
         yield ["This is 1", 1];
