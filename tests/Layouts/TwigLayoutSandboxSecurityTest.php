@@ -44,7 +44,7 @@ class TwigLayoutSandboxSecurityTest extends TestCase
         $layout->renderSingle($editableTemplate, $dataSources);
     }
 
-    public function sandboxNotAllowedDataProvider()
+    public static function sandboxNotAllowedDataProvider()
     {
         return [
             'not-allowed-include' => [
@@ -133,7 +133,7 @@ class TwigLayoutSandboxSecurityTest extends TestCase
         $this->assertEquals('Any property is enabled: 1', $rendered);
     }
 
-    public function sandboxAllowedDataProvider()
+    public static function sandboxAllowedDataProvider()
     {
         return [
             'allowed-tag' => [
