@@ -1,7 +1,7 @@
 {
     "name": "42coders/document-templates",
     "description": "Document template management package.",
-    "version": "5.2.0",
+    "version": "6.0.0",
     "license": "MIT",
     "require": {
         "php" : "^8.0",

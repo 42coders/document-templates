@@ -1,4 +1,15 @@
 
+VERSION 6  LARAVEL 11 COMPATIBILITY
+===================================
+
+   Version 6.0 - Laravel 11 compatibility
+      09/08/2024 08:21  6.0.0  initial release
+         5dbf8a2 Update README.md
+         0e12a19 Add newer php versions to the pipeline
+         6a7cbfd Laravel 11 compatibility
+         2bea40d Bump @babel/traverse from 7.9.6 to 7.23.2
+         240f7de Bump debug from 4.1.1 to 4.3.4
+
 VERSION 5  LARAVEL 9 COMPATIBILITY
 ==================================
 
