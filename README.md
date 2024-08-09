@@ -15,8 +15,11 @@ This package is part of the Business Workflow Framework. For a quick introductio
 
 ## Getting started
 ### Requirements
+#### Document templates version 6
+- Laravel 9 or newer
+- php 8+
 #### Document templates version 5 
- - Laravel 9 or newer
+ - Laravel 9 or 10
  - php 8+
 #### Document templates version 4
 - Laravel 5.7 or newer
